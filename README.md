@@ -1,18 +1,16 @@
 # swagcess
+# Angela Lin, Derek Tsui, Edison Shi, Genji Noguchi
+## Interactive Choose Your Own Adventure Story Editor
 
-## Current Idea: 
-  Interactive Choose Your Own Adventure Story editor
-  
 ## TO DO:
  * Login
- * Get acquainted with three.js
- * Review nodes
- * Framework?
- * Maybe use Meteor
- * Understand the project as a whole
+ * Get acquainted with three.js (for nice visualizations, trees for each storyline split)
+ * Get acquainted with Node.js
+ * Framework? (maybe Meteor?)
+ * Do "public" stories which can be seen by everyone; most popular stories (based on votes) will be displayed on the homepage
  
 ## TIMELINE:
- * Understand concept of project and what to do
- * Work with nodes and html, maybe integrate Meteor
- * Split up into backend and front end
- * Work on visual aspect of project
+ * Login system (5/3)
+ * Start with basic setup (without three.js)
+ * Get basic framework done for back-end development, be able to store stories and alternate paths 
+ * Incorporate three.js into our project (5/17?)
