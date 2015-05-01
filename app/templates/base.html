@@ -1,0 +1,64 @@
+
+<!doctype html>
+<html>
+	<head>
+		<title>Swag</title>
+		<!-- Marionette -->
+		<script src="/static/backbone.marionette/backbone.js"></script>
+		<script src="/static/backbone.marionette/backbone.marionette.min.js"></script>
+		<script src="/static/backbone.marionette/backbone.marionette.min.js.map"></script>
+		<script src="/static/backbone.marionette/backbone.wreqr.js"></script>
+		<script src="/static/backbone.marionette/underscore.js"></script>
+		<script src="/static/backbone.marionette/json2.js"></script>
+
+		<!-- Bootstrap -->
+		<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+		<script src="/static/bootstrap/js/npm.js"></script>
+		<link rel="stylesheet" href="bootstrap-theme.min.css"></script>
+		<link rel="stylesheet" href="bootstrap.min.css"></script>
+		<link rel="stylesheet" href="bootstrap.css.map"></script>
+
+		<script src="/static/jquery.js"></script>
+
+	</head>
+	<body>
+		<!-- Menu bar -->
+		<div>
+		    <a href="/">{% if session['name']==None %} SWAGCESS {% else %} Welcome {{session['name']}} {% endif %}</a>
+		    <ul>
+		        <li><a href="/">Home</a></li>
+		        {% if session['name']==None %}
+		        <li><a href="/login">Login</a></li>
+		        {% else %}
+		        <li><a href="/logout">Logout</a></li>
+		        {% endif %}
+		        <li><a href="/register">Register</a></li>
+						<li><a href="/blog">Blog</a></li>
+				<li><a href="/user">Profile</a></li>
+				<li><a href="/contacts">Contacts</a></li>
+		    </ul>
+		</div>
+		<hr> <br>
+
+		<div>
+		{% with messages = get_flashed_messages() %}
+		  {% if messages %}
+		    <ul class=flashes>
+		    {% for message in messages %}
+		      <li>{{ message }}</li>
+		    {% endfor %}
+		    </ul>
+		  {% endif %}
+		{% endwith %}
+
+		<!-- Body Content -->
+		{% block bodycontent %}
+			This is placeholder content in the base template.
+		{% endblock bodycontent %}
+
+		<hr>
+		<br>
+		</div>
+
+	</body>
+</html>
