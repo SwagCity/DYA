@@ -1,5 +1,10 @@
 # swagcess
-## Angela Lin, Edison Shi (Front-end development), Derek Tsui, Genji Noguchi
+==============
+## Contributors
+[Angela Lin](https://github.com/angela97lin)
+[Edison Shi](https://github.com/kig12345) 
+[Derek Tsui](https://github.com/d-tsui)
+[Genji Noguchi](https://github.com/genjinoguchi)
 
 ## Interactive Choose Your Own Adventure Story Editor
 Our program aims to allow users to create their own Choose Your Own Adventure stories with ease.
