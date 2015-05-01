@@ -17,12 +17,12 @@ Our program aims to allow users to create their own Choose Your Own Adventure st
  * Use OAuth so people can log in with Facebook, Google, etc.
  
 ## TIMELINE:
- * Create a basic login system (5/6)
- * Create a basic HTML template for our website (5/6)
- * Be able to add and store a basic story (5/11)
- * Get basic framework done for back-end development, be able store alternate paths under each node
- * Incorporate ability to make words bold or italics...
- * Incorporate three.js into our project, make adding splits pretty, interactive, and easy to navigate (5/17?)
- * Incorporate feature to link all nodes together to create one whole story that's easy to read? / Make story downloadable/shareable
- * Include sound effects and pictures?
- * Polish everything, make sure all incorporated features work. (5/27 --> Due date!)
+ * [] Create a basic login system (5/6)
+ * [] Create a basic HTML template for our website (5/6)
+ * [] Be able to add and store a basic story (5/11)
+ * [] Get basic framework done for back-end development, be able store alternate paths under each node
+ * [] Incorporate ability to make words bold or italics...
+ * [] Incorporate three.js into our project, make adding splits pretty, interactive, and easy to navigate (5/17?)
+ * [] Incorporate feature to link all nodes together to create one whole story that's easy to read? / Make story downloadable/shareable
+ * [] Include sound effects and pictures?
+ * [] Polish everything, make sure all incorporated features work. (5/27 --> Due date!)
