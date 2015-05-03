@@ -19,6 +19,11 @@ Our program aims to allow users to create their own Choose Your Own Adventure st
  * Use Facebook to Like/Share a story
  * Use upvoting/downvoting system to rate stories
  * Use OAuth so people can log in with Facebook, Google, etc.
+
+ * for genji:
+ 	* Organize Marionette "App" object.
+	* What the heck is el or $el
+	* Learn to use requirejs with marionette
  
 ## TIMELINE:
  * [X] Create a basic login system (5/6)
