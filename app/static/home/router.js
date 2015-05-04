@@ -11,7 +11,6 @@ App.addInitializer(function(options) {
 		appRoutes  : {
 			"new" : "createStory",
 			":story_id" : "renderStory",
-			":story_id/edit" : "editStory"
 		}
 	})
 })

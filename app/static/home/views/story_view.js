@@ -4,8 +4,9 @@
  * http://jsfiddle.net/derickbailey/AdWjU/ (NOTE : in main.js line 24, change from itemView to childView.)
  */
 
-App.Views.StoryView = Marionette.CompositeView.extend({
-	template : "#story-template",
+/* A single node on the Story tree */
+App.Views.Story = Marionette.CompositeView.extend({
+	template : "#snippet-template",
 
 	tagName : "ul",
 
@@ -15,7 +16,10 @@ App.Views.StoryView = Marionette.CompositeView.extend({
 	},
 
 	appendHtml : function(collectionView, itemView) {
-		collectionView.$("li:first").append(itemView.el);
+
 	}
 })
 
+App.Views.StoryTree = Marionette.CollectionView.extend({
+	childView : App.Views.StoryNode
+})

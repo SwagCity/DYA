@@ -6,20 +6,10 @@ App.on("before:start", function(options) {
 })
 
 App.on("start", function(options) {
-	console.log("App starting.");
-	
-	
-	/* Defining Regions */
-	console.log("Initializing Regions")
-	App.addRegions({
-		mainRegion			: "#main",
-	})
+	console.log("App starting.");		
 
 	/* Define Initial State. Possibly a loading bar? */
-	/*
-	var homeView = new App.HomeView();
-	App.mainRegion.show(homeView);
-	*/
+	App.mainRegion.show(new App.Views.StaticView());
 
 	/*
 	$.ajax({
