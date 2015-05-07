@@ -45,7 +45,7 @@
     margin-left: auto;
     margin-right: auto;
     position: relative;
-    width: 75%;
+    width: 55%;
     overflow: hidden;
     background: white;
     opacity: 0.8;
@@ -56,6 +56,10 @@
     .center {
     margin-left: auto;
     margin-right: auto;
+    }
+
+    .reduce {
+    width: 50%;
     }
 
     .black-text {
@@ -100,24 +104,35 @@
 	    
 	    <h3 class="black-text">Login</h3>
 
-	    <form class="form-horizontal">
+	    <form class="form-horizontal center">
+	      
+	      <!--USERNAME-->
 
-	      <div class="form-group">
-		<label class="col-sm-2 control-label">Username</label>
-		<div class="col-sm-10">
-		  <input type="text" class="form-control" placeholder="Username">
+	      <div class="form-group">		
+		<div class="row">
+		  <label class="col-sm-5 control-label">Username</label>
+		</div>
+		<div class="row">
+		  <div class="col-sm-12">
+		    <input type="text" class="form-control reduce center" placeholder="Username">
+		  </div>
 		</div>
 	      </div>
-	      
+	     
+	      <!--PASSWORD-->
 	      <div class="form-group">
-		<label class="col-sm-2 control-label">Password</label>
-		<div class="col-sm-10">
-		  <input type="password" class="form-control" placeholder="Password">
+		<div class="row">
+		  <label class="col-sm-5 control-label">Password</label>
+		</div>
+		<div class="row">
+		  <div class="col-sm-12">
+		    <input type="text" class="form-control reduce center" placeholder="Password">
+		  </div>
 		</div>
 	      </div>
-	      
+	     
 	      <div class="form-group">
-		  <button type="submit" class="btn btn-primary btn-xl">Sign in</button>
+		  <button type="submit" class="btn btn-primary btn-xl center">Sign in</button>
 		</div>
 	      </div>
 	    </form>
