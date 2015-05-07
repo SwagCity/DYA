@@ -24,8 +24,53 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/creative.css" type="text/css">
+
   </head>
 
+  <!-- may put in own file if it gets too clunky -->
+  <style>
+    
+    .rounded {
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px; 
+    border-radius: 15px;
+    }
+
+    .rectangle{
+    padding-top: 2%;
+    padding-bottom: 2%;
+    padding-left: 2%;
+    padding-right: 2%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    width: 55%;
+    overflow: hidden;
+    background: white;
+    opacity: 0.8;
+    filter: alpha(opacity=80); 
+    -moz-opacity:0.8;
+    }
+
+    .center {
+    margin-left: auto;
+    margin-right: auto;
+    }
+
+    .reduce {
+    width: 50%;
+    }
+
+    .black-text {
+    color: #000;
+    }
+
+    label {
+    color: #000;
+    }
+
+  </style>
   <body id="page-top">
 
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
@@ -55,13 +100,51 @@
     <header>
       <div class="header-content">
         <div class="header-content-inner">
-          <h3>Login</h3>
-          <p>Insert stuff about our product here!</p>
-          <a href="#about" class="btn btn-primary btn-xl page-scroll">Start Writing Now</a>
+	  <div class="rectangle rounded">
+	    
+	    <h3 class="black-text">Login</h3>
+
+	    <form class="form-horizontal center">
+	      
+	      <!--USERNAME-->
+
+	      <div class="form-group">		
+		<div class="row">
+		  <label class="col-sm-5 control-label">Username</label>
+		</div>
+		<div class="row">
+		  <div class="col-sm-12">
+		    <input type="text" class="form-control reduce center" placeholder="Username">
+		  </div>
+		</div>
+	      </div>
+	     
+	      <!--PASSWORD-->
+	      <div class="form-group">
+		<div class="row">
+		  <label class="col-sm-5 control-label">Password</label>
+		</div>
+		<div class="row">
+		  <div class="col-sm-12">
+		    <input type="text" class="form-control reduce center" placeholder="Password">
+		  </div>
+		</div>
+	      </div>
+	     
+	      <div class="form-group">
+		  <button type="submit" class="btn btn-primary btn-xl center">Sign in</button>
+		</div>
+	      </div>
+	    </form>
+	  </div>
+	  
         </div>
       </div>
+      
+
     </header>
 
+    
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
