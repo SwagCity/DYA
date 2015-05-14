@@ -107,6 +107,10 @@ def user(username):
     posts = db.getposts(username)
     return render_template("profileother.html",profile=profile,posts=posts)
 
+@app.route("/home")
+def home():
+    return render_template("home.html");
+
 @app.route("/blog", methods=["POST","GET"])
 @login_required
 def blog():
