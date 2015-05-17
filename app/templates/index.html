@@ -47,6 +47,7 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand page-scroll" href="#page-top">Swagcess</a>
+          <a class="navbar-brand page-scroll" >&nbsp;{% if session['name']!=None %}Hey {{session['name']}}!{% endif %}</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -63,12 +64,16 @@
             <li>
               <a class="page-scroll" href="#genre">Genres</a>
             </li>
-	    
+
             <li>
               <a class="page-scroll" href="#contact">Contact</a>
             </li>
 	    <li>
-              <a href="/login">Login</a>
+        {% if session['name']==None %}
+              <a href="{{ url_for('login') }}">Login</a>
+            {% else %}
+            <a href="{{ url_for('logout') }}">Logout</a>
+            {% endif %}
             </li>
           </ul>
         </div>
@@ -85,7 +90,7 @@
           <h1>The Best Choose-Your-Own-Adventure Story Editor</h1>
           <hr>
           <p>Insert stuff about our product here!</p>
-          <a href="/register" class="btn btn-primary btn-xl page-scroll">Start Writing Now</a>
+          <a href="{{ url_for('register') }}" class="btn btn-primary btn-xl page-scroll">Start Writing Now</a>
         </div>
       </div>
     </header>
@@ -252,9 +257,9 @@
             <hr class="primary">
             <p></p>
           </div>
-	  
+
 	  <div class="col-lg-4 col-lg-offset-2 text-center">
-	    
+
 	    <i class="fa fa-phone fa-3x wow bounceIn"></i>
             <p>123-456-6789</p>
           </div>
@@ -263,7 +268,7 @@
 	    <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"></i>
 	    <p><a href="mailto:your-email@your-domain.com">swagcess@gmail.com</a></p>
           </div>
-	  
+
 	</div>
 	<div class="col-xs-0 col-sm-2"></div>
       </div>

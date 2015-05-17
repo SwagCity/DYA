@@ -1,72 +1,27 @@
-# Justin Strauss and Derek Tsui
-# Software Development Period 7
-# MongoDB Project
-
 import random, re, datetime
-from pymongo import Connection
+from pymongo import MongoClient
 
-def setup():
-	conn = Connection()
-	db = conn['jsdt']
-	db.jsdt.drop()
-
-	#default to test
-	users = []
-	#[name,email,test]
-	users.append(["justin","jis7991@gmail.com","test"])
-	users.append(["derek","dtsui@example.com","test"])
-	users.append(["robbie","doughnuts@gmail.com","test"])
-	users.append(["zamansky","zamansky@stuycs.org","test"])
-
-	dlist = []
-	for i in range(len(users)):
-		d = {'name':users[i][0],'email':users[i][1],'pw':users[i][2]}
-		dlist.append(d)
-
-	db.jsdt.insert(dlist)
-
-
-	db = conn['jsdt_blog']
-	db.jsdt_blog.drop()
-
-	dlist = []
-	dlist.append({'title':'First post weee!', 'author':'derek', 'content':'I have just made my first post.','comments':[['First comment!','justin',[11,2,2014,23,20]]],'time':[11,2,2014,23,13], 'points':2})
-	dlist.append({'title':'Anybody know how to use MongoDB...', 'author':'justin', 'content':'I\'m having a little trouble with setting up MongoDB on my Mac.  Can anyone help','comments':[['I can!','derek',[11,2,2014,23,18]]],'time':[11,2,2014,23,14], 'points':2})
-	dlist.append({'title':'I like donuts.', 'author':'robbie', 'content':'...but I missed out on free donuts day.  Robbie sad.','comments':[['I like doughnuts too!','zamansky',[11,2,2014,23,21]]],'time':[11,2,2014,23,16], 'points':5})
-	dlist.append({'title':'Evil!!', 'author':'zamansky', 'content':'The pit of ultimate darkness. https://www.youtube.com/watch?v=LjoUUvEUFbY','comments':[['HECUBUS','robbie',[11,2,2014,23,21]]],'time':[11,2,2014,23,17], 'points':9})
-
-	db.jsdt_blog.insert(dlist)
-
-
-	# print "COLLECTION"
-	# print(db.collection_names())
-	# print "FIND"
-	# res = db.jsdt.find({},{"_id":False})
-	# info = [x for x in res]
-	# print info
+client = MongoClient()
+db = client['swag'] 		#database called swag
+users = db['users']   		#collection called users
+stories = db['stories'] 	#collection called stories
+#db.swag.drop()
 
 def authenticate(username,password):
-	conn = Connection()
-	db = conn['jsdt']
-	return 1 == (db.jsdt.find({'name':username,'pw':password})).count()
+	#print [x for x in users.find()]
+	return 1 == (users.find({'name':username,'pw':password})).count()
 
 def userexists(username):
-	conn = Connection()
-	db = conn['jsdt']
-	return 1 == (db.jsdt.find({'name':username})).count()
+	return 1 == (users.find({'name':username})).count()
 
 def emailexists(email):
-	conn = Connection()
-	db = conn['jsdt']
-	return 1 == (db.jsdt.find({'email':email})).count()
+	return 1 == (users.find({'email':email})).count()
 
 def getcontacts(username):
-	conn = Connection()
-	db = conn['jsdt']
-	res = db.jsdt.find({'name':{'$not':re.compile(username)}},{"_id":False})
+	res = users.find({'name':{'$not':re.compile(username)}},{"_id":False})
 	info = [x for x in res]
 	return info
-
+'''
 def getblog(username):
 	conn = Connection()
 	db = conn['jsdt_blog']
@@ -79,31 +34,25 @@ def getblogcontent(title):
 	db = conn['jsdt_blog']
 	res = db.jsdt_blog.find({'title':title},{"_id":False})
 	return res
-
+'''
 def getprofile(username):
-	conn = Connection()
-	db = conn['jsdt']
-	res = db.jsdt.find({'name':username},{"_id":False})
+	res = users.find({'name':username},{"_id":False})
 	info = [x for x in res]
 	return info
-
+'''
 def getposts(username):
 	conn = Connection()
 	db = conn['jsdt_blog']
 	res = db.jsdt_blog.find({'author':username},{"_id":False})
 	info = [x for x in res]
 	return reversed(info)
-
+'''
 def updatepw(username,newpw):
-	conn = Connection()
-	db = conn['jsdt']
-	db.jsdt.update({'name':username},{'$set':{'pw':newpw}})
+	users.update({'name':username},{'$set':{'pw':newpw}})
 
-def adduser(username,email,password):
-	conn = Connection()
-	db = conn['jsdt']
-	db.jsdt.insert([{'name':username,'email':email,'pw':password}])
-
+def adduser(display, username,email,password):
+	users.insert([{'disp':display,'name':username,'email':email,'pw':password}])
+'''
 def invalidpost(title, content):
 	conn = Connection()
 	db = conn['jsdt_blog']
@@ -134,7 +83,7 @@ def votepost(title,points):
 	conn = Connection()
 	db = conn['jsdt_blog']
 	db.jsdt_blog.update({'title':title},{'$inc':{'points':points}})
-
+'''
 
 # if __name__ == '__main__':
 # 	setup()

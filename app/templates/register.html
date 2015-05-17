@@ -29,10 +29,10 @@
 
   <!-- may put in own file if it gets too clunky -->
   <style>
-    
+
     .rounded {
     -moz-border-radius: 15px;
-    -webkit-border-radius: 15px; 
+    -webkit-border-radius: 15px;
     border-radius: 15px;
     }
 
@@ -49,7 +49,7 @@
     overflow: hidden;
     background: white;
     opacity: 0.8;
-    filter: alpha(opacity=80); 
+    filter: alpha(opacity=80);
     -moz-opacity:0.8;
     }
 
@@ -83,7 +83,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand page-scroll" href="index.html">Swagcess</a>
+          <a class="navbar-brand page-scroll" href="{{ url_for('index') }}">Swagcess</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -105,29 +105,29 @@
 	    <h3 class="black-text">Register</h3>
 	    <br>
 
-	    <form class="form-horizontal">
+	    <form class="form-horizontal" method="post" action="{{url_for('registering')}}">
 
-	      <!-- Display Name -->
-	      <div class="form-group">
-		<label class="col-sm-4 control-label">Display Name</label>
-		<div class="col-sm-8">
-		  <input type="text" class="form-control" id="display" placeholder="Display Name">
-		</div>
-	      </div>
-	      
 	      <!-- Username -->
 	      <div class="form-group">
 		<label class="col-sm-4 control-label">Username</label>
 		<div class="col-sm-8">
-		  <input type="text" class="form-control" id="username" placeholder="Username">
+		  <input type="text" class="form-control" name="username" placeholder="Username">
 		</div>
 	      </div>
+
+        <!-- Display Name -->
+        <div class="form-group">
+    <label class="col-sm-4 control-label">Display Name</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" name="display" placeholder="(optional)">
+    </div>
+        </div>
 
 	      <!-- Password -->
 	      <div class="form-group">
 		<label class="col-sm-4 control-label">Password</label>
 		<div class="col-sm-8">
-		  <input type="password" class="form-control" id="password" placeholder="Password">
+		  <input type="password" class="form-control" name="password" placeholder="Password">
 		</div>
 	      </div>
 
@@ -135,7 +135,7 @@
 	      <div class="form-group">
 		<label class="col-sm-4 control-label"> Retype Password</label>
 		<div class="col-sm-8">
-		  <input type="password" class="form-control" id="retypepassword" placeholder="Password">
+		  <input type="password" class="form-control" name="password2" placeholder="Password">
 		</div>
 	      </div>
 
@@ -143,7 +143,7 @@
 	      <div class="form-group">
 		<label class="col-sm-4 control-label">Email Address</label>
 		<div class="col-sm-8">
-		  <input type="text" class="form-control" id="email" placeholder="Email Address">
+		  <input type="text" class="form-control" name="email" placeholder="Email Address">
 		</div>
 	      </div>
 
@@ -152,16 +152,16 @@
 	      </div>
 	  </div>
 	  </form>
-	  
+
 	</div>
 	<div class="col-xs-0 col-sm-2"></div>
       </div>
-      
-      
-      
+
+
+
     </header>
 
-    
+
     <!-- jQuery -->
     <script src="/static/libs/bootstrap/js/jquery.js"></script>
 

@@ -19,7 +19,7 @@ def authenticate(f):
     def inner(*args, **kwargs):
         if request.method == "POST":
             username = request.form["username"]
-            password = request.form["password"]
+            password = request.form["pw"]
             #if authenticate(username,password):
             if db.authenticate(username,password):
                 session['name'] = username
@@ -35,11 +35,13 @@ def authenticate(f):
         return f(*args, **kwargs)
     return inner
 
+
 @app.route('/', methods=["POST","GET"])
 @app.route('/index', methods=["POST","GET"])
 def index():
     if "name" not in session:
         session["name"] = None
+    print session["name"]
     return render_template("index.html")
 
 @app.route("/login", methods=["POST","GET"])
@@ -53,24 +55,34 @@ def logout():
     session.pop('name', None)
     return redirect(url_for('index'))
 
-@app.route("/register", methods=["POST","GET"])
+@app.route("/register")
 def register():
+    if session['name']!=None:
+        return redirect(url_for('index'))
+    return render_template("register.html")
+
+@app.route("/registering", methods=["POST","GET"])
+def registering():
     if request.method == "POST":
-        username = request.form["username"]
-        email = request.form["email"]
+        disp = request.form["display"]
+        user = request.form["username"]
+        em = request.form["email"]
         pw = request.form["password"]
         pw2 = request.form["password2"]
         if pw != pw2:
             flash("The passwords you submitted don't match, please try again.")
             return redirect(url_for('register'))
-        if db.userexists(username):
+        if disp == "":
+            disp = user
+        if db.userexists(user):
             flash("The username you submitted is already taken, please try again.")
             return redirect(url_for('register'))
-        if db.emailexists(email):
+        if db.emailexists(em):
             flash("The email you submitted already has an account tied to it, please try again.")
             return redirect(url_for('register'))
         else:
-            db.adduser(username,email,pw)
+            db.adduser(disp, user,em,pw)
+            print "registered as display " + disp + " and user " + user
             flash("You've sucessfully registered, now login!")
             return redirect(url_for('login'))
     else:
@@ -106,7 +118,7 @@ def user(username):
     #print profile
     posts = db.getposts(username)
     return render_template("profileother.html",profile=profile,posts=posts)
-
+'''
 @app.route("/blog", methods=["POST","GET"])
 @login_required
 def blog():
@@ -142,6 +154,7 @@ def blogcontent(title):
             flash("You have successfully made a comment!")
             return redirect(url_for('blog'))
 
+
 @app.route("/blog/upvote/<title>", methods=["POST","GET"])
 @login_required
 def upvote(title):
@@ -160,9 +173,9 @@ def contacts():
     contacts=db.getcontacts(session['name'])
     print contacts
     return render_template("contacts.html",contacts=contacts)
+'''
 
 if __name__ == '__main__':
-    db.setup()
     app.secret_key = "don't store this on github"
     app.debug = True
     app.run(host="0.0.0.0", port=8000)

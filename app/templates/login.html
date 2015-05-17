@@ -29,10 +29,10 @@
 
   <!-- may put in own file if it gets too clunky -->
   <style>
-    
+
     .rounded {
     -moz-border-radius: 15px;
-    -webkit-border-radius: 15px; 
+    -webkit-border-radius: 15px;
     border-radius: 15px;
     }
 
@@ -49,7 +49,7 @@
     overflow: hidden;
     background: white;
     opacity: 0.8;
-    filter: alpha(opacity=80); 
+    filter: alpha(opacity=80);
     -moz-opacity:0.8;
     }
 
@@ -83,7 +83,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand page-scroll" href="/">Swagcess</a>
+          <a class="navbar-brand page-scroll" href="{{ url_for('index') }}">Swagcess</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -102,26 +102,26 @@
 	<div class="col-xs-0 col-sm-2"></div>
         <div class="header-content-inner col-sm-8">
 	  <div class="rectangle rounded">
-	    
+
 	    <h3 class="black-text">Login</h3>
 
 
-	    
-	    <form class="form-horizontal center">
-	      
+
+	    <form class="form-horizontal center" method = "POST">
+
 	      <!--USERNAME-->
 
-	      <div class="form-group">		
+	      <div class="form-group">
 		<div class="row">
 		  <label class="col-sm-6 control-label">Username</label>
 		</div>
 		<div class="row">
 		  <div class="col-sm-12">
-		    <input type="text" class="form-control reduce center" placeholder="Username">
+		    <input type="text" class="form-control reduce center" name="username" placeholder="Username">
 		  </div>
 		</div>
 	      </div>
-	     
+
 	      <!--PASSWORD-->
 	      <div class="form-group">
 		<div class="row">
@@ -129,14 +129,14 @@
 		</div>
 		<div class="row">
 		  <div class="col-sm-12">
-		    <input type="password" class="form-control reduce center" placeholder="Password">
-		    
+		    <input type="password" class="form-control reduce center" name="pw" placeholder="Password">
+
 		  </div>
 		</div>
 	      </div>
-	      
+
 	      <!-- SUBMIT -->
-	      
+
 	      <div class="form-group">
 		<button type="submit" class="btn btn-primary btn-xl center">Login</button>
 	      </div>
@@ -145,12 +145,12 @@
 	</div>
 	<div class="col-xs-0 col-sm-2"></div>
       </div>
-      
-      
-      
+
+
+
     </header>
 
-    
+
     <!-- jQuery -->
     <script src="/static/libs/bootstrap/js/jquery.js"></script>
 
