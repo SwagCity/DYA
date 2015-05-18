@@ -15,6 +15,10 @@ var MainController = Marionette.Controller.extend({
 		console.log("editing a story");
 	},
 
+	renderAll : function() {
+		console.log("render all");
+	},
+
 	renderStory : function(story_id) {
 		/* Run an AJAX call to retrieve the story from the server. */
 		var data = {

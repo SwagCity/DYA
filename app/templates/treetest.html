@@ -24,6 +24,24 @@
 
 
 		<script>
+
+/*
+README
+
+So this is how I think it's going to map out.
+D3 is going to have first-hand access to the data.
+It has to render everything nicely into colored, labelled circles.
+It also has to save a variable in the marionette view that contains the ID of the current node in view. It's going to start out with the title node.
+Everything above and below the current node will be rendered.
+The current node needs a nice animation to turn it from a circle into the box of text. (Material design, anyone?)
+The circular nodes need nice animations to turn them from hiding into circles, or vice versa.
+Everything else is going to be set to hidden (or maybe tiny? idk, whatever looks better)
+
+Questions that need answering:
+Do nodes really need to know their parents?
+
+*/
+
 	
 var story = [
 	{
