@@ -4,8 +4,8 @@
 		<meta charset="utf-8">
 
 		<title>Collapsible Tree Example</title>
-		<!-- load the d3.js library --> 
-		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<!-- load the d3.js library -->
+		<script src="static/libs/d3.min.js"></script>
 	</head>
 
 	<style>
@@ -25,7 +25,6 @@
 
 		<script>
 	
-
 var story = [
 	{
 		"_id": "toplevel1",
@@ -56,18 +55,33 @@ var story = [
 	}
 ];
 
+// Allow all of the nodes to be able to access its own parent.
+var setParents = function(tree) {
+	var setParent = function (obj) {
+		if (obj.children != undefined) {
+			for (c in obj.children) {
+				obj.children[c].parent = obj;
+				setParent(obj.children[c]);
+			}
+		}
+	}
+	for (n in tree) {
+		setParent(tree[n]);
+	}
+}(story);
+
+
 var tree = d3.select("#chart");
 function renderNode(node, data) {
-	node.selectAll()
+	node.selectAll(".snippet")
 		.data(data)
 		.enter()
-		.append("li")
+		.append("div")
 		.attr("id", function(d,i) {return d._id})
+		.classed(".snippet", true)
 		.text(function(d) {return d.snippet})
 		.each(function(d,i) {
 			if (d.children) {
-				console.log(data);
-				//console.log("rendering node under id:" + "#" + data._id);
 				renderNode(d3.select("#"+data[i]._id), d.children);
 			}
 		})
