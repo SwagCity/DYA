@@ -18,6 +18,18 @@
 		<link rel="stylesheet" href="/static/libs/bootstrap/css/bootstrap-theme.min.css" />
 		<link rel="stylesheet" href="/static/libs/bootstrap/css/bootstrap.min.css" />
 
+		<style>
+			.circle {
+				border-radius: 50%;
+				width: 200px;
+				height: 200px;
+				background-color: blue;
+				position: relative;
+				display: inline-block;
+			}
+
+		</style>
+
 	</head>
 	<body>
 		<!-- nav bar -->
@@ -73,9 +85,13 @@
 
 
 		<script id="snippet-template" type="text/template">
-			<li>
-				<%= snippet %>
-			</li>
+			<span class="snippet circle">
+				<p style="display:none;">
+					<%= snippet %>
+				</p>
+			</span>
+			<br>
+			<span class="children"></span>
 		</script>
 		<script id="boring-template" type="text/template">
 			<a href="#stories/a876&78ff9aaa">derp</a>

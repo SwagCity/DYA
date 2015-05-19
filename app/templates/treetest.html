@@ -9,6 +9,14 @@
 	</head>
 
 	<style>
+.circle {
+	border-radius: 50%;
+	width: 200px;
+	height: 200px; 
+	background-color: blue;
+	position: relative;
+	margin-bottom: 200px;
+}
 
 	</style>
 
@@ -96,8 +104,12 @@ function renderNode(node, data) {
 		.enter()
 		.append("div")
 		.attr("id", function(d,i) {return d._id})
-		.classed(".snippet", true)
-		.text(function(d) {return d.snippet})
+		.classed("snippet", true)
+		.classed("circle", true)
+		.style({
+			
+		})
+		.text(function(d) {return d._id})
 		.each(function(d,i) {
 			if (d.children) {
 				renderNode(d3.select("#"+data[i]._id), d.children);
