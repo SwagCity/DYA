@@ -1,25 +1,18 @@
-var s = document.getElementById("s");
-
-var width = 800;
-var height = 800;
 
 
-var jsonCircles = [
-   { "x_axis": 30, "y_axis": 30, "radius": 20, "color" : "green" },
-   { "x_axis": 70, "y_axis": 70, "radius": 20, "color" : "purple"},
-   { "x_axis": 110, "y_axis": 100, "radius": 20, "color" : "red"}];
- 
- var svgContainer = d3.select("body").append("svg")
-                                     .attr("width", 200)
-                                     .attr("height", 200);
- 
-var circles = svgContainer.selectAll("circle")
-                          .data(jsonCircles)
-                          .enter()
-                          .append("circle");
+var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+var svgNS = svg.namespaceURI;
 
-var circleAttributes = circles
-                       .attr("cx", function (d) { return d.x_axis; })
-                       .attr("cy", function (d) { return d.y_axis; })
-                       .attr("r", function (d) { return d.radius; })
-                       .style("fill", function(d) { return d.color; });
+var circle = document.createElementNS(svgNS, 'circle');
+circle.attr("cx", 30)
+circle.attr("cy", 30)
+circle.attr("r", 20)
+circle.on("click", mouseClick);
+
+svg.appendChild(cirle);
+document.body.appendChild(svg);
+
+var h=document.createElement('a');
+var t=document.createtextNode('Hello');
+h.appendChild(t);
+document.body.appendChild(h);
