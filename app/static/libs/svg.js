@@ -10,6 +10,19 @@ var mouseClick = function(evt){
 	circle.setAttribute("r", '70');
 }
 
+function draw() {
+    var svg = document.getElementsByTagName('svg')[0];
+    var svgNS = svg.namespaceURI;
+
+    var rect = document.createElementNS(svgNS,'rect');
+    rect.setAttribute('x',5);
+    rect.setAttribute('y',5);
+    rect.setAttribute('width',100);
+    rect.setAttribute('height',36);
+    rect.setAttribute('fill','#95B3D7');
+
+    svg.appendChild(rect);
+}
 
 var data = [140,340,540];
 
@@ -20,14 +33,17 @@ var drawCircle = function(x,y,r){
 	x:x,
 	
 	drawC : function(){
-	    var circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
-	    circle.setAttributeNS(null,'cx', x);
-	    circle.setAttributeNS(null,'cy', '70');
-	    circle.setAttributeNS(null,'r', '70');	    
-	    circle.setAttributeNS(null,'fill','#95B3D7');
-	    circle.setAttributeNS(null,'visibility','visible');
+	    var svg = document.getElementsByTagName('svg')[0];
+	    var svgNS = svg.namespaceURI;
+
+	    var circle = document.createElementNS(svgNS,'circle');
+	    circle.setAttribute('cx', x);
+	    circle.setAttribute('cy', '70');
+	    circle.setAttribute('r', '70');	    
+	    circle.setAttribute('fill','#95B3D7');
 	    circle.addEventListener("click",mouseClick);
 	    
+	    svg.appendChild(circle);
 	    console.log('hello');
 	}	
     }
@@ -35,7 +51,7 @@ var drawCircle = function(x,y,r){
 
 
 
-function draw(){
+function drawf(){
     for (var i = 0; i < data.length; i ++){
 	circles.push(drawCircle(data[i]));
 	console.log('wassup');
@@ -45,4 +61,4 @@ function draw(){
     }
 }
 
-$( document ).ready( draw );
+$( document ).ready( drawf );
