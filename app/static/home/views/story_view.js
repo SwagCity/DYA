@@ -7,29 +7,25 @@
 /* A single node on the Story tree */
 App.Views.StoryNode = Marionette.CompositeView.extend({
 	template : "#snippet-template",
+	tagName : "span",
+	childView : App.Views.StoryNode,
 
 	initialize : function() {
+		console.log(this.model.children);
 		// By not specifying the child view type, the CompositeView defaults to using itself as the child view.
 		this.collection = this.model.children;
+		console.log(this.collection);
 
 		this.el.id = this.model.attributes._id;
-	},
-
-	// Callbacks on actions in the DOM
-	events : {
-
-	},
-	toggleChildView : function() {
-
-	},
-
-	// Callbacks on changes to the Backbone collections
-	collectionEvents : {
-		"add" : "modelAdded",
-	},
-	modelAdded : function() {}
+	}
 })
 
-App.Views.StoryTree = Marionette.CollectionView.extend({
-	childView : App.Views.StoryNode
+/* Umbrella view encapsulating the tree. Contains triggers for re-rendering pages based on global changes. */
+App.Views.ViewStory = Marionette.CompositeView.extend({
+	template : "#story-template",
+	childView : App.Views.StoryNode,
+
+	initialize : function() {
+		this.collection = this.model.story;
+	}
 })
