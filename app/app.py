@@ -55,6 +55,11 @@ def logout():
     session.pop('name', None)
     return redirect(url_for('index'))
 
+
+@app.route("/test")
+def test():
+    return render_template("test.html")
+
 @app.route("/register")
 def register():
     if session['name']!=None:
