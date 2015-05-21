@@ -49,6 +49,11 @@ def index():
 def login():
     return render_template("login.html")
 
+@app.route("/test", methods=["POST","GET"])
+def test():
+    return render_template("test.html")
+
+
 @app.route('/logout')
 def logout():
     # remove the username from the session if it's there
