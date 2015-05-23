@@ -1,0 +1,12 @@
+<p>front end </p>
+
+<a href="{{ url_for('index') }}">Index</a><br>
+<a href="{{ url_for('logout') }}">Logout</a><br>
+<hr>
+
+<form method = "POST" action="{{url_for('write')}}">
+  <input type="text" name="title" placeholder="Title"><br>
+  <input type="text" name="text" placeholder="The chicken was about to cross the road..."><br>
+  <!--<input type="text" name="tags" placeholder="Title">-->
+  <button type="submit">Submit story</button>
+</form>

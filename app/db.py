@@ -52,6 +52,19 @@ def updatepw(username,newpw):
 
 def adduser(display, username,email,password):
 	users.insert([{'disp':display,'name':username,'email':email,'pw':password}])
+
+def s_add(title, author, text, tags): #adding initial story (FIRST NODE)
+	stories.insert([{'title':title,'author':author,'text':text,'tags':tags,'children':[]}])
+
+def s_delete(id):	#delete initial story (FIRST NODE)
+	pass
+
+def s_getall():	#get story by Object_Id
+    return stories.find()
+
+def s_get(i):	#get story by Object_Id
+    return stories.find({"_id":ObjectId(i)})
+
 '''
 def invalidpost(title, content):
 	conn = Connection()
