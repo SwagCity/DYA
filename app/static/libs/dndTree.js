@@ -14,10 +14,10 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
     var i = 0;
     var duration = 750;
     var root;
-
+    
     // size of the diagram
     var viewerWidth = $(document).width();
-    var viewerHeight = $(document).height()/2;
+    var viewerHeight = $(document).height();
 
     var tree = d3.layout.tree()
         .size([viewerHeight, viewerWidth]);
@@ -331,9 +331,14 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
 
     function click(d) {
         if (d3.event.defaultPrevented) return; // click suppressed
-        d = toggleChildren(d);
+        //d = toggleChildren(d);
         update(d);
-        centerNode(d);
+        //centerNode(d);
+    }
+
+    function test(d){
+	//console.log(d.getAttribute());
+	
     }
 
     function update(source) {
@@ -366,6 +371,7 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
             // alternatively to keep a fixed scale one can set a fixed depth per level
             // Normalize for fixed-depth by commenting out below line
             // d.y = (d.depth * 500); //500px per level.
+	    
         });
 
         // Update the nodes…
@@ -388,7 +394,11 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
             .attr("r", 0)
             .style("fill", function(d) {
                 return d._children ? "lightsteelblue" : "#fff";
-            });
+            })
+	    .on('click', function(d){
+		console.log(d);
+		//return test(d);
+	    });
 
         nodeEnter.append("text")
             .attr("x", function(d) {
@@ -420,23 +430,23 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
 
         // Update the text to reflect whether node has children or not.
         node.select('text')
-            .attr("x", function(d) {
-                return d.children || d._children ? -10 : 10;
-            })
-            .attr("text-anchor", function(d) {
-                return d.children || d._children ? "end" : "start";
-            })
             .text(function(d) {
                 return d.name;
             });
 
         // Change the circle fill depending on whether it has children and is collapsed
-        node.select("circle.nodeCircle")
-            .attr("r", function(d){
-		return d._children ? "10" : "4.5";
-	    })
-            .style("fill", "lightsteelblue");
 
+	for (i = 0; i < node[0].length;i++){
+	    //console.log(node[0][i]);
+	    //console.log(source);
+	   
+	
+	}
+
+        node.select("circle.nodeCircle")
+            .attr("r", "4.5")
+            .style("fill", "lightsteelblue");
+	
         // Transition nodes to their new position.
         var nodeUpdate = node.transition()
             .duration(duration)
@@ -486,21 +496,6 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
         link.transition()
             .duration(duration)
             .attr("d", diagonal);
-
-        // Transition exiting nodes to the parent's new position.
-        link.exit().transition()
-            .duration(duration)
-            .attr("d", function(d) {
-                var o = {
-                    x: source.x,
-                    y: source.y
-                };
-                return diagonal({
-                    source: o,
-                    target: o
-                });
-            })
-            .remove();
 
         // Stash the old positions for transition.
         nodes.forEach(function(d) {
