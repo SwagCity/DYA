@@ -54,7 +54,7 @@ App.Views.StoryNode = Marionette.CompositeView.extend({
 	},
 	onRender : function() {
 		console.log(this.model.region.$el);
-		this.model.region.$el.append(this.el);
+		this.model.region.$el.append(this.$el);
 		this.model.region.$el.append("fuck you marionette")
 
 		// Remove el from this.region.
