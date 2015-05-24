@@ -53,7 +53,6 @@ App.Views.StoryNode = Marionette.CompositeView.extend({
 		this.el.id = this.model.attributes._id;
 	},
 	onRender : function() {
-		console.log(this.model.region.$el);
 		this.model.region.$el.append(this.$el);
 		this.model.region.$el.append("fuck you marionette")
 
@@ -100,7 +99,7 @@ App.Views.ViewStory = Marionette.LayoutView.extend({
 		var setAllRegions = function(region) {
 			App.DataManip.execAll(function(node) {
 				node.region = region;
-			})(App.viewStoryView.model.story);
+			});
 		}
 		setAllRegions(App.viewStoryView.viewHiddenUpper);
 		this.model.currentNode.region = this.viewMain;
@@ -110,7 +109,7 @@ App.Views.ViewStory = Marionette.LayoutView.extend({
 		if (this.model.currentNode.children) {
 			if (this.model.currentNode.children.models) {
 				for (var x=0; x<this.model.currentNode.children.models.length; x++) {
-					//reset(this.model.currentNode.children[n], this.viewHiddenLower);
+					(this.model.currentNode.children[n], this.viewHiddenLower);
 					this.model.currentNode.children.models[n].region = this.viewMainLower;
 				}
 			}
