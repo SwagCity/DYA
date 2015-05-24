@@ -239,7 +239,7 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
         updateTempConnector();
         if (draggingNode !== null) {
             update(root);
-            centerNode(draggingNode);
+            //centerNode(draggingNode);
             draggingNode = null;
         }
     }
