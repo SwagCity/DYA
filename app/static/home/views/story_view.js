@@ -46,6 +46,10 @@ App.Views.StoryNode = Marionette.CompositeView.extend({
 	tagName : "span",
 	childView : App.Views.StoryNode,
 
+	ui : {
+		content : ".snippet"
+	},
+
 	initialize : function() {
 		// By not specifying the child view type, the CompositeView defaults to using itself as the child view.
 		this.collection = this.model.children;
@@ -53,8 +57,7 @@ App.Views.StoryNode = Marionette.CompositeView.extend({
 		this.el.id = this.model.attributes._id;
 	},
 	onRender : function() {
-		this.model.region.$el.append(this.$el);
-		this.model.region.$el.append("fuck you marionette")
+		this.model.region.$el.append(this.ui.content);
 
 		// Remove el from this.region.
 	},
@@ -96,12 +99,12 @@ App.Views.ViewStory = Marionette.LayoutView.extend({
 		// Recursive function to identify the regions where
 		// each of the nodes will be rendered.
 		console.log("RESTORING DEFAULTS")
-		var setAllRegions = function(region) {
+		var setAllRegions = function(node, region) {
 			App.DataManip.execAll(function(node) {
 				node.region = region;
-			});
+			})(node);
 		}
-		setAllRegions(App.viewStoryView.viewHiddenUpper);
+		setAllRegions(this.model.story, this.viewHiddenUpper);
 		this.model.currentNode.region = this.viewMain;
 		if (this.model.currentNode.get("parent")){
 			this.model.currentNode.get("parent").region = this.viewMainUpper;
@@ -110,6 +113,7 @@ App.Views.ViewStory = Marionette.LayoutView.extend({
 			if (this.model.currentNode.children.models) {
 				for (var x=0; x<this.model.currentNode.children.models.length; x++) {
 					(this.model.currentNode.children[n], this.viewHiddenLower);
+					setAllRegions(this.model.currentNode.children.models[n], this.viewHiddenLower);
 					this.model.currentNode.children.models[n].region = this.viewMainLower;
 				}
 			}
