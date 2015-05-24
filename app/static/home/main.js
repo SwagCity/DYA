@@ -10,6 +10,3 @@ var options = {
 
 /* Defining Regions */
 console.log("Initializing Regions")
-App.addRegions({
-	mainRegion			: "#main",
-})

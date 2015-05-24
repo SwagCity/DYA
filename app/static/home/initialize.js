@@ -2,11 +2,15 @@
 App.on("before:start", function(options) {
 	/* Perhaps put a loading animation in here? */
 	console.log("Initializing....");
+	App.addRegions({
+		mainRegion			: "#main",
+		testRegion 			: "#test"
+	})
 
 })
 
 App.on("start", function(options) {
-	console.log("App starting.");		
+	console.log("App starting.");
 
 	/* Define Initial State. Possibly a loading bar? */
 	App.mainRegion.show(new App.Views.StaticView());
@@ -16,7 +20,7 @@ App.on("start", function(options) {
 		url			: options.apiURL + "/",
 		type		: "GET",
 		contentType	: 'application/json; charset=utf-8',
-		
+
 		success : function(results) {
 			console.log(results);
 		}

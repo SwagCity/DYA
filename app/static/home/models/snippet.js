@@ -1,14 +1,14 @@
 // Umbrella model containing the entire snippet tree as well as some helper variables.
 App.Models.Story = Backbone.Model.extend({
 	initialize : function() {
-		
+
 		var story = this.get("story");
-		this.story = new App.Models.SnippetCollection([story]);
+		this.story = new App.Models.Snippet(story);
 		this.unset("story");
 
-		// currentNode stores the ID of the current story in focus.
-		this.currentNode = this.story.get("_id");
-		
+		// currentNode stores the ID of the current story in focus
+		this.currentNode = this.story;
+
 	}
 })
 
@@ -20,7 +20,7 @@ App.Models.Snippet = Backbone.Model.extend({
 			this.children = new App.Models.SnippetCollection(children);
 			this.unset("children");
 		}
-		
+
 	}
 });
 

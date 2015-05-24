@@ -4,8 +4,6 @@ var MainController = Marionette.Controller.extend({
 		this.currentStory = undefined;		// The id of the story currently being viewed.
 	},
 
-	// Global-like variables
-
 	// Functions corresponding to url changes
 	start : function() {
 		console.log("Starting in controller...");
@@ -53,12 +51,14 @@ var MainController = Marionette.Controller.extend({
 			}
 		};
 
+		App.DataManip.init(data);
+
 		var story = new App.Models.Story(data);
-		var storyView = new App.Views.ViewStory({
+		App.viewStoryView = new App.Views.ViewStory({
 			model : story
 		});
 
-		App.mainRegion.show(storyView);
+		App.mainRegion.show(App.viewStoryView);
 
 	}
 });
@@ -66,4 +66,3 @@ var MainController = Marionette.Controller.extend({
 App.addInitializer(function(options) {
 	App.mainController = new MainController();
 })
-
