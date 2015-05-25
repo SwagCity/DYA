@@ -1,5 +1,5 @@
 // Get JSON data
-treeJSON = d3.json("/static/libs/flare.json", function(error, treeData) {
+treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
 
     // Calculate total nodes, max label length
     var totalNodes = 0;
@@ -14,7 +14,9 @@ treeJSON = d3.json("/static/libs/flare.json", function(error, treeData) {
     var i = 0;
     var duration = 750;
     var root;
-
+    var nodeText = null;
+    var nodeTitle=null;
+    
     // size of the diagram
     var viewerWidth = $(document).width();
     var viewerHeight = $(document).height();
@@ -27,21 +29,6 @@ treeJSON = d3.json("/static/libs/flare.json", function(error, treeData) {
         .projection(function(d) {
             return [d.y, d.x];
         });
-
-   // define the baseSvg, attaching a class for styling and the zoomListener
-   
-    window.addEventListener('resize', function(event){
-	console.log("Hi.");
-	var viewerWidth= $(document).width();
-	var viewerHeight = $(document).height();
-	var baseSvg = d3.select("#tree-container")
-            .attr("width", viewerWidth)
-            .attr("height", viewerHeight)
-            .attr("class", "overlay")
-            .call(zoomListener);
-
-});
-
 
     // A recursive helper function for performing some setup by walking through all nodes
 
@@ -62,24 +49,23 @@ treeJSON = d3.json("/static/libs/flare.json", function(error, treeData) {
     // Call visit function to establish maxLabelLength
     visit(treeData, function(d) {
         totalNodes++;
-        maxLabelLength = Math.max(d.name.length, maxLabelLength);
+        maxLabelLength = Math.max(d.snippet.length, maxLabelLength);
 
     }, function(d) {
         return d.children && d.children.length > 0 ? d.children : null;
     });
 
-/*
-Not used since we don't want to sort alphabetically.  
-// sort the tree according to the node names
+
+    // sort the tree according to the node names
 
     function sortTree() {
         tree.sort(function(a, b) {
-            return b.name.toLowerCase() < a.name.toLowerCase() ? 1 : -1;
+            return b.snippet.toLowerCase() < a.snippet.toLowerCase() ? 1 : -1;
         });
     }
     // Sort the tree initially incase the JSON isn't in a sorted order.
     sortTree();
-*/
+
     // TODO: Pan function, can be better implemented.
 
     function pan(domNode, direction) {
@@ -160,13 +146,45 @@ Not used since we don't want to sort alphabetically.
     }
 
     // define the baseSvg, attaching a class for styling and the zoomListener
-    var baseSvg = d3.select("#tree-container").append("svg")
-        .attr("width", viewerWidth)
-        .attr("height", viewerHeight)
+    var baseSvg = d3.select("#tree-container")
+	.append("svg")
+        .attr("width", "100%")
         .attr("class", "overlay")
+        .style("height","100%")
+        .style("position","relative")
         .call(zoomListener);
 
+    var textArea = d3.select("#text-container")
+        .append("textarea")
+        .attr("id","story")
+	.style("height", "100%")
+	.style("width", "100%")
+        .style("position","relative");
 
+    var titleArea = d3.select("#title-container")
+	.append("input")
+	.attr("type","text")
+        .attr("id","title");
+    
+    function textUpdate(d){
+	if (nodeText != null){
+	    nodeText.snippet = document.getElementById("story").value;
+	}
+	nodeText = d.snippet;
+	document.getElementById("story").value = d.snippet;
+    }
+
+    function titleUpdate(d){
+	if (nodeTitle != null){
+	    nodeTitle.title = document.getElementById("title").value;
+	}
+	nodeTitle=d.title;
+	document.getElementById("title").value = d.title;
+    }
+    
+    //document.getElementById("story").style.height="250px";
+    //document.getElementById("story").style.width="250px";
+    
     // Define the drag listeners for drag/drop behaviour of nodes.
     dragListener = d3.behavior.drag()
         .on("dragstart", function(d) {
@@ -317,11 +335,12 @@ Not used since we don't want to sort alphabetically.
     // Function to center node when clicked/dropped so node doesn't get lost when collapsing/moving with large amount of children.
 
     function centerNode(source) {
+	
         scale = zoomListener.scale();
         x = -source.y0;
         y = -source.x0;
         x = x * scale + viewerWidth / 2;
-        y = y * scale + viewerHeight / 2;
+        y = y * scale + viewerHeight / 4;
         d3.select('g').transition()
             .duration(duration)
             .attr("transform", "translate(" + x + "," + y + ")scale(" + scale + ")");
@@ -341,14 +360,23 @@ Not used since we don't want to sort alphabetically.
         }
         return d;
     }
-
+ 
     // Toggle children on click.
 
     function click(d) {
         if (d3.event.defaultPrevented) return; // click suppressed
-        d = toggleChildren(d);
+        //d = toggleChildren(d);
+	nodeText = d;
+	nodeTitle=d;
         update(d);
         centerNode(d);
+	document.getElementById("story").value = d.snippet;
+	document.getElementById("title").value = d.title;
+    }
+
+    function test(d){
+	//console.log(d.getAttribute());
+	
     }
 
     function update(source) {
@@ -381,6 +409,7 @@ Not used since we don't want to sort alphabetically.
             // alternatively to keep a fixed scale one can set a fixed depth per level
             // Normalize for fixed-depth by commenting out below line
             // d.y = (d.depth * 500); //500px per level.
+	    
         });
 
         // Update the nodes…
@@ -403,7 +432,13 @@ Not used since we don't want to sort alphabetically.
             .attr("r", 0)
             .style("fill", function(d) {
                 return d._children ? "lightsteelblue" : "#fff";
-            });
+            })
+	    .on('click', function(d){
+		//console.log(d);
+		//return test(d);
+		textUpdate(d);
+		titleUpdate(d);
+	    });
 
         nodeEnter.append("text")
             .attr("x", function(d) {
@@ -415,7 +450,9 @@ Not used since we don't want to sort alphabetically.
                 return d.children || d._children ? "end" : "start";
             })
             .text(function(d) {
-                return d.name;
+		//for when we put titles in
+		//return d.title;
+                return d.snippet;
             })
             .style("fill-opacity", 0);
 
@@ -435,23 +472,24 @@ Not used since we don't want to sort alphabetically.
 
         // Update the text to reflect whether node has children or not.
         node.select('text')
-            .attr("x", function(d) {
-                return d.children || d._children ? -10 : 10;
-            })
-            .attr("text-anchor", function(d) {
-                return d.children || d._children ? "end" : "start";
-            })
             .text(function(d) {
-                return d.name;
+		return d.title;
+		//return d.snippet;
             });
 
         // Change the circle fill depending on whether it has children and is collapsed
-        node.select("circle.nodeCircle")
-            .attr("r", 4.5)
-            .style("fill", function(d) {
-                return d._children ? "lightsteelblue" : "#fff";
-            });
 
+	for (i = 0; i < node[0].length;i++){
+	    //console.log(node[0][i]);
+	    //console.log(source);
+	   
+	
+	}
+
+        node.select("circle.nodeCircle")
+            .attr("r", "4.5")
+            .style("fill", "lightsteelblue");
+	
         // Transition nodes to their new position.
         var nodeUpdate = node.transition()
             .duration(duration)
@@ -502,40 +540,30 @@ Not used since we don't want to sort alphabetically.
             .duration(duration)
             .attr("d", diagonal);
 
-        // Transition exiting nodes to the parent's new position.
-        link.exit().transition()
-            .duration(duration)
-            .attr("d", function(d) {
-                var o = {
-                    x: source.x,
-                    y: source.y
-                };
-                return diagonal({
-                    source: o,
-                    target: o
-                });
-            })
-            .remove();
-
         // Stash the old positions for transition.
         nodes.forEach(function(d) {
             d.x0 = d.x;
             d.y0 = d.y;
         });
+	
+	
     }
 
     // Append a group which holds all nodes and which the zoom Listener can act upon.
     var svgGroup = baseSvg.append("g");
-
+    var textGroup= textArea.append("g");
     // Define the root
     root = treeData;
     root.x0 = viewerHeight / 2;
     root.y0 = 0;
-
+    
     // Layout the tree initially and center on the root node.
     update(root);
     centerNode(root);
 
+
+
+    
 });
 
 
