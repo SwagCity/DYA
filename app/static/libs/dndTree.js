@@ -335,6 +335,7 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
     // Function to center node when clicked/dropped so node doesn't get lost when collapsing/moving with large amount of children.
 
     function centerNode(source) {
+	
         scale = zoomListener.scale();
         x = -source.y0;
         y = -source.x0;
