@@ -14,6 +14,7 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
     var i = 0;
     var duration = 750;
     var root;
+    var nodeText = null;
     
     // size of the diagram
     var viewerWidth = $(document).width();
@@ -155,9 +156,18 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
     var textArea = d3.select("#text-container")
         .append("textarea")
         .attr("id","story")
-		.style("height", "100%")
-		.style("width", "100%")
+	.style("height", "100%")
+	.style("width", "100%")
         .style("position","relative");
+
+    
+    function textUpdate(d){
+	if (nodeText != null){
+	    nodeText.snippet = document.getElementById("story").value;
+	}
+	nodeText = d.snippet;
+	document.getElementById("story").value = d.snippet;
+    }
     
     //document.getElementById("story").style.height="250px";
     //document.getElementById("story").style.width="250px";
@@ -342,8 +352,10 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
     function click(d) {
         if (d3.event.defaultPrevented) return; // click suppressed
         //d = toggleChildren(d);
+	nodeText = d;
         update(d);
         centerNode(d);
+	document.getElementById("story").value = d.snippet;
     }
 
     function test(d){
@@ -406,8 +418,9 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
                 return d._children ? "lightsteelblue" : "#fff";
             })
 	    .on('click', function(d){
-		console.log(d);
+		//console.log(d);
 		//return test(d);
+		textUpdate(d);
 	    });
 
         nodeEnter.append("text")
@@ -512,6 +525,8 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
             d.x0 = d.x;
             d.y0 = d.y;
         });
+	
+	
     }
 
     // Append a group which holds all nodes and which the zoom Listener can act upon.
