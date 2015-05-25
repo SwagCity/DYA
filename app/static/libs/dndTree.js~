@@ -148,10 +148,20 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
 	.append("svg")
         .attr("width", "100%")
         .attr("class", "overlay")
-        .style("height","50%")
+        .style("height","100%")
         .call(zoomListener);
 
-
+    var textArea = d3.select("#text-container")
+        .append("TEXTAREA")
+        .attr("cols","100")
+        .attr("rows","50")
+        .attr("autofocus","autofocus")
+        .attr("placeholder","Hello")
+        .attr("id","story");
+    
+    document.getElementById("story").style.height="250px";
+    document.getElementById("story").style.width="250px";
+    
     // Define the drag listeners for drag/drop behaviour of nodes.
     dragListener = d3.behavior.drag()
         .on("dragstart", function(d) {
@@ -239,7 +249,7 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
         updateTempConnector();
         if (draggingNode !== null) {
             update(root);
-            //centerNode(draggingNode);
+            centerNode(draggingNode);
             draggingNode = null;
         }
     }
@@ -306,7 +316,7 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
         x = -source.y0;
         y = -source.x0;
         x = x * scale + viewerWidth / 2;
-        y = y * scale + viewerHeight / 2;
+        y = y * scale + viewerHeight / 4;
         d3.select('g').transition()
             .duration(duration)
             .attr("transform", "translate(" + x + "," + y + ")scale(" + scale + ")");
@@ -333,7 +343,7 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
         if (d3.event.defaultPrevented) return; // click suppressed
         //d = toggleChildren(d);
         update(d);
-        //centerNode(d);
+        centerNode(d);
     }
 
     function test(d){
@@ -506,7 +516,7 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
 
     // Append a group which holds all nodes and which the zoom Listener can act upon.
     var svgGroup = baseSvg.append("g");
-
+    var textGroup= textArea.append("g");
     // Define the root
     root = treeData;
     root.x0 = viewerHeight / 2;
@@ -515,6 +525,8 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
     // Layout the tree initially and center on the root node.
     update(root);
     centerNode(root);
+
+
 
     
 });

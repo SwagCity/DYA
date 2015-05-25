@@ -149,18 +149,18 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
         .attr("width", "100%")
         .attr("class", "overlay")
         .style("height","100%")
+        .style("position","relative")
         .call(zoomListener);
 
     var textArea = d3.select("#text-container")
         .append("TEXTAREA")
         .attr("cols","100")
         .attr("rows","50")
-        .attr("autofocus","autofocus")
-        .attr("placeholder","Hello")
-        .attr("id","story");
+        .attr("id","story")
+        .style("position","relative");
     
-    document.getElementById("story").style.height="250px";
-    document.getElementById("story").style.width="250px";
+    //document.getElementById("story").style.height="250px";
+    //document.getElementById("story").style.width="250px";
     
     // Define the drag listeners for drag/drop behaviour of nodes.
     dragListener = d3.behavior.drag()
