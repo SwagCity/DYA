@@ -153,10 +153,10 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
         .call(zoomListener);
 
     var textArea = d3.select("#text-container")
-        .append("TEXTAREA")
-        .attr("cols","100")
-        .attr("rows","50")
+        .append("textarea")
         .attr("id","story")
+		.style("height", "100%")
+		.style("width", "100%")
         .style("position","relative");
     
     //document.getElementById("story").style.height="250px";
