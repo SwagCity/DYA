@@ -1,756 +1,756 @@
 {
-    "name": "flare",
+    "snippet": "flare",
     "children": [{
-        "name": "analytics",
+        "snippet": "analytics",
         "children": [{
-            "name": "cluster",
+            "snippet": "cluster",
             "children": [{
-                "name": "AgglomerativeCluster",
+                "snippet": "AgglomerativeCluster",
                 "size": 3938
             }, {
-                "name": "CommunityStructure",
+                "snippet": "CommunityStructure",
                 "size": 3812
             }, {
-                "name": "HierarchicalCluster",
+                "snippet": "HierarchicalCluster",
                 "size": 6714
             }, {
-                "name": "MergeEdge",
+                "snippet": "MergeEdge",
                 "size": 743
             }]
         }, {
-            "name": "graph",
+            "snippet": "graph",
             "children": [{
-                "name": "BetweennessCentrality",
+                "snippet": "BetweennessCentrality",
                 "size": 3534
             }, {
-                "name": "LinkDistance",
+                "snippet": "LinkDistance",
                 "size": 5731
             }, {
-                "name": "MaxFlowMinCut",
+                "snippet": "MaxFlowMinCut",
                 "size": 7840
             }, {
-                "name": "ShortestPaths",
+                "snippet": "ShortestPaths",
                 "size": 5914
             }, {
-                "name": "SpanningTree",
+                "snippet": "SpanningTree",
                 "size": 3416
             }]
         }, {
-            "name": "optimization",
+            "snippet": "optimization",
             "children": [{
-                "name": "AspectRatioBanker",
+                "snippet": "AspectRatioBanker",
                 "size": 7074
             }]
         }]
     }, {
-        "name": "animate",
+        "snippet": "animate",
         "children": [{
-            "name": "Easing",
+            "snippet": "Easing",
             "size": 17010
         }, {
-            "name": "FunctionSequence",
+            "snippet": "FunctionSequence",
             "size": 5842
         }, {
-            "name": "interpolate",
+            "snippet": "interpolate",
             "children": [{
-                "name": "ArrayInterpolator",
+                "snippet": "ArrayInterpolator",
                 "size": 1983
             }, {
-                "name": "ColorInterpolator",
+                "snippet": "ColorInterpolator",
                 "size": 2047
             }, {
-                "name": "DateInterpolator",
+                "snippet": "DateInterpolator",
                 "size": 1375
             }, {
-                "name": "Interpolator",
+                "snippet": "Interpolator",
                 "size": 8746
             }, {
-                "name": "MatrixInterpolator",
+                "snippet": "MatrixInterpolator",
                 "size": 2202
             }, {
-                "name": "NumberInterpolator",
+                "snippet": "NumberInterpolator",
                 "size": 1382
             }, {
-                "name": "ObjectInterpolator",
+                "snippet": "ObjectInterpolator",
                 "size": 1629
             }, {
-                "name": "PointInterpolator",
+                "snippet": "PointInterpolator",
                 "size": 1675
             }, {
-                "name": "RectangleInterpolator",
+                "snippet": "RectangleInterpolator",
                 "size": 2042
             }]
         }, {
-            "name": "ISchedulable",
+            "snippet": "ISchedulable",
             "size": 1041
         }, {
-            "name": "Parallel",
+            "snippet": "Parallel",
             "size": 5176
         }, {
-            "name": "Pause",
+            "snippet": "Pause",
             "size": 449
         }, {
-            "name": "Scheduler",
+            "snippet": "Scheduler",
             "size": 5593
         }, {
-            "name": "Sequence",
+            "snippet": "Sequence",
             "size": 5534
         }, {
-            "name": "Transition",
+            "snippet": "Transition",
             "size": 9201
         }, {
-            "name": "Transitioner",
+            "snippet": "Transitioner",
             "size": 19975
         }, {
-            "name": "TransitionEvent",
+            "snippet": "TransitionEvent",
             "size": 1116
         }, {
-            "name": "Tween",
+            "snippet": "Tween",
             "size": 6006
         }]
     }, {
-        "name": "data",
+        "snippet": "data",
         "children": [{
-            "name": "converters",
+            "snippet": "converters",
             "children": [{
-                "name": "Converters",
+                "snippet": "Converters",
                 "size": 721
             }, {
-                "name": "DelimitedTextConverter",
+                "snippet": "DelimitedTextConverter",
                 "size": 4294
             }, {
-                "name": "GraphMLConverter",
+                "snippet": "GraphMLConverter",
                 "size": 9800
             }, {
-                "name": "IDataConverter",
+                "snippet": "IDataConverter",
                 "size": 1314
             }, {
-                "name": "JSONConverter",
+                "snippet": "JSONConverter",
                 "size": 2220
             }]
         }, {
-            "name": "DataField",
+            "snippet": "DataField",
             "size": 1759
         }, {
-            "name": "DataSchema",
+            "snippet": "DataSchema",
             "size": 2165
         }, {
-            "name": "DataSet",
+            "snippet": "DataSet",
             "size": 586
         }, {
-            "name": "DataSource",
+            "snippet": "DataSource",
             "size": 3331
         }, {
-            "name": "DataTable",
+            "snippet": "DataTable",
             "size": 772
         }, {
-            "name": "DataUtil",
+            "snippet": "DataUtil",
             "size": 3322
         }]
     }, {
-        "name": "display",
+        "snippet": "display",
         "children": [{
-            "name": "DirtySprite",
+            "snippet": "DirtySprite",
             "size": 8833
         }, {
-            "name": "LineSprite",
+            "snippet": "LineSprite",
             "size": 1732
         }, {
-            "name": "RectSprite",
+            "snippet": "RectSprite",
             "size": 3623
         }, {
-            "name": "TextSprite",
+            "snippet": "TextSprite",
             "size": 10066
         }]
     }, {
-        "name": "flex",
+        "snippet": "flex",
         "children": [{
-            "name": "FlareVis",
+            "snippet": "FlareVis",
             "size": 4116
         }]
     }, {
-        "name": "physics",
+        "snippet": "physics",
         "children": [{
-            "name": "DragForce",
+            "snippet": "DragForce",
             "size": 1082
         }, {
-            "name": "GravityForce",
+            "snippet": "GravityForce",
             "size": 1336
         }, {
-            "name": "IForce",
+            "snippet": "IForce",
             "size": 319
         }, {
-            "name": "NBodyForce",
+            "snippet": "NBodyForce",
             "size": 10498
         }, {
-            "name": "Particle",
+            "snippet": "Particle",
             "size": 2822
         }, {
-            "name": "Simulation",
+            "snippet": "Simulation",
             "size": 9983
         }, {
-            "name": "Spring",
+            "snippet": "Spring",
             "size": 2213
         }, {
-            "name": "SpringForce",
+            "snippet": "SpringForce",
             "size": 1681
         }]
     }, {
-        "name": "query",
+        "snippet": "query",
         "children": [{
-            "name": "AggregateExpression",
+            "snippet": "AggregateExpression",
             "size": 1616
         }, {
-            "name": "And",
+            "snippet": "And",
             "size": 1027
         }, {
-            "name": "Arithmetic",
+            "snippet": "Arithmetic",
             "size": 3891
         }, {
-            "name": "Average",
+            "snippet": "Average",
             "size": 891
         }, {
-            "name": "BinaryExpression",
+            "snippet": "BinaryExpression",
             "size": 2893
         }, {
-            "name": "Comparison",
+            "snippet": "Comparison",
             "size": 5103
         }, {
-            "name": "CompositeExpression",
+            "snippet": "CompositeExpression",
             "size": 3677
         }, {
-            "name": "Count",
+            "snippet": "Count",
             "size": 781
         }, {
-            "name": "DateUtil",
+            "snippet": "DateUtil",
             "size": 4141
         }, {
-            "name": "Distinct",
+            "snippet": "Distinct",
             "size": 933
         }, {
-            "name": "Expression",
+            "snippet": "Expression",
             "size": 5130
         }, {
-            "name": "ExpressionIterator",
+            "snippet": "ExpressionIterator",
             "size": 3617
         }, {
-            "name": "Fn",
+            "snippet": "Fn",
             "size": 3240
         }, {
-            "name": "If",
+            "snippet": "If",
             "size": 2732
         }, {
-            "name": "IsA",
+            "snippet": "IsA",
             "size": 2039
         }, {
-            "name": "Literal",
+            "snippet": "Literal",
             "size": 1214
         }, {
-            "name": "Match",
+            "snippet": "Match",
             "size": 3748
         }, {
-            "name": "Maximum",
+            "snippet": "Maximum",
             "size": 843
         }, {
-            "name": "methods",
+            "snippet": "methods",
             "children": [{
-                "name": "add",
+                "snippet": "add",
                 "size": 593
             }, {
-                "name": "and",
+                "snippet": "and",
                 "size": 330
             }, {
-                "name": "average",
+                "snippet": "average",
                 "size": 287
             }, {
-                "name": "count",
+                "snippet": "count",
                 "size": 277
             }, {
-                "name": "distinct",
+                "snippet": "distinct",
                 "size": 292
             }, {
-                "name": "div",
+                "snippet": "div",
                 "size": 595
             }, {
-                "name": "eq",
+                "snippet": "eq",
                 "size": 594
             }, {
-                "name": "fn",
+                "snippet": "fn",
                 "size": 460
             }, {
-                "name": "gt",
+                "snippet": "gt",
                 "size": 603
             }, {
-                "name": "gte",
+                "snippet": "gte",
                 "size": 625
             }, {
-                "name": "iff",
+                "snippet": "iff",
                 "size": 748
             }, {
-                "name": "isa",
+                "snippet": "isa",
                 "size": 461
             }, {
-                "name": "lt",
+                "snippet": "lt",
                 "size": 597
             }, {
-                "name": "lte",
+                "snippet": "lte",
                 "size": 619
             }, {
-                "name": "max",
+                "snippet": "max",
                 "size": 283
             }, {
-                "name": "min",
+                "snippet": "min",
                 "size": 283
             }, {
-                "name": "mod",
+                "snippet": "mod",
                 "size": 591
             }, {
-                "name": "mul",
+                "snippet": "mul",
                 "size": 603
             }, {
-                "name": "neq",
+                "snippet": "neq",
                 "size": 599
             }, {
-                "name": "not",
+                "snippet": "not",
                 "size": 386
             }, {
-                "name": "or",
+                "snippet": "or",
                 "size": 323
             }, {
-                "name": "orderby",
+                "snippet": "orderby",
                 "size": 307
             }, {
-                "name": "range",
+                "snippet": "range",
                 "size": 772
             }, {
-                "name": "select",
+                "snippet": "select",
                 "size": 296
             }, {
-                "name": "stddev",
+                "snippet": "stddev",
                 "size": 363
             }, {
-                "name": "sub",
+                "snippet": "sub",
                 "size": 600
             }, {
-                "name": "sum",
+                "snippet": "sum",
                 "size": 280
             }, {
-                "name": "update",
+                "snippet": "update",
                 "size": 307
             }, {
-                "name": "variance",
+                "snippet": "variance",
                 "size": 335
             }, {
-                "name": "where",
+                "snippet": "where",
                 "size": 299
             }, {
-                "name": "xor",
+                "snippet": "xor",
                 "size": 354
             }, {
-                "name": "_",
+                "snippet": "_",
                 "size": 264
             }]
         }, {
-            "name": "Minimum",
+            "snippet": "Minimum",
             "size": 843
         }, {
-            "name": "Not",
+            "snippet": "Not",
             "size": 1554
         }, {
-            "name": "Or",
+            "snippet": "Or",
             "size": 970
         }, {
-            "name": "Query",
+            "snippet": "Query",
             "size": 13896
         }, {
-            "name": "Range",
+            "snippet": "Range",
             "size": 1594
         }, {
-            "name": "StringUtil",
+            "snippet": "StringUtil",
             "size": 4130
         }, {
-            "name": "Sum",
+            "snippet": "Sum",
             "size": 791
         }, {
-            "name": "Variable",
+            "snippet": "Variable",
             "size": 1124
         }, {
-            "name": "Variance",
+            "snippet": "Variance",
             "size": 1876
         }, {
-            "name": "Xor",
+            "snippet": "Xor",
             "size": 1101
         }]
     }, {
-        "name": "scale",
+        "snippet": "scale",
         "children": [{
-            "name": "IScaleMap",
+            "snippet": "IScaleMap",
             "size": 2105
         }, {
-            "name": "LinearScale",
+            "snippet": "LinearScale",
             "size": 1316
         }, {
-            "name": "LogScale",
+            "snippet": "LogScale",
             "size": 3151
         }, {
-            "name": "OrdinalScale",
+            "snippet": "OrdinalScale",
             "size": 3770
         }, {
-            "name": "QuantileScale",
+            "snippet": "QuantileScale",
             "size": 2435
         }, {
-            "name": "QuantitativeScale",
+            "snippet": "QuantitativeScale",
             "size": 4839
         }, {
-            "name": "RootScale",
+            "snippet": "RootScale",
             "size": 1756
         }, {
-            "name": "Scale",
+            "snippet": "Scale",
             "size": 4268
         }, {
-            "name": "ScaleType",
+            "snippet": "ScaleType",
             "size": 1821
         }, {
-            "name": "TimeScale",
+            "snippet": "TimeScale",
             "size": 5833
         }]
     }, {
-        "name": "util",
+        "snippet": "util",
         "children": [{
-            "name": "Arrays",
+            "snippet": "Arrays",
             "size": 8258
         }, {
-            "name": "Colors",
+            "snippet": "Colors",
             "size": 10001
         }, {
-            "name": "Dates",
+            "snippet": "Dates",
             "size": 8217
         }, {
-            "name": "Displays",
+            "snippet": "Displays",
             "size": 12555
         }, {
-            "name": "Filter",
+            "snippet": "Filter",
             "size": 2324
         }, {
-            "name": "Geometry",
+            "snippet": "Geometry",
             "size": 10993
         }, {
-            "name": "heap",
+            "snippet": "heap",
             "children": [{
-                "name": "FibonacciHeap",
+                "snippet": "FibonacciHeap",
                 "size": 9354
             }, {
-                "name": "HeapNode",
+                "snippet": "HeapNode",
                 "size": 1233
             }]
         }, {
-            "name": "IEvaluable",
+            "snippet": "IEvaluable",
             "size": 335
         }, {
-            "name": "IPredicate",
+            "snippet": "IPredicate",
             "size": 383
         }, {
-            "name": "IValueProxy",
+            "snippet": "IValueProxy",
             "size": 874
         }, {
-            "name": "math",
+            "snippet": "math",
             "children": [{
-                "name": "DenseMatrix",
+                "snippet": "DenseMatrix",
                 "size": 3165
             }, {
-                "name": "IMatrix",
+                "snippet": "IMatrix",
                 "size": 2815
             }, {
-                "name": "SparseMatrix",
+                "snippet": "SparseMatrix",
                 "size": 3366
             }]
         }, {
-            "name": "Maths",
+            "snippet": "Maths",
             "size": 17705
         }, {
-            "name": "Orientation",
+            "snippet": "Orientation",
             "size": 1486
         }, {
-            "name": "palette",
+            "snippet": "palette",
             "children": [{
-                "name": "ColorPalette",
+                "snippet": "ColorPalette",
                 "size": 6367
             }, {
-                "name": "Palette",
+                "snippet": "Palette",
                 "size": 1229
             }, {
-                "name": "ShapePalette",
+                "snippet": "ShapePalette",
                 "size": 2059
             }, {
-                "name": "SizePalette",
+                "snippet": "SizePalette",
                 "size": 2291
             }]
         }, {
-            "name": "Property",
+            "snippet": "Property",
             "size": 5559
         }, {
-            "name": "Shapes",
+            "snippet": "Shapes",
             "size": 19118
         }, {
-            "name": "Sort",
+            "snippet": "Sort",
             "size": 6887
         }, {
-            "name": "Stats",
+            "snippet": "Stats",
             "size": 6557
         }, {
-            "name": "Strings",
+            "snippet": "Strings",
             "size": 22026
         }]
     }, {
-        "name": "vis",
+        "snippet": "vis",
         "children": [{
-            "name": "axis",
+            "snippet": "axis",
             "children": [{
-                "name": "Axes",
+                "snippet": "Axes",
                 "size": 1302
             }, {
-                "name": "Axis",
+                "snippet": "Axis",
                 "size": 24593
             }, {
-                "name": "AxisGridLine",
+                "snippet": "AxisGridLine",
                 "size": 652
             }, {
-                "name": "AxisLabel",
+                "snippet": "AxisLabel",
                 "size": 636
             }, {
-                "name": "CartesianAxes",
+                "snippet": "CartesianAxes",
                 "size": 6703
             }]
         }, {
-            "name": "controls",
+            "snippet": "controls",
             "children": [{
-                "name": "AnchorControl",
+                "snippet": "AnchorControl",
                 "size": 2138
             }, {
-                "name": "ClickControl",
+                "snippet": "ClickControl",
                 "size": 3824
             }, {
-                "name": "Control",
+                "snippet": "Control",
                 "size": 1353
             }, {
-                "name": "ControlList",
+                "snippet": "ControlList",
                 "size": 4665
             }, {
-                "name": "DragControl",
+                "snippet": "DragControl",
                 "size": 2649
             }, {
-                "name": "ExpandControl",
+                "snippet": "ExpandControl",
                 "size": 2832
             }, {
-                "name": "HoverControl",
+                "snippet": "HoverControl",
                 "size": 4896
             }, {
-                "name": "IControl",
+                "snippet": "IControl",
                 "size": 763
             }, {
-                "name": "PanZoomControl",
+                "snippet": "PanZoomControl",
                 "size": 5222
             }, {
-                "name": "SelectionControl",
+                "snippet": "SelectionControl",
                 "size": 7862
             }, {
-                "name": "TooltipControl",
+                "snippet": "TooltipControl",
                 "size": 8435
             }]
         }, {
-            "name": "data",
+            "snippet": "data",
             "children": [{
-                "name": "Data",
+                "snippet": "Data",
                 "size": 20544
             }, {
-                "name": "DataList",
+                "snippet": "DataList",
                 "size": 19788
             }, {
-                "name": "DataSprite",
+                "snippet": "DataSprite",
                 "size": 10349
             }, {
-                "name": "EdgeSprite",
+                "snippet": "EdgeSprite",
                 "size": 3301
             }, {
-                "name": "NodeSprite",
+                "snippet": "NodeSprite",
                 "size": 19382
             }, {
-                "name": "render",
+                "snippet": "render",
                 "children": [{
-                    "name": "ArrowType",
+                    "snippet": "ArrowType",
                     "size": 698
                 }, {
-                    "name": "EdgeRenderer",
+                    "snippet": "EdgeRenderer",
                     "size": 5569
                 }, {
-                    "name": "IRenderer",
+                    "snippet": "IRenderer",
                     "size": 353
                 }, {
-                    "name": "ShapeRenderer",
+                    "snippet": "ShapeRenderer",
                     "size": 2247
                 }]
             }, {
-                "name": "ScaleBinding",
+                "snippet": "ScaleBinding",
                 "size": 11275
             }, {
-                "name": "Tree",
+                "snippet": "Tree",
                 "size": 7147
             }, {
-                "name": "TreeBuilder",
+                "snippet": "TreeBuilder",
                 "size": 9930
             }]
         }, {
-            "name": "events",
+            "snippet": "events",
             "children": [{
-                "name": "DataEvent",
+                "snippet": "DataEvent",
                 "size": 2313
             }, {
-                "name": "SelectionEvent",
+                "snippet": "SelectionEvent",
                 "size": 1880
             }, {
-                "name": "TooltipEvent",
+                "snippet": "TooltipEvent",
                 "size": 1701
             }, {
-                "name": "VisualizationEvent",
+                "snippet": "VisualizationEvent",
                 "size": 1117
             }]
         }, {
-            "name": "legend",
+            "snippet": "legend",
             "children": [{
-                "name": "Legend",
+                "snippet": "Legend",
                 "size": 20859
             }, {
-                "name": "LegendItem",
+                "snippet": "LegendItem",
                 "size": 4614
             }, {
-                "name": "LegendRange",
+                "snippet": "LegendRange",
                 "size": 10530
             }]
         }, {
-            "name": "operator",
+            "snippet": "operator",
             "children": [{
-                "name": "distortion",
+                "snippet": "distortion",
                 "children": [{
-                    "name": "BifocalDistortion",
+                    "snippet": "BifocalDistortion",
                     "size": 4461
                 }, {
-                    "name": "Distortion",
+                    "snippet": "Distortion",
                     "size": 6314
                 }, {
-                    "name": "FisheyeDistortion",
+                    "snippet": "FisheyeDistortion",
                     "size": 3444
                 }]
             }, {
-                "name": "encoder",
+                "snippet": "encoder",
                 "children": [{
-                    "name": "ColorEncoder",
+                    "snippet": "ColorEncoder",
                     "size": 3179
                 }, {
-                    "name": "Encoder",
+                    "snippet": "Encoder",
                     "size": 4060
                 }, {
-                    "name": "PropertyEncoder",
+                    "snippet": "PropertyEncoder",
                     "size": 4138
                 }, {
-                    "name": "ShapeEncoder",
+                    "snippet": "ShapeEncoder",
                     "size": 1690
                 }, {
-                    "name": "SizeEncoder",
+                    "snippet": "SizeEncoder",
                     "size": 1830
                 }]
             }, {
-                "name": "filter",
+                "snippet": "filter",
                 "children": [{
-                    "name": "FisheyeTreeFilter",
+                    "snippet": "FisheyeTreeFilter",
                     "size": 5219
                 }, {
-                    "name": "GraphDistanceFilter",
+                    "snippet": "GraphDistanceFilter",
                     "size": 3165
                 }, {
-                    "name": "VisibilityFilter",
+                    "snippet": "VisibilityFilter",
                     "size": 3509
                 }]
             }, {
-                "name": "IOperator",
+                "snippet": "IOperator",
                 "size": 1286
             }, {
-                "name": "label",
+                "snippet": "label",
                 "children": [{
-                    "name": "Labeler",
+                    "snippet": "Labeler",
                     "size": 9956
                 }, {
-                    "name": "RadialLabeler",
+                    "snippet": "RadialLabeler",
                     "size": 3899
                 }, {
-                    "name": "StackedAreaLabeler",
+                    "snippet": "StackedAreaLabeler",
                     "size": 3202
                 }]
             }, {
-                "name": "layout",
+                "snippet": "layout",
                 "children": [{
-                    "name": "AxisLayout",
+                    "snippet": "AxisLayout",
                     "size": 6725
                 }, {
-                    "name": "BundledEdgeRouter",
+                    "snippet": "BundledEdgeRouter",
                     "size": 3727
                 }, {
-                    "name": "CircleLayout",
+                    "snippet": "CircleLayout",
                     "size": 9317
                 }, {
-                    "name": "CirclePackingLayout",
+                    "snippet": "CirclePackingLayout",
                     "size": 12003
                 }, {
-                    "name": "DendrogramLayout",
+                    "snippet": "DendrogramLayout",
                     "size": 4853
                 }, {
-                    "name": "ForceDirectedLayout",
+                    "snippet": "ForceDirectedLayout",
                     "size": 8411
                 }, {
-                    "name": "IcicleTreeLayout",
+                    "snippet": "IcicleTreeLayout",
                     "size": 4864
                 }, {
-                    "name": "IndentedTreeLayout",
+                    "snippet": "IndentedTreeLayout",
                     "size": 3174
                 }, {
-                    "name": "Layout",
+                    "snippet": "Layout",
                     "size": 7881
                 }, {
-                    "name": "NodeLinkTreeLayout",
+                    "snippet": "NodeLinkTreeLayout",
                     "size": 12870
                 }, {
-                    "name": "PieLayout",
+                    "snippet": "PieLayout",
                     "size": 2728
                 }, {
-                    "name": "RadialTreeLayout",
+                    "snippet": "RadialTreeLayout",
                     "size": 12348
                 }, {
-                    "name": "RandomLayout",
+                    "snippet": "RandomLayout",
                     "size": 870
                 }, {
-                    "name": "StackedAreaLayout",
+                    "snippet": "StackedAreaLayout",
                     "size": 9121
                 }, {
-                    "name": "TreeMapLayout",
+                    "snippet": "TreeMapLayout",
                     "size": 9191
                 }]
             }, {
-                "name": "Operator",
+                "snippet": "Operator",
                 "size": 2490
             }, {
-                "name": "OperatorList",
+                "snippet": "OperatorList",
                 "size": 5248
             }, {
-                "name": "OperatorSequence",
+                "snippet": "OperatorSequence",
                 "size": 4190
             }, {
-                "name": "OperatorSwitch",
+                "snippet": "OperatorSwitch",
                 "size": 2581
             }, {
-                "name": "SortOperator",
+                "snippet": "SortOperator",
                 "size": 2023
             }]
         }, {
-            "name": "Visualization",
+            "snippet": "Visualization",
             "size": 16540
         }]
     }]

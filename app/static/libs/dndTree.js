@@ -15,6 +15,7 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
     var duration = 750;
     var root;
     var nodeText = null;
+    var nodeTitle=null;
     
     // size of the diagram
     var viewerWidth = $(document).width();
@@ -160,6 +161,10 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
 	.style("width", "100%")
         .style("position","relative");
 
+    var titleArea = d3.select("#title-container")
+	.append("input")
+	.attr("type","text")
+        .attr("id","title");
     
     function textUpdate(d){
 	if (nodeText != null){
@@ -167,6 +172,14 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
 	}
 	nodeText = d.snippet;
 	document.getElementById("story").value = d.snippet;
+    }
+
+    function titleUpdate(d){
+	if (nodeTitle != null){
+	    nodeTitle.title = document.getElementById("title").value;
+	}
+	nodeTitle=d.title;
+	document.getElementById("title").value = d.title;
     }
     
     //document.getElementById("story").style.height="250px";
@@ -353,9 +366,11 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
         if (d3.event.defaultPrevented) return; // click suppressed
         //d = toggleChildren(d);
 	nodeText = d;
+	nodeTitle=d;
         update(d);
         centerNode(d);
 	document.getElementById("story").value = d.snippet;
+	document.getElementById("title").value = d.title;
     }
 
     function test(d){
@@ -421,6 +436,7 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
 		//console.log(d);
 		//return test(d);
 		textUpdate(d);
+		titleUpdate(d);
 	    });
 
         nodeEnter.append("text")
@@ -433,6 +449,8 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
                 return d.children || d._children ? "end" : "start";
             })
             .text(function(d) {
+		//for when we put titles in
+		//return d.title;
                 return d.snippet;
             })
             .style("fill-opacity", 0);
@@ -454,7 +472,8 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
         // Update the text to reflect whether node has children or not.
         node.select('text')
             .text(function(d) {
-                return d.snippet;
+		return d.title;
+		//return d.snippet;
             });
 
         // Change the circle fill depending on whether it has children and is collapsed
