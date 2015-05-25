@@ -62,6 +62,13 @@ App.Views.StoryNode = Marionette.CompositeView.extend({
 		// Remove el from this.region.
 	},
 
+	// events
+	events : {
+		"click" : function() {
+			console.log("CLICK")
+			App.viewStoryView.changeCurrentNode(this.el.id);
+		}
+	},
 	modelEvents : {
 		"change" : "renderNode"
 	},
@@ -96,6 +103,8 @@ App.Views.ViewStory = Marionette.LayoutView.extend({
 		this.instantiateChildren();
 	},
 	updateChildren : function() {
+		console.log("Updating children")
+
 		// Recursive function to identify the regions where
 		// each of the nodes will be rendered.
 		console.log("RESTORING DEFAULTS")
@@ -136,7 +145,13 @@ App.Views.ViewStory = Marionette.LayoutView.extend({
 		*/
 	},
 	instantiateChildren : function() {
+		console.log("Instantiating children.")
 		this.updateChildren();
+	},
+	changeCurrentNode : function(node_id) {
+		// Changes the "currentNode" of the model.
+		// Should fire off an event to rerender.
+		this.model.currentNode = App.DataManip.findNode(this.model.story, node_id);
 	}
 })
 

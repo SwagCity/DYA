@@ -34,22 +34,14 @@ App.DataManip = function() {
 	}
 
 	var findNode = function(node, query) {
-		// Search for node by _id.
-		if (node._id === query) {
-			return node;
-		}
-
-		var tmp;
-		if (node.children != undefined) {
-			for (c in node.children) {
-				tmp = findNode(node.children[c]);
-				if (tmp) {
-					return tmp;
-				}
+		var found;
+		execAll(function(n) {
+			if (n.get("_id") == query) {
+				found = n;
+				return n;
 			}
-		}
-
-		return undefined;
+		})(node);
+		return found;
 	}
 
 	return {
