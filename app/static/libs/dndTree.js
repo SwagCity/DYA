@@ -47,7 +47,7 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
     // Call visit function to establish maxLabelLength
     visit(treeData, function(d) {
         totalNodes++;
-        maxLabelLength = Math.max(d.name.length, maxLabelLength);
+        maxLabelLength = Math.max(d.snippet.length, maxLabelLength);
 
     }, function(d) {
         return d.children && d.children.length > 0 ? d.children : null;
@@ -58,7 +58,7 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
 
     function sortTree() {
         tree.sort(function(a, b) {
-            return b.name.toLowerCase() < a.name.toLowerCase() ? 1 : -1;
+            return b.snippet.toLowerCase() < a.snippet.toLowerCase() ? 1 : -1;
         });
     }
     // Sort the tree initially incase the JSON isn't in a sorted order.
@@ -420,7 +420,7 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
                 return d.children || d._children ? "end" : "start";
             })
             .text(function(d) {
-                return d.name;
+                return d.snippet;
             })
             .style("fill-opacity", 0);
 
@@ -441,7 +441,7 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
         // Update the text to reflect whether node has children or not.
         node.select('text')
             .text(function(d) {
-                return d.name;
+                return d.snippet;
             });
 
         // Change the circle fill depending on whether it has children and is collapsed
