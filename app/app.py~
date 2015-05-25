@@ -14,7 +14,6 @@ def login_required(f):
         return f(*args, **kwargs)
     return inner
 
-
 def authenticate(f):
     @wraps(f)
     def inner(*args, **kwargs):
@@ -44,10 +43,6 @@ def index():
         session["name"] = None
     print session["name"]
     return render_template("index.html")
-
-@app.route('/edit')
-def edit():
-    return render_template("edit.html")
 
 @app.route("/login", methods=["POST","GET"])
 @authenticate
