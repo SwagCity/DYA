@@ -87,6 +87,9 @@ def registering():
         if pw != pw2:
             flash("The passwords you submitted don't match, please try again.")
             return redirect(url_for('register'))
+        if user == "" or em == "" or pw == "":
+            flash("Please fill out all required fields!")
+            return redirect(url_for('register'))
         if disp == "":
             disp = user
         if db.userexists(user):
