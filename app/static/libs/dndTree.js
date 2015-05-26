@@ -157,14 +157,17 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
     var textArea = d3.select("#text-container")
         .append("textarea")
         .attr("id","story")
-	.style("height", "100%")
-	.style("width", "100%")
+        .attr("placeholder","Story text")
+	.style("height", "95%")
+	.style("width", "90%")
         .style("position","relative");
 
     var titleArea = d3.select("#title-container")
 	.append("input")
 	.attr("type","text")
-        .attr("id","title");
+        .attr("id","title")
+        .attr("placeholder","Story title")
+        .attr("class","inp");
     
     function textUpdate(d){
 	if (nodeText != null){
@@ -184,6 +187,8 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
     
     //document.getElementById("story").style.height="250px";
     //document.getElementById("story").style.width="250px";
+    
+    document.getElementById("save").onclick=function(){console.log(nodeText)};
     
     // Define the drag listeners for drag/drop behaviour of nodes.
     dragListener = d3.behavior.drag()

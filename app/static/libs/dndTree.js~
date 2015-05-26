@@ -14,6 +14,8 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
     var i = 0;
     var duration = 750;
     var root;
+    var nodeText = null;
+    var nodeTitle=null;
     
     // size of the diagram
     var viewerWidth = $(document).width();
@@ -155,9 +157,30 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
     var textArea = d3.select("#text-container")
         .append("textarea")
         .attr("id","story")
-		.style("height", "100%")
-		.style("width", "100%")
+	.style("height", "100%")
+	.style("width", "100%")
         .style("position","relative");
+
+    var titleArea = d3.select("#title-container")
+	.append("input")
+	.attr("type","text")
+        .attr("id","title");
+    
+    function textUpdate(d){
+	if (nodeText != null){
+	    nodeText.snippet = document.getElementById("story").value;
+	}
+	nodeText = d.snippet;
+	document.getElementById("story").value = d.snippet;
+    }
+
+    function titleUpdate(d){
+	if (nodeTitle != null){
+	    nodeTitle.title = document.getElementById("title").value;
+	}
+	nodeTitle=d.title;
+	document.getElementById("title").value = d.title;
+    }
     
     //document.getElementById("story").style.height="250px";
     //document.getElementById("story").style.width="250px";
@@ -312,6 +335,7 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
     // Function to center node when clicked/dropped so node doesn't get lost when collapsing/moving with large amount of children.
 
     function centerNode(source) {
+	
         scale = zoomListener.scale();
         x = -source.y0;
         y = -source.x0;
@@ -342,8 +366,12 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
     function click(d) {
         if (d3.event.defaultPrevented) return; // click suppressed
         //d = toggleChildren(d);
+	nodeText = d;
+	nodeTitle=d;
         update(d);
         centerNode(d);
+	document.getElementById("story").value = d.snippet;
+	document.getElementById("title").value = d.title;
     }
 
     function test(d){
@@ -406,8 +434,10 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
                 return d._children ? "lightsteelblue" : "#fff";
             })
 	    .on('click', function(d){
-		console.log(d);
+		//console.log(d);
 		//return test(d);
+		textUpdate(d);
+		titleUpdate(d);
 	    });
 
         nodeEnter.append("text")
@@ -420,6 +450,8 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
                 return d.children || d._children ? "end" : "start";
             })
             .text(function(d) {
+		//for when we put titles in
+		//return d.title;
                 return d.snippet;
             })
             .style("fill-opacity", 0);
@@ -441,7 +473,8 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
         // Update the text to reflect whether node has children or not.
         node.select('text')
             .text(function(d) {
-                return d.snippet;
+		return d.title;
+		//return d.snippet;
             });
 
         // Change the circle fill depending on whether it has children and is collapsed
@@ -512,6 +545,8 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
             d.x0 = d.x;
             d.y0 = d.y;
         });
+	
+	
     }
 
     // Append a group which holds all nodes and which the zoom Listener can act upon.
