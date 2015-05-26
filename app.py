@@ -9,7 +9,7 @@ def login_required(f):
     def inner(*args, **kwargs):
         if session["name"]==None:
             flash("You must login to access this protected page!")
-            session['nextpage'] = request.url
+            #session['nextpage'] = request.url
             return redirect(url_for('login'))
         return f(*args, **kwargs)
     return inner
@@ -41,9 +41,10 @@ def index():
         session["name"] = None
         return render_template("index.html")
     else:
+        print session["name"]
         return redirect(url_for('home'))
 
-@app.route('/home', methods=["POST","GET"])
+@app.route('/home')
 @login_required
 def home():
     if "name" not in session:
@@ -65,13 +66,11 @@ def edit():
 def login():
     if "name" not in session:
         session["name"] = None
-        if request.method == "POST":
-            return redirect(url_for('user'))
-        else:
-            return render_template("login.html")
+    if request.method == "POST":
+        return redirect(url_for('user'))
     else:
-        return redirect(url_for('home'))
-   
+        return render_template("login.html")
+
 @app.route('/logout')
 def logout():
     # remove the username from the session if it's there
@@ -103,7 +102,7 @@ def register():
         else:
             db.adduser(disp, user,em,pw)
             print "registered as display " + disp + " and user " + user
-            flash("You've sucessfully registered, now login!")
+            flash("You've sucessfully registered! Please login below.")
             return redirect(url_for('login'))
     else:
         if session['name']!=None:
