@@ -185,7 +185,7 @@ treeJSON = d3.json("../static/flare.json", function(error, treeData) {
     function addNode(){
 	var newTitle = document.getElementById("title").value;
 	var newText = document.getElementById("story").value;
-	app.DataManip.Ajax.addStory({
+	App.DataManip.Ajax.addStory({
 	    "author" : "edisonshi",
 	    "snippet" : newText,
 	    "title" : newTitle,
@@ -396,7 +396,7 @@ treeJSON = d3.json("../static/flare.json", function(error, treeData) {
     }
 
     function update(source) {
-	app.DataManip.Ajax.getStory({
+	App.DataManip.Ajax.getStory({
 	    "snippet" : newText,
 	    "title" : newTitle,
 	    }, source._id, root._id);
