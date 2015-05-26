@@ -48,9 +48,10 @@ def index():
 @app.route('/edit')
 def edit():
     if request.method == "POST":
-        id = request.form(id)
-        text = request.form(text)
-        db.s_edit(id, text)
+        id = request.form["_id"]
+        title = request.form["title"]
+        text = request.form["snippet"]
+        db.s_edit(id, title, text)
     return render_template("edit.html")
 
 @app.route("/login", methods=["POST","GET"])

@@ -56,8 +56,8 @@ def adduser(display, username,email,password):
 def s_add(title, author, text, tags): #adding initial story (FIRST NODE)
 	stories.insert([{'title':title,'author':author,'text':text,'tags':tags,'children':[]}])
 
-def s_edit(id, text): #editing node text
-	stories.update({"_id":ObjectId(i)}, {'text':text})
+def s_edit(id, title, text): #editing node text
+	stories.update({"_id":ObjectId(i)}, {'title':title, 'text':text})
 
 def s_delete(id):	#delete initial story (FIRST NODE)
 	pass
