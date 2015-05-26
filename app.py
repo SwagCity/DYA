@@ -44,6 +44,12 @@ def index():
     #print session["name"]
     return render_template("index.html")
 
+@app.route('/home', methods=["POST","GET"])
+def home():
+    if "name" not in session:
+        session["name"] = None
+    return render_template("home.html")
+
 @app.route('/edit')
 def edit():
     if request.method == "POST":
