@@ -1,182 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
+{% block navbar %} 
+{% endblock navbar %} 
+{% block headercontent %}
 
-  <head>
+<div class="header-content">
+  <div class="col-xs-0 col-sm-2"></div>
+  <div class="header-content-inner col-sm-8">
+    <div class="rectangle rounded">
+      <h3 class="black-text">Register</h3>
+      <br>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+      <form class="form-horizontal" method="post" action="{{url_for('registering')}}">
 
-    <title>DYA: Design Your Adventure!</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="../static/libs/bootstrap/css/bootstrap.min.css" type="text/css">
-
-    <!-- Custom Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="../static/libs/bootstrap/font-awesome/css/font-awesome.min.css" type="text/css">
-
-    <!-- Plugin CSS -->
-    <link rel="stylesheet" href="../static/libs/bootstrap/css/animate.min.css" type="text/css">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="../static/libs/bootstrap/css/creative.css" type="text/css">
-
-  </head>
-
-  <!-- may put in own file if it gets too clunky -->
-  <style>
-
-    .rounded {
-    -moz-border-radius: 15px;
-    -webkit-border-radius: 15px;
-    border-radius: 15px;
-    }
-
-    .rectangle{
-    padding-top: 2%;
-    padding-bottom: 2%;
-    padding-left: 2%;
-    padding-right: 2%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-    width: 55%;
-    overflow: hidden;
-    background: white;
-    opacity: 0.8;
-    filter: alpha(opacity=80);
-    -moz-opacity:0.8;
-    }
-
-    .center {
-    margin-left: auto;
-    margin-right: auto;
-    }
-
-    .reduce {
-    width: 50%;
-    }
-
-    .black-text {
-    color: #000;
-    }
-
-    label {
-    color: #000;
-    }
-
-  </style>
-  <body id="page-top">
-
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand page-scroll" href="{{ url_for('index') }}">Home</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-          <ul class="nav navbar-nav navbar-right">
-          </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-      </div>
-      <!-- /.container-fluid -->
-    </nav>
-
-    <header>
-      <div class="header-content">
-	<div class="col-xs-0 col-sm-2"></div>
-        <div class="header-content-inner col-sm-8">
-	  <div class="rectangle rounded">
-	    <h3 class="black-text">Register</h3>
-	    <br>
-
-	    <form class="form-horizontal" method="post" action="{{url_for('registering')}}">
-
-	      <!-- Username -->
-	      <div class="form-group">
-		<label class="col-sm-4 control-label">Username</label>
-		<div class="col-sm-8">
-		  <input type="text" class="form-control" name="username" placeholder="Username">
-		</div>
-	      </div>
-
-              <!-- Display Name -->
-              <div class="form-group">
-		<label class="col-sm-4 control-label">Display Name</label>
-		<div class="col-sm-8">
-		  <input type="text" class="form-control" name="display" placeholder="(optional)">
-		</div>
-              </div>
-
-	      <!-- Password -->
-	      <div class="form-group">
-		<label class="col-sm-4 control-label">Password</label>
-		<div class="col-sm-8">
-		  <input type="password" class="form-control" name="password" placeholder="Password">
-		</div>
-	      </div>
-
-	      <!-- Retype Password -->
-	      <div class="form-group">
-		<label class="col-sm-4 control-label"> Retype Password</label>
-		<div class="col-sm-8">
-		  <input type="password" class="form-control" name="password2" placeholder="Password">
-		</div>
-	      </div>
-
-	      <!-- Email Address -->
-	      <div class="form-group">
-		<label class="col-sm-4 control-label">Email Address</label>
-		<div class="col-sm-8">
-		  <input type="text" class="form-control" name="email" placeholder="Email Address">
-		</div>
-	      </div>
-
-	      <div class="col-sm-offset-2 col-sm-10">
-		<button type="submit" class="btn btn-primary btn-xl center">Sign Up</button>
-	      </div>
-	      <br><br><br>
-	      <div class="black-text">
-		Already have an account? Sign in <a href="/login">here</a>.
-	      </div>
+	<!-- Username -->
+	<div class="form-group">
+	  <label class="col-sm-4 control-label">Username</label>
+	  <div class="col-sm-8">
+	    <input type="text" class="form-control" name="username" placeholder="Username">
 	  </div>
-	  </form>
 	</div>
-	<div class="col-xs-0 col-sm-2"></div>
-      </div>
 
-    </header>
+        <!-- Display Name -->
+        <div class="form-group">
+	  <label class="col-sm-4 control-label">Display Name</label>
+	  <div class="col-sm-8">
+	    <input type="text" class="form-control" name="display" placeholder="(optional)">
+	  </div>
+        </div>
 
+	<!-- Password -->
+	<div class="form-group">
+	  <label class="col-sm-4 control-label">Password</label>
+	  <div class="col-sm-8">
+	    <input type="password" class="form-control" name="password" placeholder="Password">
+	  </div>
+	</div>
 
-    <!-- jQuery -->
-    <script src="/static/libs/bootstrap/js/jquery.js"></script>
+	<!-- Retype Password -->
+	<div class="form-group">
+	  <label class="col-sm-4 control-label"> Retype Password</label>
+	  <div class="col-sm-8">
+	    <input type="password" class="form-control" name="password2" placeholder="Password">
+	  </div>
+	</div>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="/static/libs/bootstrap/js/bootstrap.min.js"></script>
+	<!-- Email Address -->
+	<div class="form-group">
+	  <label class="col-sm-4 control-label">Email Address</label>
+	  <div class="col-sm-8">
+	    <input type="text" class="form-control" name="email" placeholder="Email Address">
+	  </div>
+	</div>
 
-    <!-- Plugin JavaScript -->
-    <script src="/static/libs/bootstrap/js/jquery.easing.min.js"></script>
-    <script src="/static/libs/bootstrap/js/jquery.fittext.js"></script>
-    <script src="/static/libs/bootstrap/js/wow.min.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="/static/libs/bootstrap/js/creative.js"></script>
-
-  </body>
-
-</html>
+	<div class="col-sm-offset-2 col-sm-10">
+	  <button type="submit" class="btn btn-primary btn-xl center">Sign Up</button>
+	</div>
+	<br><br><br>
+	<div class="black-text">
+	  Already have an account? Sign in <a href="/login">here</a>.
+	</div>
+    </div>
+    </form>
+  </div>
+  <div class="col-xs-0 col-sm-2"></div>
+</div>
+{% endblock headercontent %}
