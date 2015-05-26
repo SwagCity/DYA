@@ -8,98 +8,42 @@ stories = db['stories'] 	#collection called stories
 #db.swag.drop()
 
 def authenticate(username,password):
-	#print [x for x in users.find()]
-	return 1 == (users.find({'name':username,'pw':password})).count()
+        #print [x for x in users.find()]
+        return 1 == (users.find({'name':username,'pw':password})).count()
 
 def userexists(username):
-	return 1 == (users.find({'name':username})).count()
+        return 1 == (users.find({'name':username})).count()
 
 def emailexists(email):
-	return 1 == (users.find({'email':email})).count()
+        return 1 == (users.find({'email':email})).count()
 
 def getcontacts(username):
-	res = users.find({'name':{'$not':re.compile(username)}},{"_id":False})
-	info = [x for x in res]
-	return info
-'''
-def getblog(username):
-	conn = Connection()
-	db = conn['jsdt_blog']
-	res = db.jsdt_blog.find({'name':{'$not':re.compile(username)}},{"_id":False})
-	info = [x for x in res]
-	return reversed(info)
+        res = users.find({'name':{'$not':re.compile(username)}},{"_id":False})
+        info = [x for x in res]
+        return info
 
-def getblogcontent(title):
-	conn = Connection()
-	db = conn['jsdt_blog']
-	res = db.jsdt_blog.find({'title':title},{"_id":False})
-	return res
-'''
 def getprofile(username):
-	res = users.find({'name':username},{"_id":False})
-	info = [x for x in res]
-	return info
-'''
-def getposts(username):
-	conn = Connection()
-	db = conn['jsdt_blog']
-	res = db.jsdt_blog.find({'author':username},{"_id":False})
-	info = [x for x in res]
-	return reversed(info)
-'''
+        res = users.find({'name':username},{"_id":False})
+        info = [x for x in res]
+        return info
+
 def updatepw(username,newpw):
-	users.update({'name':username},{'$set':{'pw':newpw}})
+        users.update({'name':username},{'$set':{'pw':newpwd}}, upsert=False, multi=False)
 
 def adduser(display, username,email,password):
-	users.insert([{'disp':display,'name':username,'email':email,'pw':password}])
+        users.insert([{'disp':display,'name':username,'email':email,'pw':password}])
 
 def s_add(title, author, text, tags): #adding initial story (FIRST NODE)
-	stories.insert([{'title':title,'author':author,'text':text,'tags':tags,'children':[]}])
+        stories.insert([{'title':title,'author':author,'text':text,'tags':tags,'children':[]}])
 
 def s_edit(id, title, text): #editing node text
-	stories.update({"_id":ObjectId(i)}, {'title':title, 'text':text})
+        stories.update({"_id":ObjectId(i)}, {'title':title, 'text':text})
 
 def s_delete(id):	#delete initial story (FIRST NODE)
-	pass
+        pass
 
 def s_getall():	#get story by Object_Id
-    return stories.find()
+        return stories.find()
 
 def s_get(i):	#get story by Object_Id
-    return stories.find({"_id":ObjectId(i)})
-
-'''
-def invalidpost(title, content):
-	conn = Connection()
-	db = conn['jsdt_blog']
-	valid = (0 == (db.jsdt_blog.find({'title':title})).count())
-	valid = valid and len(content) > 0 and len(title)>0
-
-	return not(valid)
-
-def invalidcomment(comment):
-	return len(comment)==0
-
-def addpost(title, username,content):
-	conn = Connection()
-	db = conn['jsdt_blog']
-	now = datetime.datetime.now()
-	db.jsdt_blog.insert([{'title':title,'author':username,'content':content, 'comments':[], 'time':[now.month,now.day,now.year,now.hour,now.minute]}])
-
-def addcomment(title, username,comment):
-	conn = Connection()
-	db = conn['jsdt_blog']
-	now = datetime.datetime.now()
-	newcomment = [comment,username,[now.month,now.day,now.year,now.hour,now.minute]]
-	print newcomment
-	print title
-	db.jsdt_blog.update({'title':title},{'$push':{'comments':newcomment}})
-
-def votepost(title,points):
-	conn = Connection()
-	db = conn['jsdt_blog']
-	db.jsdt_blog.update({'title':title},{'$inc':{'points':points}})
-'''
-
-# if __name__ == '__main__':
-# 	setup()
+        return stories.find({"_id":ObjectId(i)})

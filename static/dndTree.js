@@ -182,6 +182,22 @@ treeJSON = d3.json("../static/flare.json", function(error, treeData) {
 	document.getElementById("title").value = d.title;
     }
 
+    function addNode(){
+	var newTitle = document.getElementById("title").value;
+	var newText = document.getElementById("story").value;
+	app.DataManip.Ajax.addStory({
+	    "author" : "edisonshi",
+	    "snippet" : newText,
+	    "title" : newTitle,
+	    }, nodeText._id);
+	update(nodeText);
+	centerNode(nodeText);
+    }
+
+    function remNode(){
+	
+    }
+
     //document.getElementById("story").style.height="250px";
     //document.getElementById("story").style.width="250px";
 
@@ -380,6 +396,10 @@ treeJSON = d3.json("../static/flare.json", function(error, treeData) {
     }
 
     function update(source) {
+	app.DataManip.Ajax.getStory({
+	    "snippet" : newText,
+	    "title" : newTitle,
+	    }, source._id, root._id);
         // Compute the new height, function counts total children of root node and sets tree height accordingly.
         // This prevents the layout looking squashed when new nodes are made visible or looking sparse when nodes are removed
         // This makes the layout more consistent.
@@ -562,8 +582,9 @@ treeJSON = d3.json("../static/flare.json", function(error, treeData) {
     // Layout the tree initially and center on the root node.
     update(root);
     centerNode(root);
-
-
+    document.getElementById("save").onclick(function(){console.log(nodeText)});
+    document.getElementById("add").onclick(addNode(nodeText));
+    document.getElementById("rem").onclick(remNode(nodeText));
 
 
 });
