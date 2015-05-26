@@ -22,6 +22,8 @@
     <!-- Plugin CSS -->
     <link rel="stylesheet" href="../static/libs/bootstrap/css/animate.min.css" type="text/css">
 
+
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../static/libs/bootstrap/css/creative.css" type="text/css">
 
@@ -34,6 +36,14 @@
 
   </head>
   <style>
+
+    .error {
+    color: red;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "Times New Roman", Times, serif;
+    }
 
     .rounded {
     -moz-border-radius: 15px;
@@ -116,7 +126,6 @@
 
     <header>
 
-
       {% block headercontent %}
       Header content goes herrrrrrrrrreeeeeeeeeeeee.
       {% endblock headercontent %}
@@ -125,7 +134,8 @@
     </header>
 
     {% block bodycontent %}
-    Header content goes herrrrrrrrrreeeeeeeeeeeee.
+
+
     {% endblock bodycontent %}
 
 

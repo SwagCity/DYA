@@ -5,10 +5,22 @@
 
 {% block headercontent %}
 
+
 <div class="header-content">
   <div class="col-xs-0 col-sm-2"></div>
   <div class="header-content-inner col-sm-8">
     <div class="rectangle rounded">
+      <div class="error">
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <div class=flashes>
+	{% for message in messages %}
+	{{ message }}
+	{% endfor %}
+      </div>
+      {% endif %}
+      {% endwith %}
+      </div>
 
       <h3 class="black-text">Login</h3>
       <form class="form-horizontal center" method = "POST">

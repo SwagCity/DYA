@@ -21,7 +21,6 @@ def authenticate(f):
         if request.method == "POST":
             username = request.form["username"]
             password = request.form["pw"]
-            #if authenticate(username,password):
             if db.authenticate(username,password):
                 session['name'] = username
                 page = session.pop('nextpage','/')
@@ -42,7 +41,7 @@ def authenticate(f):
 def index():
     if "name" not in session:
         session["name"] = None
-    print session["name"]
+    #print session["name"]
     return render_template("index.html")
 
 @app.route('/edit')
@@ -153,70 +152,6 @@ def myself():
             db.updatepw(session['name'],newpw)
             flash("Your password has been sucessfully changed. Please re-login.")
             return redirect(url_for('logout'))
-
-@app.route("/user/<username>")
-@login_required
-def user(username):
-    profile=db.getprofile(username)
-    #print profile
-    posts = db.getposts(username)
-    return render_template("profileother.html",profile=profile,posts=posts)
-'''
-@app.route("/blog", methods=["POST","GET"])
-@login_required
-def blog():
-    if request.method == "GET":
-        blog=db.getblog(session['name'])
-        print blog
-        return render_template("blog.html",blog=blog)
-    else:
-        title = request.form["title"]
-        content = request.form["content"]
-        if db.invalidpost(title, content):
-            flash("A post of this title already exists or there is no content!")
-            return redirect(url_for('blog'))
-        else:
-            db.addpost(title,session['name'],content)
-            flash("You have successfully made a blog post!")
-            return redirect(url_for('blog'))
-
-@app.route("/blog/<title>", methods=["POST","GET"])
-@login_required
-def blogcontent(title):
-    if request.method == "GET":
-        blogcontent=db.getblogcontent(title)
-        print blogcontent
-        return render_template("blogcontent.html",title=title,blogcontent=blogcontent)
-    else:
-        comment = request.form["comment"]
-        if db.invalidcomment(comment):
-            flash("There is no text in your comment!")
-            return redirect(url_for('blog'))
-        else:
-            db.addcomment(title,session['name'],comment)
-            flash("You have successfully made a comment!")
-            return redirect(url_for('blog'))
-
-
-@app.route("/blog/upvote/<title>", methods=["POST","GET"])
-@login_required
-def upvote(title):
-    db.votepost(title,1)
-    return redirect(url_for('blog'))
-
-@app.route("/blog/downvote/<title>", methods=["POST","GET"])
-@login_required
-def downvote(title):
-    db.votepost(title,-1)
-    return redirect(url_for('blog'))
-
-@app.route("/contacts")
-@login_required
-def contacts():
-    contacts=db.getcontacts(session['name'])
-    print contacts
-    return render_template("contacts.html",contacts=contacts)
-'''
 
 if __name__ == '__main__':
     app.secret_key = "don't store this on github"
