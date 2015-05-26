@@ -6,7 +6,7 @@
             "snippet": "cluster",
             "children": [{
                 "snippet": "AgglomerativeCluster",
-                "title": "swag"
+                "title": 111
             }, {
                 "snippet": "CommunityStructure",
                 "title": 3812
