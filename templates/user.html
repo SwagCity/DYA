@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block navbar %} 
+
+<li>
+  {% if session['name']==None %}
+  <a href="{{ url_for('login') }}">Login</a>
+  {% else %}
+  <a href="{{ url_for('logout') }}">Logout</a>
+  {% endif %}
+</li>
+
+{% endblock navbar %} 
+
+{% block headercontent %}
+
+
+
+<div class="header-content">
+  <div class="col-xs-0 col-sm-2"></div>
+  <div class="header-content-inner col-sm-8">
+    <div class="rectangle rounded">
+      <h3 class="black-text">User Information</h3>
+      <br>
+  </div>
+  <div class="col-xs-0 col-sm-2"></div>
+</div>
+{% endblock headercontent %}

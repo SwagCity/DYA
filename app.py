@@ -65,9 +65,9 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route("/test")
-def test():
-    return render_template("test.html")
+#@app.route("/test")
+#def test():
+#    return render_template("test.html")
 
 @app.route("/register")
 def register():
@@ -134,6 +134,7 @@ def story():
     data = [x for x in temp]
     return render_template("story.html",data=data)
 
+#derek pls.
 @app.route("/user", methods=["POST","GET"])
 @login_required
 def myself():
@@ -141,7 +142,7 @@ def myself():
         profile=db.getprofile(session['name'])
         #print profile
         posts = db.getposts(session['name'])
-        return render_template("profile.html",profile=profile, posts=posts)
+        return render_template("profile.html",profile=profile)
     else:
         newpw = request.form["newpassword"]
         newpw2 = request.form["newpassword2"]
