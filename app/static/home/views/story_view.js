@@ -57,17 +57,25 @@ App.Views.StoryNode = Marionette.CompositeView.extend({
 		this.el.id = this.model.attributes._id;
 	},
 	onRender : function() {
-		this.model.region.$el.append(this.ui.content);
+		this.ui.content[0].id = "content-"+this.model.attributes._id;
+		this.model.region.$el.append(this.ui.content[0]);
+
+		App.Globals.createEvent("#content-"+this.model.attributes._id, "click", function() {
+			alert("FUCKALL");
+			App.viewStoryView.changeCurrentNode(this.model.attributes._id);
+		})
+
 
 		// Remove el from this.region.
+	},
+	renderRegion : function() {
+
 	},
 
 	// events
 	events : {
-		"click" : function() {
-			console.log("CLICK")
-			App.viewStoryView.changeCurrentNode(this.el.id);
-		}
+
+
 	},
 	modelEvents : {
 		"change" : "renderNode"
