@@ -9,11 +9,10 @@ def login_required(f):
     def inner(*args, **kwargs):
         if session["name"]==None:
             flash("You must login to access this protected page!")
-            session['nextpage'] = request.url
+            #session['nextpage'] = request.url
             return redirect(url_for('login'))
         return f(*args, **kwargs)
     return inner
-
 
 def authenticate(f):
     @wraps(f)
@@ -23,8 +22,8 @@ def authenticate(f):
             password = request.form["pw"]
             if db.authenticate(username,password):
                 session['name'] = username
-                page = session.pop('nextpage','/')
-                return redirect(page)
+                #page = session.pop('nextpage','/')
+                #return redirect(url_for('edit'))
             else:
                 if db.userexists(username):
                     flash("You've inputted the wrong password for the given user.")
@@ -35,16 +34,17 @@ def authenticate(f):
         return f(*args, **kwargs)
     return inner
 
-
 @app.route('/', methods=["POST","GET"])
 @app.route('/index', methods=["POST","GET"])
 def index():
     if "name" not in session:
         session["name"] = None
-    #print session["name"]
-    return render_template("index.html")
+        return render_template("index.html")
+    else:
+        print session["name"]
+        return redirect(url_for('home'))
 
-@app.route('/home', methods=["POST","GET"])
+@app.route('/home')
 @login_required
 def home():
     if "name" not in session:
@@ -52,6 +52,7 @@ def home():
     return render_template("home.html")
 
 @app.route('/edit')
+@login_required
 def edit():
     if request.method == "POST":
         id = request.form["_id"]
@@ -63,7 +64,12 @@ def edit():
 @app.route("/login", methods=["POST","GET"])
 @authenticate
 def login():
-    return render_template("login.html")
+    if "name" not in session:
+        session["name"] = None
+    if request.method == "POST":
+        return redirect(url_for('user'))
+    else:
+        return render_template("login.html")
 
 @app.route('/logout')
 def logout():
@@ -71,19 +77,8 @@ def logout():
     session.pop('name', None)
     return redirect(url_for('index'))
 
-
-                            #@app.route("/test")
-#def test():
-#    return render_template("test.html")
-
-@app.route("/register")
+@app.route("/register", methods=["POST","GET"])
 def register():
-    if session['name']!=None:
-        return redirect(url_for('index'))
-    return render_template("register.html")
-
-@app.route("/registering", methods=["POST","GET"])
-def registering():
     if request.method == "POST":
         disp = request.form["display"]
         user = request.form["username"]
@@ -107,7 +102,7 @@ def registering():
         else:
             db.adduser(disp, user,em,pw)
             print "registered as display " + disp + " and user " + user
-            flash("You've sucessfully registered, now login!")
+            flash("You've sucessfully registered! Please login below.")
             return redirect(url_for('login'))
     else:
         if session['name']!=None:
@@ -141,21 +136,19 @@ def story():
     data = [x for x in temp]
     return render_template("story.html",data=data)
 
-#derek pls.
 @app.route("/user", methods=["POST","GET"])
 @login_required
-def myself():
+def user():
     if request.method == "GET":
-        profile=db.getprofile(session['name'])
-        #print profile
-        posts = db.getposts(session['name'])
-        return render_template("profile.html",profile=profile)
+        name=db.getprofile(session['name'])
+        print name
+        return render_template("user.html",name=name)
     else:
         newpw = request.form["newpassword"]
         newpw2 = request.form["newpassword2"]
         if (newpw != newpw2):
             flash("The new passwords you submitted don't match, please try again.")
-            return redirect(url_for('myself'))
+            return redirect(url_for('user'))
         else:
             db.updatepw(session['name'],newpw)
             flash("Your password has been sucessfully changed. Please re-login.")
