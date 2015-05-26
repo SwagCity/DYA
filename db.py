@@ -2,10 +2,9 @@ import random, re, datetime
 from pymongo import MongoClient
 
 client = MongoClient()
-db = client['swag'] 		#database called swag
+db = client['datab'] 		#database called datab
 users = db['users']   		#collection called users
 stories = db['stories'] 	#collection called stories
-#db.swag.drop()
 
 def authenticate(username,password):
         #print [x for x in users.find()]

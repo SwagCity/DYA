@@ -14,7 +14,6 @@ def login_required(f):
         return f(*args, **kwargs)
     return inner
 
-
 def authenticate(f):
     @wraps(f)
     def inner(*args, **kwargs):
@@ -64,11 +63,15 @@ def edit():
 @app.route("/login", methods=["POST","GET"])
 @authenticate
 def login():
-    if request.method == "POST":
-        return redirect(url_for('user'))
+    if "name" not in session:
+        session["name"] = None
+        if request.method == "POST":
+            return redirect(url_for('user'))
+        else:
+            return render_template("login.html")
     else:
-        return render_template("login.html")
-
+        return redirect(url_for('home'))
+   
 @app.route('/logout')
 def logout():
     # remove the username from the session if it's there
