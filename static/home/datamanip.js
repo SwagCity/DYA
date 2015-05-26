@@ -34,7 +34,6 @@ App.DataManip = function() {
 			}
 		}
 		return func;
-
 	}
 
 	var findNode = function(node, query) {
@@ -55,10 +54,101 @@ App.DataManip = function() {
 	};
 }();
 
-App.DataManip.Ajax = function() {
+App.DataManip.Ajax = function(options) {
+	
+	var addStory = function(params, parent) {	
+		var data;
+		$.ajax({
+			url			: options.apiURL + "/stories",
+			type		: "POST",
+			contentType	: 'application/json; charset=utf-8',
+			data 		: {
+				"params" : params,
+				"parent" : parent
+			},
+
+			success : function(results) {
+				data = results;
+			},
+			error : function(err) {
+				console.log(err);
+			}
+		})
+
+		return data;
+	}
+
+	var getStory = function(params, node_id, parent) {
+		var data;
+		$.ajax({
+			url			: options.apiURL + "/" + node_id,
+			type		: "POST",
+			contentType	: 'application/json; charset=utf-8',
+			data 		: {
+				"params" : params,
+				"parent" : parent
+			},
+
+			success : function(results) {
+				data = results;
+			},
+			error : function(err) {
+				console.log(err);
+			}
+		})
+
+		return data;
+	}
+	
+	var removeStory = function(params, node_id, parent) {
+		var data;
+		$.ajax({
+			url			: options.apiURL + "/" + node_id,
+			type		: "DELETE",
+			contentType	: 'application/json; charset=utf-8',
+
+			success : function(results) {
+				data = results;
+			},
+			error : function(err) {
+				console.log(err);
+			}
+		})
+
+		return data;
+	};
+
+	var updateStory = function(params, node_id, parent) {
+		var data;
+		$.ajax({
+			url			: options.apiURL + "/" + node_id,
+			type		: "PATCH",
+			contentType	: 'application/json; charset=utf-8',
+			data : {
+				"params" : params,
+				"parent" : parent
+			},
+
+			success : function(results) {
+				data = results;
+			},
+			error : function(err) {
+				console.log(err);
+			}
+		})
+
+		return data;
+	}
+
 
 
 	return {
+		addStory 	: addStory,
+		getStory 	: getStory,
+		removeStory : removeStory,
+		updateStory	: updateStory
 		
 	}
-}();
+}({
+	apiURL 		: "localhost:8000"
+});
