@@ -1,5 +1,5 @@
 // Get JSON data
-treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
+treeJSON = d3.json("../static/flare.json", function(error, treeData) {
 
     // Calculate total nodes, max label length
     var totalNodes = 0;
@@ -16,7 +16,7 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
     var root;
     var nodeText = null;
     var nodeTitle=null;
-    
+
     // size of the diagram
     var viewerWidth = $(document).width();
     var viewerHeight = $(document).height();
@@ -165,7 +165,7 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
 	.append("input")
 	.attr("type","text")
         .attr("id","title");
-    
+
     function textUpdate(d){
 	if (nodeText != null){
 	    nodeText.snippet = document.getElementById("story").value;
@@ -181,10 +181,10 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
 	nodeTitle=d.title;
 	document.getElementById("title").value = d.title;
     }
-    
+
     //document.getElementById("story").style.height="250px";
     //document.getElementById("story").style.width="250px";
-    
+
     // Define the drag listeners for drag/drop behaviour of nodes.
     dragListener = d3.behavior.drag()
         .on("dragstart", function(d) {
@@ -335,7 +335,7 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
     // Function to center node when clicked/dropped so node doesn't get lost when collapsing/moving with large amount of children.
 
     function centerNode(source) {
-	
+
         scale = zoomListener.scale();
         x = -source.y0;
         y = -source.x0;
@@ -360,7 +360,7 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
         }
         return d;
     }
- 
+
     // Toggle children on click.
 
     function click(d) {
@@ -376,7 +376,7 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
 
     function test(d){
 	//console.log(d.getAttribute());
-	
+
     }
 
     function update(source) {
@@ -396,7 +396,7 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
             }
         };
         childCount(0, root);
-        var newHeight = d3.max(levelWidth) * 25; // 25 pixels per line  
+        var newHeight = d3.max(levelWidth) * 25; // 25 pixels per line
         tree = tree.size([newHeight, viewerWidth]);
 
         // Compute the new tree layout.
@@ -409,7 +409,7 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
             // alternatively to keep a fixed scale one can set a fixed depth per level
             // Normalize for fixed-depth by commenting out below line
             // d.y = (d.depth * 500); //500px per level.
-	    
+
         });
 
         // Update the nodes…
@@ -479,17 +479,19 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
 
         // Change the circle fill depending on whether it has children and is collapsed
 
+/*
 	for (i = 0; i < node[0].length;i++){
 	    //console.log(node[0][i]);
 	    //console.log(source);
-	   
-	
+
+
 	}
+    */
 
         node.select("circle.nodeCircle")
             .attr("r", "4.5")
             .style("fill", "lightsteelblue");
-	
+
         // Transition nodes to their new position.
         var nodeUpdate = node.transition()
             .duration(duration)
@@ -545,8 +547,8 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
             d.x0 = d.x;
             d.y0 = d.y;
         });
-	
-	
+
+
     }
 
     // Append a group which holds all nodes and which the zoom Listener can act upon.
@@ -556,14 +558,12 @@ treeJSON = d3.json("../static/libs/flare.json", function(error, treeData) {
     root = treeData;
     root.x0 = viewerHeight / 2;
     root.y0 = 0;
-    
+
     // Layout the tree initially and center on the root node.
     update(root);
     centerNode(root);
 
 
 
-    
+
 });
-
-

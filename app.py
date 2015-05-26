@@ -45,6 +45,7 @@ def index():
     return render_template("index.html")
 
 @app.route('/home', methods=["POST","GET"])
+@login_required
 def home():
     if "name" not in session:
         session["name"] = None
@@ -71,7 +72,7 @@ def logout():
     return redirect(url_for('index'))
 
 
-#@app.route("/test")
+                            #@app.route("/test")
 #def test():
 #    return render_template("test.html")
 

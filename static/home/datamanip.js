@@ -34,7 +34,7 @@ App.DataManip = function() {
 			}
 		}
 		return func;
-        
+
 	}
 
 	var findNode = function(node, query) {
@@ -53,4 +53,12 @@ App.DataManip = function() {
 		findNode	: findNode,
 		execAll 	: execAll
 	};
+}();
+
+App.DataManip.Ajax = function() {
+
+
+	return {
+		
+	}
 }();

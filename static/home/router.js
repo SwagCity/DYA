@@ -9,8 +9,10 @@ App.addInitializer(function(options) {
 		controller : App.mainController,
 
 		appRoutes  : {
+			"/" : "home",
 			"stories" : "renderAll",
 			"stories/:story_id" : "renderStory",
+			"stories/:story_id/edit" : "editStory",
 			"new" : "createStory"
 		}
 	})
