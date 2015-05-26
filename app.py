@@ -14,6 +14,7 @@ def login_required(f):
         return f(*args, **kwargs)
     return inner
 
+
 def authenticate(f):
     @wraps(f)
     def inner(*args, **kwargs):
@@ -44,21 +45,30 @@ def index():
     print session["name"]
     return render_template("index.html")
 
+@app.route('/edit')
+def edit():
+    if request.method == "POST":
+        id = request.form["_id"]
+        title = request.form["title"]
+        text = request.form["snippet"]
+        db.s_edit(id, title, text)
+    return render_template("edit.html")
+
 @app.route("/login", methods=["POST","GET"])
 @authenticate
 def login():
     return render_template("login.html")
-
-@app.route("/test", methods=["POST","GET"])
-def test():
-    return render_template("test.html")
-
 
 @app.route('/logout')
 def logout():
     # remove the username from the session if it's there
     session.pop('name', None)
     return redirect(url_for('index'))
+
+
+@app.route("/test")
+def test():
+    return render_template("test.html")
 
 @app.route("/register")
 def register():
@@ -96,6 +106,31 @@ def registering():
             page = session.pop('nextpage','/')
             return redirect(page)
         return render_template("register.html")
+
+@app.route("/write",methods=["POST","GET"])
+@login_required
+def write():
+    if request.method == "POST":
+        title = request.form["title"]
+        text = request.form["text"]
+        author = session['name']
+        db.s_add(title, author, text, [])
+        return redirect(url_for('stories'))
+    return render_template("write.html")
+
+@app.route("/story")
+@login_required
+def stories():
+    temp = db.s_getall()
+    data = [x for x in temp]
+    return render_template("story.html",data=data)
+
+@app.route("/stories/<id>")
+@login_required
+def story():
+    temp = db.s_get(id)
+    data = [x for x in temp]
+    return render_template("story.html",data=data)
 
 @app.route("/user", methods=["POST","GET"])
 @login_required
