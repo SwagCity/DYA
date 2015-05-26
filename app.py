@@ -120,10 +120,10 @@ def stories():
     data = [x for x in temp]
     return render_template("story.html",data=data)
 
-@app.route("/story/<i>")
+@app.route("/stories/<id>")
 @login_required
 def story():
-    temp = db.s_get(i)
+    temp = db.s_get(id)
     data = [x for x in temp]
     return render_template("story.html",data=data)
 
