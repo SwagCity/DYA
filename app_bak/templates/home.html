@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Swag</title>
+
+		<!-- jQuery -->
+		<script src="/static/libs/jquery-1.11.2.min.js"></script>
+
+		<!-- Marionette -->
+		<script src="/static/libs/backbone.marionette/underscore.js"></script>
+		<script src="/static/libs/backbone.marionette/json2.js"></script>
+		<script src="/static/libs/backbone.marionette/backbone.js"></script>
+		<script src="/static/libs/backbone.marionette/backbone.marionette.min.js"></script>
+		<!--<script src="/static/libs/backbone.marionette/backbone.marionette.min.js.map"></script> -->
+
+		<!-- Bootstrap -->
+		<script src="/static/libs/bootstrap/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="/static/libs/bootstrap/css/bootstrap-theme.min.css" />
+		<link rel="stylesheet" href="/static/libs/bootstrap/css/bootstrap.min.css" />
+
+		<style>
+			.circle {
+				border-radius: 50%;
+				width: 200px;
+				height: 200px;
+				background-color: blue;
+				position: relative;
+				display: inline-block;
+			}
+
+		</style>
+
+	</head>
+	<body>
+		<!-- nav bar -->
+		<header class="navbar navbar-static-top" id="top" role="banner">
+			<div class="container">
+
+				<nav class="navbar navbar-default navbar-fixed-top">
+
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="/">
+								Home
+							</a>
+						</li>
+
+						{% if session['name'] == None %}
+						<li>
+							<a href="/login">
+								Login
+							</a>
+						</li>
+
+						{% else %}
+						<li>
+							<a href="/logout">
+								Log Out
+							</a>
+						</li>
+						<li>
+							<a href="/profile">
+								{{ session['name'] }}
+							</a>
+						</li>
+
+						{% endif %}
+					</ul>
+				</nav>
+			</div>
+		</header>
+
+		<hr> <br>
+
+
+		<div id="main">
+
+
+		</div>
+
+		<div id="test">
+
+		</div>
+
+
+
+
+
+		<script id="snippet-template" type="text/template">
+			<span class="snippet circle">
+				<p>
+					<%= _id %>
+				</p>
+			</span>
+		</script>
+		<script id="view-template" type="text/template">
+			<div id="view-hidden-upper" style="display:none;"></div>
+			<div id="view-main-upper"></div>
+			<div id="view-main"></div>
+			<div id="view-main-lower"></div>
+			<div id="view-hidden-lower" style="display:none;"></div>
+		</script>
+		<script id="boring-template" type="text/template">
+			<a href="#stories/a876&78ff9aaa">derp</a>
+		</script>
+
+
+
+
+
+
+		<script src="/static/home/main.js"></script>
+		<script src="/static/home/globals.js"></script>
+		<script src="/static/home/datamanip.js"></script>
+		<script src="/static/home/models/snippet.js"></script>
+		<script src="/static/home/views/story_view.js"></script>
+		<script src="/static/home/views/static_view.js"></script>
+		<script src="/static/home/controllers/main_controller.js"></script>
+		<script src="/static/home/router.js"></script>
+		<script src="/static/home/initialize.js"></script>
+
+
+	</body>
+</html>
