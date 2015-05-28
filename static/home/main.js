@@ -12,4 +12,5 @@ var options = {
 console.log("Initializing Regions")
 App.addRegions({
 	mainRegion			: "#main",
+	testRegion			: "#test"
 })

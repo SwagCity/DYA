@@ -9,11 +9,10 @@ def login_required(f):
     def inner(*args, **kwargs):
         if session["name"]==None:
             flash("You must login to access this protected page!")
-            session['nextpage'] = request.url
+            #session['nextpage'] = request.url
             return redirect(url_for('login'))
         return f(*args, **kwargs)
     return inner
-
 
 def authenticate(f):
     @wraps(f)
@@ -21,31 +20,39 @@ def authenticate(f):
         if request.method == "POST":
             username = request.form["username"]
             password = request.form["pw"]
-            #if authenticate(username,password):
             if db.authenticate(username,password):
                 session['name'] = username
-                page = session.pop('nextpage','/')
-                return redirect(page)
+                #page = session.pop('nextpage','/')
+                #return redirect(url_for('edit'))
             else:
                 if db.userexists(username):
                     flash("You've inputted the wrong password for the given user.")
                     return redirect(url_for('login'))
                 else:
                     flash("The username you inputted hasn't been registered yet.")
-                    return redirect(url_for('register'))
+                    return redirect(url_for('login'))
         return f(*args, **kwargs)
     return inner
-
 
 @app.route('/', methods=["POST","GET"])
 @app.route('/index', methods=["POST","GET"])
 def index():
     if "name" not in session:
         session["name"] = None
-    print session["name"]
-    return render_template("index.html")
+        return render_template("index.html")
+    else:
+        print session["name"]
+        return redirect(url_for('home'))
+
+@app.route('/home')
+@login_required
+def home():
+    if "name" not in session:
+        session["name"] = None
+    return render_template("home.html")
 
 @app.route('/edit')
+@login_required
 def edit():
     if request.method == "POST":
         id = request.form["_id"]
@@ -57,7 +64,12 @@ def edit():
 @app.route("/login", methods=["POST","GET"])
 @authenticate
 def login():
-    return render_template("login.html")
+    if "name" not in session:
+        session["name"] = None
+    if request.method == "POST":
+        return redirect(url_for('user'))
+    else:
+        return render_template("login.html")
 
 @app.route('/logout')
 def logout():
@@ -65,19 +77,8 @@ def logout():
     session.pop('name', None)
     return redirect(url_for('index'))
 
-
-@app.route("/test")
-def test():
-    return render_template("test.html")
-
-@app.route("/register")
+@app.route("/register", methods=["POST","GET"])
 def register():
-    if session['name']!=None:
-        return redirect(url_for('index'))
-    return render_template("register.html")
-
-@app.route("/registering", methods=["POST","GET"])
-def registering():
     if request.method == "POST":
         disp = request.form["display"]
         user = request.form["username"]
@@ -86,6 +87,9 @@ def registering():
         pw2 = request.form["password2"]
         if pw != pw2:
             flash("The passwords you submitted don't match, please try again.")
+            return redirect(url_for('register'))
+        if user == "" or em == "" or pw == "":
+            flash("Please fill out all required fields!")
             return redirect(url_for('register'))
         if disp == "":
             disp = user
@@ -98,7 +102,7 @@ def registering():
         else:
             db.adduser(disp, user,em,pw)
             print "registered as display " + disp + " and user " + user
-            flash("You've sucessfully registered, now login!")
+            flash("You've sucessfully registered! Please login below.")
             return redirect(url_for('login'))
     else:
         if session['name']!=None:
@@ -134,86 +138,26 @@ def story():
 
 @app.route("/user", methods=["POST","GET"])
 @login_required
-def myself():
+def user():
+    name=db.getprofile(session['name'])
     if request.method == "GET":
-        profile=db.getprofile(session['name'])
-        #print profile
-        posts = db.getposts(session['name'])
-        return render_template("profile.html",profile=profile, posts=posts)
+         return render_template("user.html",name=name)
     else:
+        oldpw = request.form["oldpassword"]
         newpw = request.form["newpassword"]
         newpw2 = request.form["newpassword2"]
+        print oldpw
+        if name[0]['pw'] != oldpw:
+            flash("You have entered the wrong password! Please try again.")
+            return redirect(url_for('user'))
+
         if (newpw != newpw2):
             flash("The new passwords you submitted don't match, please try again.")
-            return redirect(url_for('myself'))
+            return redirect(url_for('user'))
         else:
             db.updatepw(session['name'],newpw)
             flash("Your password has been sucessfully changed. Please re-login.")
             return redirect(url_for('logout'))
-
-@app.route("/user/<username>")
-@login_required
-def user(username):
-    profile=db.getprofile(username)
-    #print profile
-    posts = db.getposts(username)
-    return render_template("profileother.html",profile=profile,posts=posts)
-'''
-@app.route("/blog", methods=["POST","GET"])
-@login_required
-def blog():
-    if request.method == "GET":
-        blog=db.getblog(session['name'])
-        print blog
-        return render_template("blog.html",blog=blog)
-    else:
-        title = request.form["title"]
-        content = request.form["content"]
-        if db.invalidpost(title, content):
-            flash("A post of this title already exists or there is no content!")
-            return redirect(url_for('blog'))
-        else:
-            db.addpost(title,session['name'],content)
-            flash("You have successfully made a blog post!")
-            return redirect(url_for('blog'))
-
-@app.route("/blog/<title>", methods=["POST","GET"])
-@login_required
-def blogcontent(title):
-    if request.method == "GET":
-        blogcontent=db.getblogcontent(title)
-        print blogcontent
-        return render_template("blogcontent.html",title=title,blogcontent=blogcontent)
-    else:
-        comment = request.form["comment"]
-        if db.invalidcomment(comment):
-            flash("There is no text in your comment!")
-            return redirect(url_for('blog'))
-        else:
-            db.addcomment(title,session['name'],comment)
-            flash("You have successfully made a comment!")
-            return redirect(url_for('blog'))
-
-
-@app.route("/blog/upvote/<title>", methods=["POST","GET"])
-@login_required
-def upvote(title):
-    db.votepost(title,1)
-    return redirect(url_for('blog'))
-
-@app.route("/blog/downvote/<title>", methods=["POST","GET"])
-@login_required
-def downvote(title):
-    db.votepost(title,-1)
-    return redirect(url_for('blog'))
-
-@app.route("/contacts")
-@login_required
-def contacts():
-    contacts=db.getcontacts(session['name'])
-    print contacts
-    return render_template("contacts.html",contacts=contacts)
-'''
 
 if __name__ == '__main__':
     app.secret_key = "don't store this on github"

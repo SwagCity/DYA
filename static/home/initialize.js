@@ -6,17 +6,17 @@ App.on("before:start", function(options) {
 })
 
 App.on("start", function(options) {
-	console.log("App starting.");		
+	console.log("App starting.");
 
 	/* Define Initial State. Possibly a loading bar? */
-	App.mainRegion.show(new App.Views.StaticView());
+	App.mainRegion.show(new App.Views.HomeView());
 
 	/*
 	$.ajax({
 		url			: options.apiURL + "/",
 		type		: "GET",
 		contentType	: 'application/json; charset=utf-8',
-		
+
 		success : function(results) {
 			console.log(results);
 		}

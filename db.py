@@ -2,56 +2,35 @@ import random, re, datetime
 from pymongo import MongoClient
 
 client = MongoClient()
-db = client['swag'] 		#database called swag
+db = client['datab'] 		#database called datab
 users = db['users']   		#collection called users
 stories = db['stories'] 	#collection called stories
-#db.swag.drop()
 
 def authenticate(username,password):
-	#print [x for x in users.find()]
-	return 1 == (users.find({'name':username,'pw':password})).count()
+        #print [x for x in users.find()]
+        return 1 == (users.find({'name':username,'pw':password})).count()
 
 def userexists(username):
-	return 1 == (users.find({'name':username})).count()
+        return 1 == (users.find({'name':username})).count()
 
 def emailexists(email):
-	return 1 == (users.find({'email':email})).count()
+        return 1 == (users.find({'email':email})).count()
 
 def getcontacts(username):
-	res = users.find({'name':{'$not':re.compile(username)}},{"_id":False})
-	info = [x for x in res]
-	return info
-'''
-def getblog(username):
-	conn = Connection()
-	db = conn['jsdt_blog']
-	res = db.jsdt_blog.find({'name':{'$not':re.compile(username)}},{"_id":False})
-	info = [x for x in res]
-	return reversed(info)
+        res = users.find({'name':{'$not':re.compile(username)}},{"_id":False})
+        info = [x for x in res]
+        return info
 
-def getblogcontent(title):
-	conn = Connection()
-	db = conn['jsdt_blog']
-	res = db.jsdt_blog.find({'title':title},{"_id":False})
-	return res
-'''
 def getprofile(username):
-	res = users.find({'name':username},{"_id":False})
-	info = [x for x in res]
-	return info
-'''
-def getposts(username):
-	conn = Connection()
-	db = conn['jsdt_blog']
-	res = db.jsdt_blog.find({'author':username},{"_id":False})
-	info = [x for x in res]
-	return reversed(info)
-'''
+        res = users.find({'name':username},{"_id":False})
+        info = [x for x in res]
+        return info
+
 def updatepw(username,newpw):
-	users.update({'name':username},{'$set':{'pw':newpw}})
+        users.update({'name':username},{'$set':{'pw':newpwd}}, upsert=False, multi=False)
 
 def adduser(display, username,email,password):
-	users.insert([{'disp':display,'name':username,'email':email,'pw':password}])
+        users.insert([{'disp':display,'name':username,'email':email,'pw':password}])
 
 def s_add(title, text, parentID, meta):
 	author = ""
@@ -126,6 +105,3 @@ def votepost(title,points):
 	db = conn['jsdt_blog']
 	db.jsdt_blog.update({'title':title},{'$inc':{'points':points}})
 '''
-
-# if __name__ == '__main__':
-# 	setup()
