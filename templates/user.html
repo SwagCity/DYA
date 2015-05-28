@@ -1,4 +1,30 @@
+
 {% extends "base.html" %}
+
+{% block stylecontent %}
+
+body {
+position: relative;
+width: 100%;
+min-height: auto;
+text-align: center;
+color: #000;
+background-image: url(../static/libs/bootstrap/img/portfolio/1.jpg);
+background-position: center;
+-webkit-background-size: 100% auto;
+-moz-background-size: 100% auto;
+background-size: 100% auto;
+-o-background-size: cover;
+}
+.user {
+margin-top: 10%;
+}
+
+.bold {
+font-weight: bold;
+}
+
+{% endblock stylecontent %}
 
 {% block navbar %} 
 
@@ -12,14 +38,66 @@
 
 {% endblock navbar %} 
 
-{% block headercontent %}
-<div class="header-content">
+{% block headcontent %}
+{% endblock headcontent %}
+
+{% block bodycontent %}
+<div class="user">
   <div class="col-xs-0 col-sm-2"></div>
-  <div class="header-content-inner col-sm-8">
+  <div class="col-sm-8">
     <div class="rectangle rounded">
       <h3 class="black-text">User Information</h3>
-      <br>
+      <div class="black-text">
+	<br>
+	<b>Username:</b>{{name[0]['name']}}
+	<br>
+	<b>Display Name:</b>{{name[0]['disp']}}
+	<br>
+	<b>Email Address:</b>{{name[0]['email']}}
+	<br>
+	<hr>
+
+	<b>Update Information:</b>
+	<form class="form-horizontal" method="POST">
+
+	  <br>
+	  <!-- Password -->
+	  <div class="form-group">
+	    <label class="col-sm-4 control-label">Old Password</label>
+	    <div class="col-sm-8">
+	      <input type="password" class="form-control" name="oldpassword" placeholder="Old Password">
+	    </div>
+	  </div>
+	  
+	  <!-- New Password -->
+	  <div class="form-group">
+	    <label class="col-sm-4 control-label">New Password</label>
+	    <div class="col-sm-8">
+	      <input type="password" class="form-control" name="newpassword" placeholder="New Password">
+	    </div>
+	  </div>
+
+	  
+	  <!-- Retype Password -->
+	  <div class="form-group">
+	    <label class="col-sm-4 control-label"> Retype New Password</label>
+	    <div class="col-sm-8">
+	      <input type="password" class="form-control" name="newpassword2" placeholder="Retype New Password">
+	    </div>
+	  </div>
+
+	  <div class="col-sm-offset-2 col-sm-10">
+	    <button type="submit" class="btn btn-primary btn-xl center">Edit</button>
+	  </div>
+	  <br><br><br>
+
+      </div>
+    </div>
+    </form>
+
   </div>
   <div class="col-xs-0 col-sm-2"></div>
+
 </div>
-{% endblock headercontent %}
+
+{% endblock bodycontent %}

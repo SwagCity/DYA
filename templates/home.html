@@ -66,6 +66,11 @@ display: inline-block;
 
 {% block navbar %} 
 
+<li>
+  {% if session['name']!=None %}
+  <a href="{{ url_for('user') }}">{{name}}</a>
+  {% endif %}
+</li>
 
 <li>
   {% if session['name']==None %}
@@ -74,75 +79,101 @@ display: inline-block;
   <a href="{{ url_for('logout') }}">Logout</a>
   {% endif %}
 </li>
+
 {% endblock navbar %} 
 
 
 {% block headercontent %}
-<div id="main" style="height: 100%;">
-  
+<header>
+  <div id="main" style="height: 100%;">
+    
+  </div>
 
-</div>
-
-<div id="test">
-
-</div>
-
-
-<!-- Template for a single snippet -->
-<script id="snippet-template" type="text/template">
-  <span class="snippet circle">
-    <p>
-      <%= _id %>
-    </p>
-  </span>
-</script>
-
-<!-- Outer template for view-mode -->
-<script id="view-template" type="text/template">
-  <div id="view-hidden-upper" style="display:none;"></div>
-  <div id="view-main-upper"></div>
-  <div id="view-main"></div>
-  <div id="view-main-lower"></div>
-  <div id="view-hidden-lower" style="display:none;"></div>
-</script>
-
-<!-- Outer template for edit-mode -->
-<script id="edit-template" type="text/template">
-  
-  <div style="height: 100%">
-    <div id="tree-container" style="height: 50%"></div>
-
-    <div style="height: 5%">
-      <center>
-	<div id="title-container" class="inp"></div>
-      </center>
-    </div>
-    <div class="justified" id="text-container" style="height: 35%"></div>
-
-    <center>
-      <button id="rem" type="button" class="btn btn-primary">Delete!</button>
-      <button id="save" type="button" class="btn btn-primary">Save!</button>
-      <button id="add" type="button" class="btn btn-primary">Add Choice!</button>
-    </center>
+  <div id="test">
 
   </div>
 
-</script>
 
+  <!-- Template for a single snippet -->
+  <script id="snippet-template" type="text/template">
+    <span class="snippet circle">
+      <p>
+	<%= _id %>
+      </p>
+    </span>
+  </script>
 
-<!-- Static Template -->
-<script id="home-template" type="text/template">
-  <div class="header-content">
-    <div class="col-xs-0 col-sm-2"></div>
-    <div class="header-content-iner col-sm-8">
-      <div class="rectangle rounded">
-	<button type="button" class="btn btn-primary btn-xl center">View Story</button>
-	<br><br>
-	<button type="button" class="btn btn-primary btn-xl center">Edit Story</button>
+  <!-- Outer template for view-mode -->
+  <script id="view-template" type="text/template">
+    <div id="view-hidden-upper" style="display:none;"></div>
+    <div id="view-main-upper"></div>
+    <div id="view-main"></div>
+    <div id="view-main-lower"></div>
+    <div id="view-hidden-lower" style="display:none;"></div>
+  </script>
+
+  <!-- Outer template for edit-mode -->
+  <script id="edit-template" type="text/template">
+    
+    <div style="height: 100%">
+      <div id="tree-container" style="height: 50%"></div>
+
+      <div style="height: 5%">
+	<center>
+	  <div id="title-container" class="inp"></div>
+	</center>
       </div>
-    </div>
-    <div class="col-xs-0 col-sm-2"></div>
-  </div>
-</script>
+      <div class="justified" id="text-container" style="height: 35%"></div>
 
+      <center>
+	<button id="rem" type="button" class="btn btn-primary">Delete!</button>
+	<button id="save" type="button" class="btn btn-primary">Save!</button>
+	<button id="add" type="button" class="btn btn-primary">Add Choice!</button>
+      </center>
+
+    </div>
+
+  </script>
+
+
+  <!-- Static Template -->
+  <script id="home-template" type="text/template">
+    <div class="header-content">
+      <div class="col-xs-0 col-sm-2"></div>
+      <div class="header-content-iner col-sm-8">
+	<div class="rectangle rounded">
+	  <button type="button" class="btn btn-primary btn-xl center">View Story</button>
+	  <br><br>
+	  <button type="button" class="btn btn-primary btn-xl center">Edit Story</button>
+	</div>
+      </div>
+      <div class="col-xs-0 col-sm-2"></div>
+    </div>
+  </script>
+</header>
 {% endblock headercontent %}
+
+
+{% block includes %}
+
+
+<!-- Marionette -->
+<script src="/static/libs/backbone.marionette/underscore.js"></script>
+<script src="/static/libs/backbone.marionette/json2.js"></script>
+<script src="/static/libs/backbone.marionette/backbone.js"></script>
+<script src="/static/libs/backbone.marionette/backbone.marionette.min.js"></script>
+
+<!-- The source files for the marionette app -->
+<script src="../static/home/main.js"></script>
+<script src="../static/home/datamanip.js"></script>
+<script src="../static/home/models/snippet.js"></script>
+<script src="../static/home/views/story_view.js"></script>
+<script src="../static/home/views/static_view.js"></script>
+<script src="../static/home/controllers/main_controller.js"></script>
+<script src="../static/home/router.js"></script>
+<script src="../static/home/initialize.js"></script>
+
+<!-- The source files for the home page -->
+<script src="../static/home.js"></script>
+
+{% endblock includes %}
