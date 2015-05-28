@@ -53,20 +53,46 @@ def updatepw(username,newpw):
 def adduser(display, username,email,password):
 	users.insert([{'disp':display,'name':username,'email':email,'pw':password}])
 
-def s_add(title, author, text, tags): #adding initial story (FIRST NODE)
-	stories.insert([{'title':title,'author':author,'text':text,'tags':tags,'children':[]}])
+def s_add(title, text, parentID, meta):
+	author = ""
+	tags = []
+	if "author" in meta:
+		author = meta["author"]
+	if "tags" in meta:
+		tags = meta["tags"]
 
-def s_edit(id, title, text): #editing node text
-	stories.update({"_id":ObjectId(i)}, {'title':title, 'text':text})
+	if (parentID = None):	# if first node of story
+		stories.insert({'title':title,'author':author,'text':text,'tags':tags,'children':[], 'parent':None})
+	else:					# not the first node of story
+		stories.insert({'title':title, 'author':author, 'text':text, 'tags':tags, 'children':[], 'parent':parentID })
 
-def s_delete(id):	#delete initial story (FIRST NODE)
+def s_edit(i, title, text, parentID, meta): #editing node text
+	update = {}
+	if title:
+		update["title"] = title
+	if text:
+		update["text"] = text
+	if parentID:
+		update["parent"] = parentID
+	if "author" in meta:
+		update["author"] = meta["author"]
+	if "tags" in meta:
+		update["tags"] = meta["tags"]
+
+	stories.update({"_id":ObjectId(i)}, update)
+
+def s_delete(id):	# deletes either a node or a story
 	pass
 
-def s_getall():	#get story by Object_Id
-    return stories.find()
+def s_getall():		# return list of all stories
+    temp = stories.find({"parent":None})
+	result = [x for x in temp]
+	return result
 
 def s_get(i):	#get story by Object_Id
-    return stories.find({"_id":ObjectId(i)})
+    temp = stories.find({"_id":ObjectId(i)})
+	result = [x for x in temp]
+	return result
 
 '''
 def invalidpost(title, content):
