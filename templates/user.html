@@ -46,6 +46,18 @@ font-weight: bold;
   <div class="col-xs-0 col-sm-2"></div>
   <div class="col-sm-8">
     <div class="rectangle rounded">
+      	<div class="error">
+	  {% with messages = get_flashed_messages() %}
+	  {% if messages %}
+	  <div class=flashes>
+	    {% for message in messages %}
+	    {{ message }}
+	    {% endfor %}
+	  </div>
+	  {% endif %}
+	  {% endwith %}
+	</div>
+
       <h3 class="black-text">User Information</h3>
       <div class="black-text">
 	<br>

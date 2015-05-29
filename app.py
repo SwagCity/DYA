@@ -9,7 +9,7 @@ def login_required(f):
     def inner(*args, **kwargs):
         if session["name"]==None:
             flash("You must login to access this protected page!")
-            #session['nextpage'] = request.url
+            session['nextpage'] = request.url
             return redirect(url_for('login'))
         return f(*args, **kwargs)
     return inner
@@ -37,7 +37,7 @@ def authenticate(f):
 @app.route('/', methods=["POST","GET"])
 @app.route('/index', methods=["POST","GET"])
 def index():
-    if "name" not in session:
+    if "name" not in session or session["name"] == None:
         session["name"] = None
         return render_template("index.html")
     else:
@@ -47,8 +47,6 @@ def index():
 @app.route('/home')
 @login_required
 def home():
-    if "name" not in session:
-        session["name"] = None
     return render_template("home.html")
 
 @app.route('/edit')
@@ -75,7 +73,8 @@ def login():
 def logout():
     # remove the username from the session if it's there
     session.pop('name', None)
-    return redirect(url_for('index'))
+    flash("You have been logged out.")
+    return redirect(url_for('login'))
 
 @app.route("/register", methods=["POST","GET"])
 def register():
@@ -142,20 +141,23 @@ def user():
     name=db.getprofile(session['name'])
     if request.method == "GET":
          return render_template("user.html",name=name)
-    else:
-        oldpw = request.form["oldpassword"]
-        newpw = request.form["newpassword"]
-        newpw2 = request.form["newpassword2"]
-        print oldpw
-        if name[0]['pw'] != oldpw:
+    else: #POST
+        print "post method"
+        oldpwd = request.form["oldpassword"]
+        newpwd = request.form["newpassword"]
+        newpwd2 = request.form["newpassword2"]
+        print oldpwd
+        if name[0]['pw'] != oldpwd:
             flash("You have entered the wrong password! Please try again.")
             return redirect(url_for('user'))
-
-        if (newpw != newpw2):
+        if (newpwd != newpwd2):
             flash("The new passwords you submitted don't match, please try again.")
             return redirect(url_for('user'))
+        if name[0]['pw'] == newpwd:
+            flash("Please enter a new password.")
+            return redirect(url_for('user'))
         else:
-            db.updatepw(session['name'],newpw)
+            db.updatepw(session['name'],newpwd)
             flash("Your password has been sucessfully changed. Please re-login.")
             return redirect(url_for('logout'))
 
