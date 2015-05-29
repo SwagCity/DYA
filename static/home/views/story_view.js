@@ -29,7 +29,6 @@ App.Views.StoryNode = Marionette.CompositeView.extend({
 	},
 	onRender : function() {
 		this.ui.content[0].id = "content-"+this.model.attributes._id;
-		console.log(this.model);
 		this.model.region.$el.append(this.ui.content[0]);
 	},
 	renderRegion : function() {
@@ -102,15 +101,11 @@ App.Views.ViewStory = Marionette.LayoutView.extend({
 		if (this.model.currentNode.get("parent_id")){
 			App.DataManip.findNode(this.model.story, this.model.currentNode.get("parent_id")).region = this.viewMainUpper;
 		}
-		console.log("PARENT REGION CHANGED")
-		console.log(this.model);
 		if (this.model.currentNode.children) {
 			if (this.model.currentNode.children.models) {
 				for (var x=0; x<this.model.currentNode.children.models.length; x++) {
-					setAllRegions(this.model.currentNode.children.models[n], this.viewHiddenLower);
-					this.model.currentNode.children.models[n].region = this.viewMainLower;
-					console.log(x);
-					console.log(this.model.currentNode.children.models[n]);
+					setAllRegions(this.model.currentNode.children.models[x], this.viewHiddenLower);
+					this.model.currentNode.children.models[x].region = this.viewMainLower;
 				}
 			}
 		}
