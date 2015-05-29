@@ -32,17 +32,78 @@ def updatepw(username,newpw):
 def adduser(display, username,email,password):
         users.insert([{'disp':display,'name':username,'email':email,'pw':password}])
 
-def s_add(title, author, text, tags): #adding initial story (FIRST NODE)
-        stories.insert([{'title':title,'author':author,'text':text,'tags':tags,'children':[]}])
+def s_add(title, text, parentID, meta):
+	author = ""
+	tags = []
+	if "author" in meta:
+		author = meta["author"]
+	if "tags" in meta:
+		tags = meta["tags"]
 
-def s_edit(id, title, text): #editing node text
-        stories.update({"_id":ObjectId(i)}, {'title':title, 'text':text})
+	if (parentID == None):	# if first node of story
+		stories.insert({'title':title,'author':author,'text':text,'tags':tags,'children':[], 'parent':None})
+	else:					# not the first node of story
+		stories.insert({'title':title, 'author':author, 'text':text, 'tags':tags, 'children':[], 'parent':parentID })
 
-def s_delete(id):	#delete initial story (FIRST NODE)
-        pass
+def s_edit(i, title, text, parentID, meta): #editing node text
+	update = {}
+	if title:
+		update["title"] = title
+	if text:
+		update["text"] = text
+	if parentID:
+		update["parent"] = parentID
+	if "author" in meta:
+		update["author"] = meta["author"]
+	if "tags" in meta:
+		update["tags"] = meta["tags"]
 
-def s_getall():	#get story by Object_Id
-        return stories.find()
+	stories.update({"_id":ObjectId(i)}, update)
+
+def s_delete(id):	# deletes either a node or a story
+	pass
+
+"""
+def s_getall():		# return list of all stories
+    temp = stories.find({"parent":None})
+	result = [x for x in temp]
+	return result
 
 def s_get(i):	#get story by Object_Id
-        return stories.find({"_id":ObjectId(i)})
+    temp = stories.find({"_id":ObjectId(i)})
+	result = [x for x in temp]
+	return result
+"""
+
+'''
+def invalidpost(title, content):
+	conn = Connection()
+	db = conn['jsdt_blog']
+	valid = (0 == (db.jsdt_blog.find({'title':title})).count())
+	valid = valid and len(content) > 0 and len(title)>0
+
+	return not(valid)
+
+def invalidcomment(comment):
+	return len(comment)==0
+
+def addpost(title, username,content):
+	conn = Connection()
+	db = conn['jsdt_blog']
+	now = datetime.datetime.now()
+	db.jsdt_blog.insert([{'title':title,'author':username,'content':content, 'comments':[], 'time':[now.month,now.day,now.year,now.hour,now.minute]}])
+
+def addcomment(title, username,comment):
+	conn = Connection()
+	db = conn['jsdt_blog']
+	now = datetime.datetime.now()
+	newcomment = [comment,username,[now.month,now.day,now.year,now.hour,now.minute]]
+	print newcomment
+	print title
+	db.jsdt_blog.update({'title':title},{'$push':{'comments':newcomment}})
+
+def votepost(title,points):
+	conn = Connection()
+	db = conn['jsdt_blog']
+	db.jsdt_blog.update({'title':title},{'$inc':{'points':points}})
+'''

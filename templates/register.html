@@ -2,76 +2,78 @@
 {% block navbar %} 
 {% endblock navbar %} 
 {% block headercontent %}
-<div class="header-content">
-  <div class="col-xs-0 col-sm-2"></div>
-  <div class="header-content-inner col-sm-8">
-    <div class="rectangle rounded">
-      <div class="error">
-	{% with messages = get_flashed_messages() %}
-	{% if messages %}
-	<div class=flashes>
-	  {% for message in messages %}
-	  {{ message }}
-	  {% endfor %}
+<header>
+  <div class="header-content">
+    <div class="col-xs-0 col-sm-2"></div>
+    <div class="header-content-inner col-sm-8">
+      <div class="rectangle rounded">
+	<div class="error">
+	  {% with messages = get_flashed_messages() %}
+	  {% if messages %}
+	  <div class=flashes>
+	    {% for message in messages %}
+	    {{ message }}
+	    {% endfor %}
+	  </div>
+	  {% endif %}
+	  {% endwith %}
 	</div>
-	{% endif %}
-	{% endwith %}
+	<h3 class="black-text">Register</h3>
+	<br>
+
+	<form class="form-horizontal" method="POST">
+
+	  <!-- Username -->
+	  <div class="form-group">
+	    <label class="col-sm-4 control-label">Username</label>
+	    <div class="col-sm-8">
+	      <input type="text" class="form-control" name="username" placeholder="Username">
+	    </div>
+	  </div>
+
+          <!-- Display Name -->
+          <div class="form-group">
+	    <label class="col-sm-4 control-label">Display Name</label>
+	    <div class="col-sm-8">
+	      <input type="text" class="form-control" name="display" placeholder="(optional)">
+	    </div>
+          </div>
+
+	  <!-- Password -->
+	  <div class="form-group">
+	    <label class="col-sm-4 control-label">Password</label>
+	    <div class="col-sm-8">
+	      <input type="password" class="form-control" name="password" placeholder="Password">
+	    </div>
+	  </div>
+
+	  <!-- Retype Password -->
+	  <div class="form-group">
+	    <label class="col-sm-4 control-label"> Retype Password</label>
+	    <div class="col-sm-8">
+	      <input type="password" class="form-control" name="password2" placeholder="Password">
+	    </div>
+	  </div>
+
+	  <!-- Email Address -->
+	  <div class="form-group">
+	    <label class="col-sm-4 control-label">Email Address</label>
+	    <div class="col-sm-8">
+	      <input type="text" class="form-control" name="email" placeholder="Email Address">
+	    </div>
+	  </div>
+
+	  <div class="col-sm-offset-2 col-sm-10">
+	    <button type="submit" class="btn btn-primary btn-xl center">Sign Up</button>
+	  </div>
+	  <br><br><br>
+	  <div class="black-text">
+	    Already have an account? Sign in <a href="/login">here</a>.
+	  </div>
       </div>
-      <h3 class="black-text">Register</h3>
-      <br>
-
-      <form class="form-horizontal" method="POST">
-
-	<!-- Username -->
-	<div class="form-group">
-	  <label class="col-sm-4 control-label">Username</label>
-	  <div class="col-sm-8">
-	    <input type="text" class="form-control" name="username" placeholder="Username">
-	  </div>
-	</div>
-
-        <!-- Display Name -->
-        <div class="form-group">
-	  <label class="col-sm-4 control-label">Display Name</label>
-	  <div class="col-sm-8">
-	    <input type="text" class="form-control" name="display" placeholder="(optional)">
-	  </div>
-        </div>
-
-	<!-- Password -->
-	<div class="form-group">
-	  <label class="col-sm-4 control-label">Password</label>
-	  <div class="col-sm-8">
-	    <input type="password" class="form-control" name="password" placeholder="Password">
-	  </div>
-	</div>
-
-	<!-- Retype Password -->
-	<div class="form-group">
-	  <label class="col-sm-4 control-label"> Retype Password</label>
-	  <div class="col-sm-8">
-	    <input type="password" class="form-control" name="password2" placeholder="Password">
-	  </div>
-	</div>
-
-	<!-- Email Address -->
-	<div class="form-group">
-	  <label class="col-sm-4 control-label">Email Address</label>
-	  <div class="col-sm-8">
-	    <input type="text" class="form-control" name="email" placeholder="Email Address">
-	  </div>
-	</div>
-
-	<div class="col-sm-offset-2 col-sm-10">
-	  <button type="submit" class="btn btn-primary btn-xl center">Sign Up</button>
-	</div>
-	<br><br><br>
-	<div class="black-text">
-	  Already have an account? Sign in <a href="/login">here</a>.
-	</div>
+      </form>
     </div>
-    </form>
+    <div class="col-xs-0 col-sm-2"></div>
   </div>
-  <div class="col-xs-0 col-sm-2"></div>
-</div>
-{% endblock headercontent %}
+  <header>
+    {% endblock headercontent %}

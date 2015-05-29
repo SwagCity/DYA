@@ -30,7 +30,7 @@ def authenticate(f):
                     return redirect(url_for('login'))
                 else:
                     flash("The username you inputted hasn't been registered yet.")
-                    return redirect(url_for('register'))
+                    return redirect(url_for('login'))
         return f(*args, **kwargs)
     return inner
 
@@ -139,13 +139,18 @@ def story():
 @app.route("/user", methods=["POST","GET"])
 @login_required
 def user():
+    name=db.getprofile(session['name'])
     if request.method == "GET":
-        name=db.getprofile(session['name'])
-        print name
-        return render_template("user.html",name=name)
+         return render_template("user.html",name=name)
     else:
+        oldpw = request.form["oldpassword"]
         newpw = request.form["newpassword"]
         newpw2 = request.form["newpassword2"]
+        print oldpw
+        if name[0]['pw'] != oldpw:
+            flash("You have entered the wrong password! Please try again.")
+            return redirect(url_for('user'))
+
         if (newpw != newpw2):
             flash("The new passwords you submitted don't match, please try again.")
             return redirect(url_for('user'))

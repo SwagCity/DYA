@@ -23,4 +23,4 @@ storyJSON = d3.json("../static/stories.json", function(error, storyData){
 
     console.log(totalStories);
 	  
-}
+});
