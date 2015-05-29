@@ -26,10 +26,14 @@ App.Views.StoryNode = Marionette.CompositeView.extend({
 		// By not specifying the child view type, the CompositeView defaults to using itself as the child view.
 		this.collection = this.model.children;
 		this.el.id = this.model.attributes._id;
+	
+		this.ui.all = this.model.attributes._id;
 	},
 	onRender : function() {
-		this.ui.content[0].id = "content-"+this.model.attributes._id;
-		this.model.region.$el.append(this.ui.content[0]);
+		var id = this.model.attributes._id;
+		this.ui.content[0].id = "content-"+id;
+		this.ui.content[0].onclick = function() {App.viewStoryView.changeCurrentNode(id)};
+		this.model.region.$el.append(this.ui.content);
 	},
 	renderRegion : function() {
 
@@ -37,14 +41,18 @@ App.Views.StoryNode = Marionette.CompositeView.extend({
 
 	// events
 	events : {
-
-
+		'click .snippet' : "changeCurrentNode"
 	},
 	modelEvents : {
 		"change" : "renderNode"
 	},
 	renderNode : function() {
 		//this.model.region.append(this.$el);
+	},
+
+	changeCurrentNode : function() {
+		console.log("child change current node")
+		this.triggerMethod('change:currentNode', this.model.attributes._id);
 	}
 })
 
@@ -61,6 +69,12 @@ App.Views.ViewStory = Marionette.LayoutView.extend({
 
 	modelEvents : {
 		"change" : "updateChildren"
+	},
+	childEvents: {
+		render : function(childView) {
+			console.log("a childview has been renderd");
+		}, 
+		"change:currentNode" : "changeCurrentNode"
 	},
 	onRender : function() {
 		// Declare regions
@@ -118,10 +132,19 @@ App.Views.ViewStory = Marionette.LayoutView.extend({
 			})
 		)
 
+
 		App.DataManip.execAll(function(node) {
-			$("#content-" + node.get("_id")).click(function() {
+		    var x = $("#content-"+node.get("_id"));
+		    console.log(x);
+
+		    $("#content-" + node.get("_id")).on("keydown", function() {
+			    var x = $("#content-"+node.get("_id"));
+			    console.log("content printed")
+			    console.log(x);
 				App.viewStoryView.changeCurrentNode(node.get("_id"));
 			})
+			console.log(node.get("_id"))
+			console.log($("#content-" + node.get("_id")))
 		})(this.model.story);
 		/*
 		App.DataManip.execAll(function(node) {
@@ -140,5 +163,10 @@ App.Views.ViewStory = Marionette.LayoutView.extend({
 		// Changes the "currentNode" of the model.
 		// Should fire off an event to rerender.
 		this.model.currentNode = App.DataManip.findNode(this.model.story, node_id);
+
+		// I thought that marionette's views were supposed to be
+		// very good at responding to events based on backbone
+		// models, but I guess I was mistaken.
+		this.updateChildren();
 	}
 })
