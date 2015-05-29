@@ -108,7 +108,7 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand page-scroll" href="/index">Home</a>
-          <a class="navbar-brand">&nbsp;{% if session['name']!=None %}Hey {{session['name']}}!{% endif %}</a>
+          <a class="navbar-brand" href="/user">&nbsp;{% if session['name']!=None %}Hey {{session['name']}}!</a>{% endif %}</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
