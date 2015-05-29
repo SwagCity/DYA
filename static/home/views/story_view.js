@@ -29,15 +29,8 @@ App.Views.StoryNode = Marionette.CompositeView.extend({
 	},
 	onRender : function() {
 		this.ui.content[0].id = "content-"+this.model.attributes._id;
+		console.log(this.model);
 		this.model.region.$el.append(this.ui.content[0]);
-		/*
-		// I have no idea why this doens't actually work.
-		$("#content-"+this.model.attributes._id).click(function() {
-			App.viewStoryView.changeCurrentNode(this.model.attributes._id);
-		});
-		*/
-
-		// Remove el from this.region.
 	},
 	renderRegion : function() {
 
@@ -84,6 +77,16 @@ App.Views.ViewStory = Marionette.LayoutView.extend({
 	updateChildren : function() {
 		console.log("Updating children")
 
+		// Resets each of the 5 regions to nothing.
+		// Later on, turn this into the elements moving rather
+		// than simply being replaced.
+		this.viewHiddenUpper.$el.empty();
+		this.viewMainUpper.$el.empty();
+		this.viewMain.$el.empty();
+		this.viewMainLower.$el.empty();
+		this.viewHiddenLower.$el.empty();
+
+
 		// Recursive function to identify the regions where
 		// each of the nodes will be rendered.
 		console.log("RESTORING DEFAULTS")
@@ -92,20 +95,24 @@ App.Views.ViewStory = Marionette.LayoutView.extend({
 				node.region = region;
 			})(node);
 		}
+
 		setAllRegions(this.model.story, this.viewHiddenUpper);
 		this.model.currentNode.region = this.viewMain;
-		if (this.model.currentNode.get("parent")){
-			this.model.currentNode.get("parent").region = this.viewMainUpper;
+
+		if (this.model.currentNode.get("parent_id")){
+			App.DataManip.findNode(this.model.story, this.model.currentNode.get("parent_id")).region = this.viewMainUpper;
 		}
+		console.log("PARENT REGION CHANGED")
+		console.log(this.model);
 		if (this.model.currentNode.children) {
 			if (this.model.currentNode.children.models) {
 				for (var x=0; x<this.model.currentNode.children.models.length; x++) {
-					(this.model.currentNode.children[n], this.viewHiddenLower);
 					setAllRegions(this.model.currentNode.children.models[n], this.viewHiddenLower);
 					this.model.currentNode.children.models[n].region = this.viewMainLower;
+					console.log(x);
+					console.log(this.model.currentNode.children.models[n]);
 				}
 			}
-
 		}
 
 		console.log("RENDERING VIEWS");
@@ -115,6 +122,12 @@ App.Views.ViewStory = Marionette.LayoutView.extend({
 				model : this.model.story
 			})
 		)
+
+		App.DataManip.execAll(function(node) {
+			$("#content-" + node.get("_id")).click(function() {
+				App.viewStoryView.changeCurrentNode(node.get("_id"));
+			})
+		})(this.model.story);
 		/*
 		App.DataManip.execAll(function(node) {
 			var x = new App.Views.StoryNode({
