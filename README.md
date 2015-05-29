@@ -1,4 +1,4 @@
-# swagcess
+# DYA (Design Your Adventure!)
 ## Contributors
  [Angela Lin](https://github.com/angela97lin)
  [Edison Shi](https://github.com/kig12345) 

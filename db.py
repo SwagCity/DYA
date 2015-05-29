@@ -26,7 +26,7 @@ def getprofile(username):
         info = [x for x in res]
         return info
 
-def updatepw(username,newpw):
+def updatepw(username,newpwd):
         users.update({'name':username},{'$set':{'pw':newpwd}}, upsert=False, multi=False)
 
 def adduser(display, username,email,password):
