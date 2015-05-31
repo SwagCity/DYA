@@ -41,6 +41,16 @@ App.Views.StoryNode = Marionette.CompositeView.extend({
 			history = this.model.history;
 		;
 		
+		var prevHeight, height,
+			prevWidth, width;
+		if (this.model.region.el == "#view-hidden-upper" ||
+			this.model.region.el == "#view-hidden-lower") {
+			height = "0px";
+			width = "0px";
+		} else {
+			height = "200px";
+			width = "200px"
+		}
 
 		this.ui.content[0].id = "content-"+id;
 		if (this.model.region.el != "#view-main") {
@@ -50,19 +60,38 @@ App.Views.StoryNode = Marionette.CompositeView.extend({
 		}
 		this.model.region.$el.append(this.ui.content);
 
-		// Animations
-	
-		if (history) {
-			this.ui.script[0].innerHTML = 
-				"console.log($('#content-" + id + "').offset().top - App.DataManip.findNode(App.viewStoryView.model.story, '" + id + "').history.offsetTop);\n"+
-				"$('#content-" + id + "')\n" +
-				".css('top', App.DataManip.findNode(App.viewStoryView.model.story, '" + id + "').history.offsetTop - $('#content-" + id + "').offset().top)\n" + 
-				".css('left',  App.DataManip.findNode(App.viewStoryView.model.story, '" + id + "').history.offsetLeft - $('#content-" + id + "').offset().left)\n" + 
-				".animate({'top':'0px','left':'0px'});";	
-
-			this.model.region.$el.append(this.ui.script)
-		}
 		
+		this.ui.script[0].innerHTML = 
+			"$('#content-" + id + "')\n";
+
+		// Animations
+		if (history) {
+			if (history.region.el == "#view-hidden-upper" || 
+				history.region.el == "#view-hidden-lower") {
+				prevHeight = "0px";
+				prevWidth = "0px";
+			} else {
+				prevHeight = "200px";
+				prevWidth = "200px";
+			}
+
+			this.ui.script[0].innerHTML +=
+				".css('top', App.DataManip.findNode(App.viewStoryView.model.story, '" + id + "').history.offsetTop - $('#content-" + id + "').offset().top)\n" + 
+				".css('left',  App.DataManip.findNode(App.viewStoryView.model.story, '" + id + "').history.offsetLeft - $('#content-" + id + "').offset().left)\n" +
+				".css('height', '" + prevHeight + "')\n" +
+				".css('width', '" + prevWidth + "')\n";
+		} else {
+			this.ui.script[0].innerHTML +=
+				".css('height', '" + height + "')\n" +
+				".css('width', '" + width + "')\n";
+		}
+
+		this.ui.script[0].innerHTML += 
+			".animate({'top':'0px','left':'0px','height':'" + height + "','width':'" + width + "'});";		
+			
+		this.model.region.$el.append(this.ui.script);
+
+
 		this.first = false;
 	},
 	onShow : function() {
@@ -130,10 +159,11 @@ App.Views.ViewStory = Marionette.LayoutView.extend({
 			// Save history first
 			try {
 				node.history = {};
-				node.history.Region = node.region;
+				node.history.region = node.region;
 				node.history.offsetLeft = $("#content-"+node.get("_id")).offset().left;
 				node.history.offsetTop = $("#content-"+node.get("_id")).offset().top;
 			} catch (err) {
+				console.log(err);
 				node.history = undefined;
 			}
 		})(this.model.story);
