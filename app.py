@@ -44,11 +44,20 @@ def index():
         print session["name"]
         return redirect(url_for('home'))
 
-@app.route('/home')
+@app.route('/home', methods=["POST","GET"])
 @login_required
 def home():
-    return render_template("home.html")
+    if request.method == "GET":
+        return render_template("home.html")
+    else: #THIS NO WORK.
+        mode = request.form['submit']
+        print mode
+        if mode == 'edit stories':
+            return redirect(url_for('edit'))
+        elif mode == 'view stories':
+            return redirect(url_for('view')) #or whereever
 
+        
 @app.route('/edit')
 @login_required
 def edit():
