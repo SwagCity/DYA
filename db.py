@@ -92,6 +92,18 @@ def s_get(i):	#get story by ObjectId
     result = [x for x in temp][0]
     return result
 
+def s_search(term, context):
+    if context == None:
+        temp = stories.find( {'$or':[
+            { 'title': { '$regex': term } },
+            { 'text': { '$regex': term } } ]})
+
+    else:
+        temp = stories.find({ context : { '$regex': term } })
+
+    result = [x for x in temp]
+    return result
+
 '''
 def invalidpost(title, content):
 	conn = Connection()
