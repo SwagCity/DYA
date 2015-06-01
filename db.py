@@ -1,5 +1,6 @@
 import random, re, datetime
 from pymongo import MongoClient
+from bson.objectid import ObjectId
 
 client = MongoClient()
 db = client['datab'] 		#database called datab
@@ -33,47 +34,55 @@ def adduser(display, username,email,password):
         users.insert([{'disp':display,'name':username,'email':email,'pw':password}])
 
 def s_add(title, text, parentID, meta):
-	author = ""
-	tags = []
-	if "author" in meta:
-		author = meta["author"]
-	if "tags" in meta:
+    author = ""
+    tags = []
+    time = str(datetime.datetime.now())
+    if "author" in meta:
+        author = meta["author"]
+    if "tags" in meta:
 		tags = meta["tags"]
 
-	if (parentID == None):	# if first node of story
-		stories.insert({'title':title,'author':author,'text':text,'tags':tags,'children':[], 'parent':None})
-	else:					# not the first node of story
-		stories.insert({'title':title, 'author':author, 'text':text, 'tags':tags, 'children':[], 'parent':parentID })
+    s = {'title':title,'author':author,'text':text,'tags':tags,'children':[], 'time':time}
+    s['parent'] = parentID
+
+    stories.insert(s)
+    temp = stories.find(s)
+
+    id = [x for x in temp][0]["_id"]
+    if (parentID):  #notify the parent to update its children!!
+        stories.update({"_id":ObjectId(parentID)}, {'$set': {'children':[id]}})
+    return id
 
 def s_edit(i, title, text, parentID, meta): #editing node text
-	update = {}
-	if title:
-		update["title"] = title
-	if text:
-		update["text"] = text
-	if parentID:
-		update["parent"] = parentID
+    update = {}
+    if title:
+        update["title"] = title
+    if text:
+        update["text"] = text
+    if parentID:
+        old_parent = s_get(i)["parent"]
+        stories.update({"_id":ObjectId(old_parent)}, {'$set': {'children':[]}})
+        update["parent"] = parentID
 	if "author" in meta:
 		update["author"] = meta["author"]
 	if "tags" in meta:
 		update["tags"] = meta["tags"]
 
-	stories.update({"_id":ObjectId(i)}, update)
+	stories.update({"_id":ObjectId(i)}, {'$set': update})
 
 def s_delete(id):	# deletes either a node or a story
 	pass
 
-"""
-def s_getall():		# return list of all stories
-    temp = stories.find({"parent":None})
-	result = [x for x in temp]
-	return result
+def s_getall():		# return list of all STORIES (first parent nodes only)
+    #temp = stories.find({"parent":None})
+    temp = stories.find()
+    result = [x for x in temp]
+    return result
 
-def s_get(i):	#get story by Object_Id
+def s_get(i):	#get story by ObjectId
     temp = stories.find({"_id":ObjectId(i)})
-	result = [x for x in temp]
-	return result
-"""
+    result = [x for x in temp]
+    return result
 
 '''
 def invalidpost(title, content):
