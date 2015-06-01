@@ -70,8 +70,13 @@ def s_edit(i, title, text, parentID, meta): #editing node text
 
 	stories.update({"_id":ObjectId(i)}, {'$set': update})
 
-def s_delete(id):	# deletes either a node or a story
-	pass
+def s_delete(i):	# deletes either a node or a story AND ALL OF ITS CHILDREN
+    for x in s_get(i)['children']:
+        s_delete(x)
+    stories.update({"_id":i},{'$set': {'children':[]}})
+    old_parent = s_get(i)["parent"]
+    stories.update({"_id":ObjectId(old_parent)}, {'$set': {'children':[]}})
+    stories.remove({"_id":ObjectId(i)})
 
 def s_getall():		# return list of all STORIES (first parent nodes only)
     #temp = stories.find({"parent":None})
@@ -81,7 +86,7 @@ def s_getall():		# return list of all STORIES (first parent nodes only)
 
 def s_get(i):	#get story by ObjectId
     temp = stories.find({"_id":ObjectId(i)})
-    result = [x for x in temp]
+    result = [x for x in temp][0]
     return result
 
 '''
