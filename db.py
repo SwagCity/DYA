@@ -36,7 +36,7 @@ def adduser(display, username,email,pw):
         hash = pbkdf2_sha256.encrypt(pw, rounds=100000, salt_size=16)
         users.insert([{'disp':display,'name':username,'email':email,'pw':hash}])
 
-def s_add(title, text, parentID, meta):
+def s_add(title, text, parent, meta):
     author = ""
     tags = []
     time = str(datetime.datetime.now())
@@ -46,26 +46,26 @@ def s_add(title, text, parentID, meta):
 		tags = meta["tags"]
 
     s = {'title':title,'author':author,'text':text,'tags':tags,'children':[], 'time':time}
-    s['parent'] = parentID
+    s['parent'] = parent
 
     stories.insert(s)
     temp = stories.find(s)
 
     id = [x for x in temp][0]["_id"]
-    if (parentID):  #notify the parent to update its children!!
-        stories.update({"_id":ObjectId(parentID)}, {'$set': {'children':[id]}})
+    if (parent):  #notify the parent to update its children!!
+        stories.update({"_id":ObjectId(parent)}, {'$set': {'children':[id]}})
     return id
 
-def s_edit(i, title, text, parentID, meta): #editing node text
+def s_edit(i, title, text, parent, meta): #editing node text
     update = {}
     if title:
         update["title"] = title
     if text:
         update["text"] = text
-    if parentID:
+    if parent:
         old_parent = s_get(i)["parent"]
         stories.update({"_id":ObjectId(old_parent)}, {'$set': {'children':[]}})
-        update["parent"] = parentID
+        update["parent"] = parent
 	if "author" in meta:
 		update["author"] = meta["author"]
 	if "tags" in meta:
@@ -82,8 +82,8 @@ def s_delete(i):	# deletes either a node or a story AND ALL OF ITS CHILDREN
     stories.remove({"_id":ObjectId(i)})
 
 def s_getall():		# return list of all STORIES (first parent nodes only)
-    #temp = stories.find({"parent":None})
-    temp = stories.find()
+    temp = stories.find({"parent":None})
+    #temp = stories.find()
     result = [x for x in temp]
     return result
 
