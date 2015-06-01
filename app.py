@@ -57,7 +57,7 @@ def home():
         elif mode == 'view stories':
             return redirect(url_for('view')) #or whereever
 
-        
+
 @app.route('/edit')
 @login_required
 def edit():

@@ -1,5 +1,6 @@
 import random, re, datetime
 from pymongo import MongoClient
+from passlib.hash import pbkdf2_sha256
 from bson.objectid import ObjectId
 
 client = MongoClient()
@@ -8,8 +9,9 @@ users = db['users']   		#collection called users
 stories = db['stories'] 	#collection called stories
 
 def authenticate(username,password):
-        #print [x for x in users.find()]
-        return 1 == (users.find({'name':username,'pw':password})).count()
+        result = users.find({'name':username})
+        temp = result[0]['pw']
+        return pbkdf2_sha256.verify(password, temp)
 
 def userexists(username):
         return 1 == (users.find({'name':username})).count()
@@ -30,8 +32,9 @@ def getprofile(username):
 def updatepw(username,newpwd):
         users.update({'name':username},{'$set':{'pw':newpwd}}, upsert=False, multi=False)
 
-def adduser(display, username,email,password):
-        users.insert([{'disp':display,'name':username,'email':email,'pw':password}])
+def adduser(display, username,email,pw):
+        hash = pbkdf2_sha256.encrypt(pw, rounds=100000, salt_size=16)
+        users.insert([{'disp':display,'name':username,'email':email,'pw':hash}])
 
 def s_add(title, text, parentID, meta):
     author = ""
