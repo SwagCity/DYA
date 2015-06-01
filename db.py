@@ -1,6 +1,6 @@
 import random, re, datetime
 from pymongo import MongoClient
-#from passlib.hash import pbkdf2_sha256
+from passlib.hash import pbkdf2_sha256
 from bson.objectid import ObjectId
 
 client = MongoClient()
