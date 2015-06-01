@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block navbar %} 
+{% block navbar %}
 <li>
   <a class="page-scroll" href="#services">About</a>
 </li>
@@ -12,15 +12,13 @@
 <li>
   <a class="page-scroll" href="#contact">Contact</a>
 </li>
-<li>
-  {% if session['name']==None %}
-  <a href="{{ url_for('login') }}">Login</a>
-  {% else %}
-  <a href="{{ url_for('logout') }}">Logout</a>
-  {% endif %}
-</li>
+{% if session['name']==None %}
+<li><a href="/login"><img class=="pure-img" src="{{ url_for('static', filename='fb_login.png') }}" height=20 width=60 border=0></img></a></li>
+{% else %}
+<li><a href="/logout"><img class=="pure-img" src="{{ url_for('static', filename='fb_logout.png') }}" height=20 width=60 border=0></img></a></li>
+{% endif %}
 
-{% endblock navbar %} 
+{% endblock navbar %}
 
 {% block headercontent %}
 <header>
