@@ -1,20 +1,17 @@
 import random, re, datetime
 from pymongo import MongoClient
-from passlib.hash import pbkdf2_sha256
 from bson.objectid import ObjectId
 
 client = MongoClient()
 db = client['datab'] 		#database called datab
-users = db['users']   		#collection called users
+users = db['users_fb']   		#collection called users
 stories = db['stories'] 	#collection called stories
-
-def authenticate(username,password):
-        result = users.find({'name':username})
-        temp = result[0]['pw']
-        return pbkdf2_sha256.verify(password, temp)
 
 def userexists(username):
         return 1 == (users.find({'name':username})).count()
+
+def idexists(id):
+        return 1 == (users.find({'id':id})).count()
 
 def emailexists(email):
         return 1 == (users.find({'email':email})).count()
@@ -32,9 +29,11 @@ def getprofile(username):
 def updatepw(username,newpwd):
         users.update({'name':username},{'$set':{'pw':newpwd}}, upsert=False, multi=False)
 
-def adduser(display, username,email,pw):
-        hash = pbkdf2_sha256.encrypt(pw, rounds=100000, salt_size=16)
-        users.insert([{'disp':display,'name':username,'email':email,'pw':hash}])
+def adduser(display, id,email):
+        users.insert([{'display':display,'id':id,'email':email}])
+
+def updatedisplay(id, display):
+        users.update({'id':id}, {'$set':{'display':display}})
 
 def s_add(title, text, parent, meta):
     author = ""

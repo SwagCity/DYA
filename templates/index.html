@@ -13,9 +13,9 @@
   <a class="page-scroll" href="#contact">Contact</a>
 </li>
 {% if session['name']==None %}
-<li><a href="/login"><img class=="pure-img" src="{{ url_for('static', filename='fb_login.png') }}" height=20 width=60 border=0></img></a></li>
+<li><a href="{{ url_for('login') }}"><img class=="pure-img" src="{{ url_for('static', filename='fb_login.png') }}" height=20 width=60 border=0></img></a></li>
 {% else %}
-<li><a href="/logout"><img class=="pure-img" src="{{ url_for('static', filename='fb_logout.png') }}" height=20 width=60 border=0></img></a></li>
+<li><a href="{{ url_for('logout') }}"><img class=="pure-img" src="{{ url_for('static', filename='fb_logout.png') }}" height=20 width=60 border=0></img></a></li>
 {% endif %}
 
 {% endblock navbar %}

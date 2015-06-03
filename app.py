@@ -1,8 +1,26 @@
 import db
 from functools import wraps
+from flask_oauth import OAuth
+import facebook
 from flask import Flask, render_template, request, redirect, session, url_for, flash
+import json, urllib, urllib2
+import key
 
 app = Flask(__name__)
+
+app.secret_key = "don't store this on github"
+app.debug = True
+
+oauth = OAuth()
+facebook = oauth.remote_app('facebook',
+    base_url='https://graph.facebook.com/',
+    request_token_url=None,
+    access_token_url='/oauth/access_token',
+    authorize_url='https://www.facebook.com/dialog/oauth',
+    consumer_key=key.key()[0],
+    consumer_secret=key.key()[1],
+    request_token_params={'scope': 'user_friends, email'}
+)
 
 def login_required(f):
     @wraps(f)
@@ -11,26 +29,6 @@ def login_required(f):
             flash("You must login to access this protected page!")
             session['nextpage'] = request.url
             return redirect(url_for('login'))
-        return f(*args, **kwargs)
-    return inner
-
-def authenticate(f):
-    @wraps(f)
-    def inner(*args, **kwargs):
-        if request.method == "POST":
-            username = request.form["username"]
-            password = request.form["pw"]
-            if db.authenticate(username,password):
-                session['name'] = username
-                #page = session.pop('nextpage','/')
-                #return redirect(url_for('edit'))
-            else:
-                if db.userexists(username):
-                    flash("You've inputted the wrong password for the given user.")
-                    return redirect(url_for('login'))
-                else:
-                    flash("The username you inputted hasn't been registered yet.")
-                    return redirect(url_for('login'))
         return f(*args, **kwargs)
     return inner
 
@@ -55,7 +53,7 @@ def home():
             return redirect(url_for('edit'))
     else: #GET
         return render_template("home.html")
-   
+
 
 @app.route('/edit')
 @login_required
@@ -67,56 +65,47 @@ def edit():
         db.s_edit(id, title, text)
     return render_template("edit.html")
 
-@app.route("/login", methods=["POST","GET"])
-@authenticate
+@app.route("/login")
 def login():
-    if "name" not in session:
-        session["name"] = None
-    if request.method == "POST":
-        return redirect(url_for('user'))
-    else:
-        return render_template("login.html")
+    return facebook.authorize(callback=url_for('facebook_authorized',
+    next=request.args.get('next') or request.referrer or None,
+    _external=True))
+
+@app.route('/login/authorized')
+@facebook.authorized_handler
+def facebook_authorized(resp):
+    if resp is None:
+        return 'Access denied: reason=%s error=%s' % (
+            request.args['error_reason'],
+            request.args['error_description']
+        )
+    session['oauth_token'] = (resp['access_token'], '')
+    session['token'] = resp['access_token']
+    me = facebook.get('/me')
+    session['name'] = me.data['name']
+    fburl = "https://graph.facebook.com/v2.2/me?access_token=" + urllib.quote_plus(str((session["token"])))
+    req = urllib2.urlopen(fburl)
+    result = req.read()
+    d = json.loads(result)
+    # a = open('sample.json').read()
+    # d = json.loads(a)
+    session['id'] = d['id']
+    if not db.idexists(session['id']):
+        db.adduser(session['name'],session['id'],me.data['email'])
+        flash("Since you are a new user, please update your food preferences.")
+        return redirect(url_for('account'))
+    return redirect(url_for('index'))
+
+@facebook.tokengetter
+def get_facebook_oauth_token():
+    return session.get('oauth_token')
 
 @app.route('/logout')
 def logout():
-    # remove the username from the session if it's there
     session.pop('name', None)
-    flash("You have been logged out.")
-    return redirect(url_for('login'))
-
-@app.route("/register", methods=["POST","GET"])
-def register():
-    if request.method == "POST":
-        disp = request.form["display"]
-        user = request.form["username"]
-        em = request.form["email"]
-        pw = request.form["password"]
-        pw2 = request.form["password2"]
-        if pw != pw2:
-            flash("The passwords you submitted don't match, please try again.")
-            return redirect(url_for('register'))
-        if user == "" or em == "" or pw == "":
-            flash("Please fill out all required fields!")
-            return redirect(url_for('register'))
-        if disp == "":
-            disp = user
-        if db.userexists(user):
-            flash("The username you submitted is already taken, please try again.")
-            return redirect(url_for('register'))
-        if db.emailexists(em):
-            flash("The email you submitted already has an account tied to it, please try again.")
-            return redirect(url_for('register'))
-        else:
-            db.adduser(disp, user,em,pw)
-            print "registered as display " + disp + " and user " + user
-            flash("You've sucessfully registered! Please login below.")
-            return redirect(url_for('login'))
-    else:
-        if session['name']!=None:
-            flash("You're already logged in, so you can't register for a second account!")
-            page = session.pop('nextpage','/')
-            return redirect(page)
-        return render_template("register.html")
+    session.pop('id', None)
+    session.pop('token', None)
+    return redirect(url_for('index'))
 
 @app.route("/write",methods=["POST","GET"])
 @login_required
@@ -170,6 +159,4 @@ def user():
             return redirect(url_for('logout'))
 
 if __name__ == '__main__':
-    app.secret_key = "don't store this on github"
-    app.debug = True
     app.run(host="0.0.0.0", port=8000)
