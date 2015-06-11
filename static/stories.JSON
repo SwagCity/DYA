@@ -1,12 +1,12 @@
 
 
 [{
-    "title": "first",
-    "descr": "testFirst"
+    "key": "first",
+    "values": ["testFirst"]
 },{
-    "title": "second",
-    "descr": "testSecond"
+    "key": "second",
+    "values": ["testSecond"]
 },{
-    "title": "third",
-    "descr": "testThird"
+    "key": "third",
+    "values": ["testThird"]
 }]

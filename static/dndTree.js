@@ -586,5 +586,4 @@ treeJSON = d3.json("../static/flare.json", function(error, treeData) {
     document.getElementById("add").onclick(addNode(nodeText));
     document.getElementById("rem").onclick(remNode(nodeText));
 
-
 });

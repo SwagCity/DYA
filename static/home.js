@@ -26,21 +26,32 @@ storyJSON = d3.json("../static/stories.JSON", function(error, storyData){
         }
     }
 
-    totalStories = count(storyData);
+    //totalStories = count(storyData);
     
-    console.log(totalStories);
+    //console.log(totalStories);
+    //console.log(storyData);
+    
+    function draw(data) {
+	var lists = d3.select("body").selectAll("ul")
+	    .data(data,function(d,i) {console.log(d); return d; });
 	
-    var ul = d3.select("#storyList").selectAll("ul")
-	.data(storyData)
-	.enter()
-	.append("ul")
+	lists.enter().append("ul")
+	    .attr("class",function(d) { return d.key });
+	
+	lists.exit().remove();
 
-    var li = ul.selectAll("li")
-	.data(function(d){return d;})
-	.enter()
-	.append("li")
-	.text(function(d) {return d.descr;});
+	var lines = lists.selectAll("li")
+	    .data(function(d) { return d}, function(d,i) { console.log(d.values); return d.values; });
+	
+	lines.enter().append("li")
+	    .text(function(d, i) { console.log(d);return d; });
+	
+	lines.exit().remove();
+    }
+
+
+    draw(storyData);
     
     
 });
-		    
+
