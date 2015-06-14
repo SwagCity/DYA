@@ -1,12 +1,15 @@
 
-
-[{
-    "key": "first",
-    "values": ["testFirst"]
-},{
-    "key": "second",
-    "values": ["testSecond"]
-},{
-    "key": "third",
-    "values": ["testThird"]
+[{    
+    "stories": 
+    [{
+	"key": "first",
+	"values": ["testFirst"]
+    },{
+	"key": "second",
+	"values": ["testSecond"]
+    },{
+	"key": "third",
+	"values": ["testThird"]
+    }]
+    
 }]

@@ -31,25 +31,25 @@ storyJSON = d3.json("../static/stories.JSON", function(error, storyData){
     //console.log(totalStories);
     //console.log(storyData);
     
-    function draw(data) {
-	var lists = d3.select("body").selectAll("ul")
-	    .data(data);
+    function draw() {
+	var lists = d3.select("header").select("ul")
+	    .data(storyData);
 	
-	lists.enter().append("ul")
+	lists.enter().append("ul");
 	
 	lists.exit().remove();
 
 	var lines = lists.selectAll("li")
-	    .data(data);
+	    .data(storyData[0].stories);
 	
 	lines.enter().append("li")
-	    .text(function(d) { return d.values; });
+	    .text(function(d) {return d.values; });
 	
 	lines.exit().remove();
     }
 
-
-    draw(storyData);
+    console.log(storyData[0].stories);
+    draw();
     
     
 });
