@@ -55,49 +55,57 @@ App.DataManip = function() {
 }();
 
 App.DataManip.Ajax = function(options) {
-	
-	var addStory = function(params, parent) {	
-		var data;
-		$.ajax({
-			url			: options.apiURL + "/stories",
-			type		: "POST",
-			contentType	: 'application/json; charset=utf-8',
-			data 		: {
-				"params" : params,
-				"parent" : parent
-			},
 
-			success : function(results) {
-				data = results;
-			},
-			error : function(err) {
-				console.log(err);
-			}
-		})
+	/* 
+	 * params
+	 	* params contain data and options for the AJAX request.
+	 * 
+	 * success
+	 	* success(retrievedData) is the callback for a successful AJAX request.
+ 	 */
 
-		return data;
+	var addStory = function(params, success) {
+		// Check the contents of params
+		if (!("title" in params)) {
+			console.log("ERROR: Empty title string.");
+			return;
+		}
+		if (!"snippet" in params) {
+			console.log("Empty content string.");
+		}
+
+		// Record metadata	
+		params.metadata = {};
+		params.metadata.author = username;
+		params.metadata.timestamp = Date.now();
+		
+		if ("parent" in params) {
+			console.log("Creating branching node from parent node: " + params.parent);
+		} else {
+			console.log("Creating new root node");
+		}
+
+
+		var url = options.apiURL + "/stories";
+
+		console.log("Sending POST request to " + url);	
+		$.post(url, params, success);
 	}
 
-	var getStory = function(params, node_id, parent) {
-		var data;
-		$.ajax({
-			url			: options.apiURL + "/" + node_id,
-			type		: "POST",
-			contentType	: 'application/json; charset=utf-8',
-			data 		: {
-				"params" : params,
-				"parent" : parent
-			},
+	var getStory = function(node_id, success) {
+		var url = options.apiURL + "/stories/" + node_id;
+		console.log("Sending GET request to " + url);
 
-			success : function(results) {
-				data = results;
-			},
+		$.ajax({
+			url			: url,
+			type		: "GET",
+			contentType	: 'application/json; charset=utf-8',
+
+			success 	: success,	
 			error : function(err) {
 				console.log(err);
 			}
 		})
-
-		return data;
 	}
 	
 	var removeStory = function(params, node_id, parent) {
@@ -141,7 +149,6 @@ App.DataManip.Ajax = function(options) {
 	}
 
 
-
 	return {
 		addStory 	: addStory,
 		getStory 	: getStory,
@@ -150,5 +157,5 @@ App.DataManip.Ajax = function(options) {
 		
 	}
 }({
-	apiURL 		: "localhost:8000"
+	apiURL 		: "http://localhost:8000"
 });

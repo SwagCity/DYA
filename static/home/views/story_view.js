@@ -35,7 +35,6 @@ App.Views.StoryNode = Marionette.CompositeView.extend({
 	
 	},
 	onRender : function() {
-		console.log("onrender")
 		var id = this.model.get("_id"),
 			$content = $("#content-"+id),
 			history = this.model.history;
@@ -79,7 +78,8 @@ App.Views.StoryNode = Marionette.CompositeView.extend({
 				".css('top', App.DataManip.findNode(App.viewStoryView.model.story, '" + id + "').history.offsetTop - $('#content-" + id + "').offset().top)\n" + 
 				".css('left',  App.DataManip.findNode(App.viewStoryView.model.story, '" + id + "').history.offsetLeft - $('#content-" + id + "').offset().left)\n" +
 				".css('height', '" + prevHeight + "')\n" +
-				".css('width', '" + prevWidth + "')\n";
+				".css('width', '" + prevWidth + "')\n"
+				;
 		} else {
 			this.ui.script[0].innerHTML +=
 				".css('height', '" + height + "')\n" +
@@ -163,7 +163,7 @@ App.Views.ViewStory = Marionette.LayoutView.extend({
 				node.history.offsetLeft = $("#content-"+node.get("_id")).offset().left;
 				node.history.offsetTop = $("#content-"+node.get("_id")).offset().top;
 			} catch (err) {
-				console.log(err);
+				//console.log(err);
 				node.history = undefined;
 			}
 		})(this.model.story);
