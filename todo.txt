@@ -7,6 +7,9 @@ Finalize the styling on the edit page - Add margins
 Finalize the styling on the profile page
 Get actual data for the profile page
 [DONE] View actual stories from the view page (ajax)
+[DONE] View actual stories from the view page (ajax)
+	Possible optimization step: the only way to get to the edit page is from the view page.
+	So one would be able to save one GET request by simply carrying the data over from the view page.
 Edit actual stories from the edit page (ajax)
 Search page
 [DONE] Figure out the JSON serializable error
