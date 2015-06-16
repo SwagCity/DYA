@@ -8,5 +8,7 @@ Finalize the styling on the profile page
 Get actual data for the profile page
 View actual stories from the view page (ajax)
 Edit actual stories from the edit page (ajax)
-Figure out the JSON serializable error
-
+[DONE] Figure out the JSON serializable error
+	jsonify doesn't know what to do with ObjectId's, so you need to manually convert them to strings with str(ObjectId("id"))
+Fix the scrolling issue on the view page
+Text styling (markdown?)
