@@ -99,8 +99,7 @@ def facebook_authorized(resp):
     session['id'] = d['id']
     if not db.idexists(session['id']):
         db.adduser(session['name'],session['id'],me.data['email'])
-        flash("Since you are a new user, please update your food preferences.")
-        return redirect(url_for('account'))
+        return redirect(url_for('home'))
     return redirect(url_for('index'))
 
 @facebook.tokengetter
