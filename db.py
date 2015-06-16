@@ -107,7 +107,6 @@ def s_get(i):	#get story by ObjectId
                 get_children_data(node["children"][i])
 
     get_children_data(result)
-    print result
     return result
 
 def s_search(term, context):

@@ -142,18 +142,27 @@ def add_story():
         )
         """
         db.s_add("test-title","test-snippet","557e56541169845ee2dae16b",{"hurr":"durr"})
-        print request.form;
         return jsonify({"status" : "success"})
 
-@app.route("/stories/<id>", methods=["POST", "GET"])
+@app.route("/stories/<id>", methods=["POST", "GET", "PATCH"])
 def stories(id=""):
     if request.method == "GET":
         # Get story
-        query = db.s_get("557f8825116984710550a2e3")
+        query = db.s_get(id)
        
         return jsonify({"story" : query})
     elif request.method == "POST":
         return jsonify({"status":"received POST request"})
+    elif request.method == "PATCH":
+        db.s_edit(
+            id,
+            request.form.get("title"),
+            request.form.get("text"),
+            request.form.get("parent"),
+            request.form.get("meta")
+                )
+        return jsonify({"status":"received PATCH request"})
+        
 
 
 
