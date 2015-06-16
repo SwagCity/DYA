@@ -52,7 +52,7 @@ def s_add(title, text, parent, meta):
 
     id = [x for x in temp][0]["_id"]
     if (parent):  #notify the parent to update its children!!
-        stories.update({"_id":ObjectId(parent)}, {'$set': {'children':[id]}})
+        stories.update({"_id":ObjectId(parent)}, {'$set': {'children':[str(id)]}})
     return id
 
 def s_edit(i, title, text, parent, meta): #editing node text
