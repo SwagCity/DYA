@@ -52,7 +52,6 @@ App.loadTreeJSON = function(node_id) {
 		// Call visit function to establish maxLabelLength
 		visit(treeData, function(d) {
 			totalNodes++;
-			console.log(d);
 			maxLabelLength = Math.max(d.text.length, maxLabelLength);
 
 		}, function(d) {
@@ -160,7 +159,7 @@ App.loadTreeJSON = function(node_id) {
 
 		var textArea = d3.select("#text-container")
 		.append("textarea")
-		.attr("id","story")
+		.attr("id","snippet-text")
 		.style("height", "100%")
 		.style("width", "100%")
 		.style("position","relative");
@@ -171,11 +170,18 @@ App.loadTreeJSON = function(node_id) {
 		.attr("id","title");
 
 		function textUpdate(d){
-			if (nodeText != null){
-				nodeText.text = document.getElementById("story").value;
+			if (nodeText.text != document.getElementById("snippet-text").value) {
+				var saveChanges = confirm("You have made some changes to the following document. Do you want to save your changes before moving?")
+				if (saveChanges) {
+					if (nodeText != null){
+						nodeText.text = document.getElementById("snippet-text").value;
+					}
+					
+					nodeText = d.text;
+					console.log(nodeText);
+					document.getElementById("snippet-text").value = d.text;
+				}
 			}
-			nodeText = d.text;
-			document.getElementById("story").value = d.text;
 		}
 
 		function titleUpdate(d){
@@ -390,7 +396,7 @@ App.loadTreeJSON = function(node_id) {
 			nodeTitle=d;
 			update(d);
 			centerNode(d);
-			document.getElementById("story").value = d.text;
+			document.getElementById("snippet-text").value = d.text;
 			document.getElementById("title").value = d.title;
 		}
 
@@ -400,12 +406,6 @@ App.loadTreeJSON = function(node_id) {
 		}
 
 		function update(source) {
-			/*App.DataManip.Ajax.getStory({
-			  "text" : newText,
-			  "title" : newTitle,
-			  }, source._id, root._id);*/
-			// Compute the new height, function counts total children of root node and sets tree height accordingly.
-			// This prevents the layout looking squashed when new nodes are made visible or looking sparse when nodes are removed
 			// This makes the layout more consistent.
 			var levelWidth = [1];
 			var childCount = function(level, n) {
@@ -483,7 +483,7 @@ App.loadTreeJSON = function(node_id) {
 			// phantom node to give us mouseover in a radius around it
 			nodeEnter.append("circle")
 			.attr('class', 'ghostCircle')
-			.attr("r", 30)
+			.attr("r", 100)
 			.attr("opacity", 0.2) // change this to zero to hide the target area
 			.style("fill", "red")
 			.attr('pointer-events', 'mouseover')
@@ -513,7 +513,7 @@ App.loadTreeJSON = function(node_id) {
 			*/
 
 			node.select("circle.nodeCircle")
-			.attr("r", "4.5")
+			.attr("r", "30")
 			.style("fill", "lightsteelblue");
 
 			// Transition nodes to their new position.
