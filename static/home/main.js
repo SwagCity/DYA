@@ -8,6 +8,7 @@ var options = {
 	apiURL : "http://localhost:4000"
 }
 
+
 /* Defining Regions */
 console.log("Initializing Regions")
 App.addRegions({

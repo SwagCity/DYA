@@ -2,7 +2,7 @@ import db
 from functools import wraps
 from flask_oauth import OAuth
 import facebook
-from flask import Flask, render_template, request, redirect, session, url_for, flash
+from flask import Flask, render_template, request, redirect, session, url_for, flash, jsonify
 import json, urllib, urllib2
 import key
 
@@ -126,18 +126,36 @@ def write():
     return render_template("write.html")
 
 @app.route("/story")
-@login_required
-def stories():
-    temp = db.s_getall()
-    data = [x for x in temp]
-    return render_template("story.html",data=data)
-
-@app.route("/stories/<id>")
-@login_required
 def story():
-    temp = db.s_get(id)
-    data = [x for x in temp]
-    return render_template("story.html",data=data)
+    pass
+
+@app.route("/stories", methods=["POST","GET"])
+def add_story():
+    if request.method=="POST":
+        # add a story to the mongo database
+        """
+        db.s_add(
+            request.form.get("title"),
+            request.form.get("snippet"),
+            request.form.get("parent"),
+            request.form.get("metadata")
+        )
+        """
+        db.s_add("test-title","test-snippet","557e56541169845ee2dae16b",{"hurr":"durr"})
+        print request.form;
+        return jsonify({"status" : "success"})
+
+@app.route("/stories/<id>", methods=["POST", "GET"])
+def stories(id=""):
+    if request.method == "GET":
+        # Get story
+        # query = db.s_get(str(id));
+        query = db.s_get("557e5cec11698460587899fe")
+        return jsonify(query)
+    elif request.method == "POST":
+        return jsonify({"status":"received POST request"})
+
+
 
 @app.route("/user", methods=["POST","GET"])
 @login_required
