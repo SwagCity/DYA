@@ -5,6 +5,7 @@ import facebook
 from flask import Flask, render_template, request, redirect, session, url_for, flash, jsonify
 import json, urllib, urllib2
 import key
+from bson.objectid import ObjectId
 
 app = Flask(__name__)
 
@@ -149,9 +150,9 @@ def add_story():
 def stories(id=""):
     if request.method == "GET":
         # Get story
-        # query = db.s_get(str(id));
-        query = db.s_get("557e5cec11698460587899fe")
-        return jsonify(query)
+        query = db.s_get("557f8825116984710550a2e3")
+       
+        return jsonify({"story" : query})
     elif request.method == "POST":
         return jsonify({"status":"received POST request"})
 

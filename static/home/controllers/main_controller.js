@@ -61,7 +61,7 @@ var MainController = Marionette.Controller.extend({
 	},
 	renderStory : function(story_id) {
 		/* Run an AJAX call to retrieve the story from the server. */
-
+/*
 		var data = {
 			"story" : {
 				"_id": "toplevel2",
@@ -97,16 +97,18 @@ var MainController = Marionette.Controller.extend({
 				]
 			}
 		};
+*/
+		App.DataManip.Ajax.getStory(story_id, function(data) {
+			var story = new App.Models.Story(data);
+			App.viewStoryView = new App.Views.ViewStory({
+				model : story
+			});
+			console.log(data);
+			console.log(story);
+			console.log(App.viewStoryView.model);
 
-		App.DataManip.init(data);
-
-		var story = new App.Models.Story(data);
-		App.viewStoryView = new App.Views.ViewStory({
-			model : story
+			App.mainRegion.show(App.viewStoryView);
 		});
-
-		App.mainRegion.show(App.viewStoryView);
-
 	}
 });
 

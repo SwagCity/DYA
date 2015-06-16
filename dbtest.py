@@ -4,7 +4,9 @@ import db
 
 def run():
     x = db.s_add("The Store","One fine day, Mark goes to the store.", None, {"author":"Bob","tags":["retail","adventure"]})
+    child = db.s_add("Crap", "The store was full of crap", str(x), {"author":"Dylan","tags":["retail","adventure","crap"]})
     print x
+    print type(x)
     print db.s_get(x)
     print ""
     print "update"
