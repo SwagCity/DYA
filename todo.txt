@@ -1,0 +1,12 @@
+Things left to do!
+
+The redirection problem when registering a new user and logging in
+Finalize the styling on the home page
+Finalize the styling on the view page
+Finalize the styling on the edit page
+Finalize the styling on the profile page
+Get actual data for the profile page
+View actual stories from the view page (ajax)
+Edit actual stories from the edit page (ajax)
+Figure out the JSON serializable error
+
