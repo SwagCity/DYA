@@ -70,7 +70,7 @@ def s_edit(i, title, text, parent, meta): #editing node text
 	if "tags" in meta:
 		update["tags"] = meta["tags"]
 
-	stories.update({"_id":ObjectId(i)}, {'$set': update})
+    stories.update({"_id":ObjectId(i)}, {'$set': update})
 
 def s_delete(i):	# deletes either a node or a story AND ALL OF ITS CHILDREN
     for x in s_get(i)['children']:

@@ -18,10 +18,11 @@ def run():
     '''
     print db.s_getall()
     db.s_delete(y)
+    '''
     print ""
     print "ALL"
     print db.s_getall()
-    '''
+    
 
 
 if __name__ == '__main__':
