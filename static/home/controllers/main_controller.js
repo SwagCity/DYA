@@ -9,6 +9,7 @@ var MainController = Marionette.Controller.extend({
 		console.log("Starting in controller...");
 	},
 	home : function() {
+		console.log("WE'RE HOME")
 		App.homeView = App.Views.HomeView();
 		App.mainRegion.show(App.homeView);
 	},

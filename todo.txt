@@ -3,9 +3,10 @@ Things left to do!
 The redirection problem when registering a new user and logging in
 Finalize the styling on the home page
 Finalize the styling on the view page
+	Need to actually see the content when it's on main
 Finalize the styling on the edit page - Add margins
-Finalize the styling on the profile page
-Get actual data for the profile page
+
+View actual stories from the home page (ajax)
 [DONE] View actual stories from the view page (ajax)
 [DONE] View actual stories from the view page (ajax)
 	Possible optimization step: the only way to get to the edit page is from the view page.

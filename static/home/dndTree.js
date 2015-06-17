@@ -169,28 +169,68 @@ App.loadTreeJSON = function(node_id) {
 		.attr("type","text")
 		.attr("id","title");
 
-		function textUpdate(d){
-			if (nodeText.text != document.getElementById("snippet-text").value) {
-				var saveChanges = confirm("You have made some changes to the following document. Do you want to save your changes before moving?")
-				if (saveChanges) {
-					if (nodeText != null){
-						nodeText.text = document.getElementById("snippet-text").value;
-					}
-					
-					nodeText = d.text;
-					console.log(nodeText);
-					document.getElementById("snippet-text").value = d.text;
+		function save() {}
+
+		function updateNode(d) {
+			// Ajax requests go here!
+
+			var params = {};
+			if (nodeText) {
+				if (nodeText.text != document.getElementById("snippet-text").value) {
+					params["text"] = document.getElementById("snippet-text").value;
 				}
+				if (nodeTitle.title != document.getElementById("title").value) {
+					params["title"] = document.getElementById("title").value;
+				}
+
+				if (!jQuery.isEmptyObject(params)) {
+					console.log(params);
+					var saveChanges = confirm("You have made some changes to the following document. Do you want to save your changes before moving?");
+					console.log(saveChanges);
+					if (saveChanges) {
+						// Send the ajax request to update
+						App.DataManip.Ajax.updateStory(nodeText._id, params, function(data) {
+							// success
+						})
+					} else {
+						params = {};
+					}
+				}
+
+
+				nodeText = d.text;
+				nodeTitle = d.title;
+
 			}
 		}
 
-		function titleUpdate(d){
-			if (nodeTitle != null){
-				nodeTitle.title = document.getElementById("title").value;
-			}
-			nodeTitle=d.title;
-			document.getElementById("title").value = d.title;
-		}
+		/*
+		   function textUpdate(d){
+		   if (nodeText.text != document.getElementById("snippet-text").value) {
+		   var saveChanges = confirm("You have made some changes to the following document. Do you want to save your changes before moving?")
+		   if (saveChanges) {
+		   if (nodeText != null){
+		   nodeText.text = document.getElementById("snippet-text").value;
+		   }
+
+		   nodeText = d.text;
+		   document.getElementById("snippet-text").value = d.text;
+		   }
+		   }
+		   }
+
+		   function titleUpdate(d){
+		   if (nodeTitle.title != document.getElementById("title").value) {
+		   var saveChanges
+		   }
+
+		   if (nodeTitle != null){
+		   nodeTitle.title = document.getElementById("title").value;
+		   }
+		   nodeTitle=d.title;
+		   document.getElementById("title").value = d.title;
+		   }
+		   */
 
 		/*function addNode(){
 		  var newTitle = document.getElementById("title").value;
@@ -460,8 +500,12 @@ App.loadTreeJSON = function(node_id) {
 			.on('click', function(d){
 				//console.log(d);
 				//return test(d);
-				textUpdate(d);
-				titleUpdate(d);
+
+				updateNode(d);
+
+				// textUpdate(d);
+				// titleUpdate(d);
+
 			});
 
 			nodeEnter.append("text")

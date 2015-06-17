@@ -131,7 +131,12 @@ def story():
 
 @app.route("/stories", methods=["POST","GET"])
 def add_story():
-    if request.method=="POST":
+    if request.method=="GET":
+        # return everything
+        all = db.s_getall()
+        return jsonify({"stories":all})
+
+    elif request.method=="POST":
         # add a story to the mongo database
         """
         db.s_add(

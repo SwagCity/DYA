@@ -82,30 +82,32 @@ def s_delete(i):	# deletes either a node or a story AND ALL OF ITS CHILDREN
     stories.update({"_id":ObjectId(old_parent)}, {'$set': {'children':[]}})
     stories.remove({"_id":ObjectId(i)})
 
+# recursively replace the document id's with actual data
+def get_children_data(node):
+    # jsonify doesn't know how to convert ObjectId's,
+    # so we have to do that manually.
+    node["_id"] = str(node["_id"])
+    if node["parent"]:
+        node["parent"] = str(node["parent"])
+    if node["children"]:
+        for i in range(0, len(node["children"])):
+            node["children"][i] = s_get(node["children"][i])
+            get_children_data(node["children"][i])
+
+
 def s_getall():		# return list of all STORIES (first parent nodes only)
     temp = stories.find({"parent":None})
     #temp = stories.find()
     result = [x for x in temp]
+    print result
+    for each in result:
+        get_children_data(each)
+
     return result
 
 def s_get(i):	#get story by ObjectId
     temp = stories.find({"_id":ObjectId(i)})
     result = [x for x in temp][0]
-
-    # recursively replace the document id's with actual data
-    def get_children_data(node):
-
-        # jsonify doesn't know how to convert ObjectId's,
-        # so we have to do that manually.
-        node["_id"] = str(node["_id"])
-        if node["parent"]:
-            node["parent"] = str(node["parent"])
-        if node["children"]:
-            for i in range(0, len(node["children"])):
-                node["children"][i] = s_get(node["children"][i])
-
-                get_children_data(node["children"][i])
-
     get_children_data(result)
     return result
 

@@ -111,7 +111,7 @@ App.DataManip.Ajax = function(options) {
 	var removeStory = function(params, node_id, parent) {
 		var data;
 		$.ajax({
-			url			: options.apiURL + "/" + node_id,
+			url			: options.apiURL + "/stories/" + node_id,
 			type		: "DELETE",
 			contentType	: 'application/json; charset=utf-8',
 
@@ -126,16 +126,34 @@ App.DataManip.Ajax = function(options) {
 		return data;
 	};
 
-	var updateStory = function(params, success) {
+	var updateStory = function(node_id, params, success) {
+		console.log("Updating story with id: " + node_id);
+		console.log("Sending PATCH request to url: "+options.apiURL + "/stories/" + node_id);
+		console.log(params);
 		var data;
 		$.ajax({
-			url			: options.apiURL + "/" + node_id,
+			url			: options.apiURL + "/stories/" + node_id,
 			type		: "PATCH",
-			contentType	: 'application/json; charset=utf-8',
+			ContentType	: 'application/json; charset=utf-8',
 
 			data : params,
 
 			success : success,
+			error : function(err) {
+				console.log(err);
+			}
+		})
+	}
+	
+	var getAll = function(success) {
+		console.log("Getting all stories");
+		console.log("Sending GET request to url: "+options.apiURL + "/stories/");
+		$.ajax({
+			url 		: options.apiURL + "/stories",
+			type 		: "GET",
+			ContentType : 'application/json; charset=utf-8',
+
+			success 	: success,
 			error : function(err) {
 				console.log(err);
 			}
@@ -147,7 +165,8 @@ App.DataManip.Ajax = function(options) {
 		addStory 	: addStory,
 		getStory 	: getStory,
 		removeStory : removeStory,
-		updateStory	: updateStory
+		updateStory	: updateStory,
+		getAll		: getAll
 		
 	}
 }({
