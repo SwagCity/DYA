@@ -185,8 +185,9 @@ App.Views.ViewStory = Marionette.LayoutView.extend({
 		setAllRegions(this.model.story, this.viewHiddenUpper);
 		this.model.currentNode.region = this.viewMain;
 
-		if (this.model.currentNode.get("parent_id")){
-			App.DataManip.findNode(this.model.story, this.model.currentNode.get("parent_id")).region = this.viewMainUpper;
+		if (this.model.currentNode.get("parent")){
+			console.log()
+			App.DataManip.findNode(this.model.story, this.model.currentNode.get("parent")).region = this.viewMainUpper;
 		}
 		if (this.model.currentNode.children) {
 			if (this.model.currentNode.children.models) {

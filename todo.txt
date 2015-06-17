@@ -3,10 +3,22 @@ Things left to do!
 The redirection problem when registering a new user and logging in
 Finalize the styling on the home page
 Finalize the styling on the view page
-Finalize the styling on the edit page
+Finalize the styling on the edit page - Add margins
 Finalize the styling on the profile page
 Get actual data for the profile page
-View actual stories from the view page (ajax)
+[DONE] View actual stories from the view page (ajax)
+[DONE] View actual stories from the view page (ajax)
+	Possible optimization step: the only way to get to the edit page is from the view page.
+	So one would be able to save one GET request by simply carrying the data over from the view page.
 Edit actual stories from the edit page (ajax)
-Figure out the JSON serializable error
+Search page
+[DONE] Figure out the JSON serializable error
+	jsonify doesn't know what to do with ObjectId's, so you need to manually convert them to strings with str(ObjectId("id"))
+Fix the scrolling issue on the view page
+Text styling (markdown?)
 
+Figuring out how to send trees:
+	Method 1: client-heavy method. Marionette would be sending empty models (title: "loading", content: "loading", etc) and would also send the object id. Each one would then reload their own data on load. It would look a lot cooler, but it would require a pretty big overhaul. Also, no guarantees that the models can reload on command like that.
+	Method 2: server-heavy method. Python replaces all of the id's with data on the documents' way out, and replaces documents with id's on the way in.
+
+Replace documents with id when the data is coming in.

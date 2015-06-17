@@ -126,26 +126,20 @@ App.DataManip.Ajax = function(options) {
 		return data;
 	};
 
-	var updateStory = function(params, node_id, parent) {
+	var updateStory = function(params, success) {
 		var data;
 		$.ajax({
 			url			: options.apiURL + "/" + node_id,
 			type		: "PATCH",
 			contentType	: 'application/json; charset=utf-8',
-			data : {
-				"params" : params,
-				"parent" : parent
-			},
 
-			success : function(results) {
-				data = results;
-			},
+			data : params,
+
+			success : success,
 			error : function(err) {
 				console.log(err);
 			}
 		})
-
-		return data;
 	}
 
 

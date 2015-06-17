@@ -5,6 +5,7 @@ import facebook
 from flask import Flask, render_template, request, redirect, session, url_for, flash, jsonify
 import json, urllib, urllib2
 import key
+from bson.objectid import ObjectId
 
 app = Flask(__name__)
 
@@ -141,18 +142,27 @@ def add_story():
         )
         """
         db.s_add("test-title","test-snippet","557e56541169845ee2dae16b",{"hurr":"durr"})
-        print request.form;
         return jsonify({"status" : "success"})
 
-@app.route("/stories/<id>", methods=["POST", "GET"])
+@app.route("/stories/<id>", methods=["POST", "GET", "PATCH"])
 def stories(id=""):
     if request.method == "GET":
         # Get story
-        # query = db.s_get(str(id));
-        query = db.s_get("557e5cec11698460587899fe")
-        return jsonify(query)
+        query = db.s_get(id)
+       
+        return jsonify({"story" : query})
     elif request.method == "POST":
         return jsonify({"status":"received POST request"})
+    elif request.method == "PATCH":
+        db.s_edit(
+            id,
+            request.form.get("title"),
+            request.form.get("text"),
+            request.form.get("parent"),
+            request.form.get("meta")
+                )
+        return jsonify({"status":"received PATCH request"})
+        
 
 
 

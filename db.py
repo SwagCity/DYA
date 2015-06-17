@@ -2,6 +2,8 @@ import random, re, datetime
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 
+from flask import jsonify
+
 client = MongoClient()
 db = client['datab'] 		#database called datab
 users = db['users_fb']   		#collection called users
@@ -89,6 +91,22 @@ def s_getall():		# return list of all STORIES (first parent nodes only)
 def s_get(i):	#get story by ObjectId
     temp = stories.find({"_id":ObjectId(i)})
     result = [x for x in temp][0]
+
+    # recursively replace the document id's with actual data
+    def get_children_data(node):
+
+        # jsonify doesn't know how to convert ObjectId's,
+        # so we have to do that manually.
+        node["_id"] = str(node["_id"])
+        if node["parent"]:
+            node["parent"] = str(node["parent"])
+        if node["children"]:
+            for i in range(0, len(node["children"])):
+                node["children"][i] = s_get(node["children"][i])
+
+                get_children_data(node["children"][i])
+
+    get_children_data(result)
     return result
 
 def s_search(term, context):
