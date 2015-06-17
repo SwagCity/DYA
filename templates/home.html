@@ -3,9 +3,9 @@
 {% block stylecontent %}
 
 html, body {
-	height: 100%;
-	background-color: #000;
-	overflow: hidden;
+height: 100%;
+background-color: #000;
+overflow: hidden;
 }
 
 ul{
@@ -13,8 +13,8 @@ color: black;
 list-style-position: inside;
 }
 div.justified {
-	display: flex;
-	justify-content: center;
+display: flex;
+justify-content: center;
 }
 textarea#story {
 border: 5px solid #000;
@@ -73,19 +73,34 @@ display: inline-block;
 
 {% block navbar %} 
 
-<li>
-  {% if session['name']!=None %}
-  <a href="{{ url_for('user') }}">{{name}}</a>
-  {% endif %}
+<li class="dropdown">
+  <a class="dropdown-toggle"
+     data-toggle="dropdown"
+     href="#">
+    STORIES
+    <b class="caret"></b>
+  </a>
+  <ul class="dropdown-menu">
+    <li>
+      <a href="#">Edit Stories</a>
+    </li>
+    
+    <li>
+      <a href="#">View Stories</a>
+    </li>
+    
+  </ul>
+  
 </li>
 
 <li>
-	{% if session['name']==None %}
-	<a href="{{ url_for('login') }}">Login</a>
-	{% else %}
-	<a href="{{ url_for('logout') }}">Logout</a>
-	{% endif %}
+  {% if session['name']==None %}
+  <a href="{{ url_for('login') }}">Login</a>
+  {% else %}
+  <a href="{{ url_for('logout') }}">Logout</a>
+  {% endif %}
 </li>
+
 
 {% endblock navbar %} 
 
@@ -108,66 +123,66 @@ display: inline-block;
       <div id="tree-container" style="height: 50%"></div>
 
       <div style="height: 4%; background-color: black; color: black;">
-		<center>
-	  		<div id="title-container" class="inp"></div>
-		</center>
+	<center>
+	  <div id="title-container" class="inp"></div>
+	</center>
       </div>
       
-	  <div class="justified" id="text-container" style="height: 36%; color: black;"></div>
+      <div class="justified" id="text-container" style="height: 36%; color: black;"></div>
 
 
-	<center> 
-		<button id="save" type="button" class="btn btn-primary">
-			Save
-		</button>
-		<button id="delete" type="button" class="btn btn-primary">
-			Delete
-		</button>
-		
-	</center>
+      <center> 
+	<button id="save" type="button" class="btn btn-primary">
+	  Save
+	</button>
+	<button id="delete" type="button" class="btn btn-primary">
+	  Delete
+	</button>
+	
+      </center>
 
 
-	</div>
+    </div>
 
   </script>
 
-<!-- Template for a single snippet -->
-<script id="snippet-template" type="text/template">
-<span class="snippet circle">
-	<p>
-	  <%= title %>
-	</p>
-  </span>
-  <script></script>
-</script>
+  <!-- Template for a single snippet -->
+  <script id="snippet-template" type="text/template">
+    <span class="snippet circle">
+      <p>
+	<%= title %>
+      </p>
+    </span>
+    <script></script>
+  </script>
 
 
-<!-- Outer template for view-mode -->
-<script id="view-template" type="text/template">
+  <!-- Outer template for view-mode -->
+  <script id="view-template" type="text/template">
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<div style="height: 100%;">
-	<p>view-hidden-upper</p>
-	<div id="view-hidden-upper" style="height : 0px"></div>
-	<p>view-main-upper</p>
-  	<div id="view-main-upper" style="height: 200px"></div>
-	<p>view-main</p>
-  	<div id="view-main"></div>
-	<p>view-main-lower</p>
-  	<div id="view-main-lower" style="height: 200px"></div>
-	<p>view-hidden-lower</p>
-  	<div id="view-hidden-lower" style="height : 0px;"></div>
-</div>
-<br>
-<br>
-<br>
-<br>
-<br>
-</script>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div style="height: 100%;">
+      <p>view-hidden-upper</p>
+      <div id="view-hidden-upper" style="height : 0px"></div>
+      <p>view-main-upper</p>
+      <div id="view-main-upper" style="height: 200px"></div>
+      <p>view-main</p>
+      <div id="view-main"></div>
+      <p>view-main-lower</p>
+      <div id="view-main-lower" style="height: 200px"></div>
+      <p>view-hidden-lower</p>
+      <div id="view-hidden-lower" style="height : 0px;"></div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+  </script>
 
 
 
@@ -178,11 +193,11 @@ display: inline-block;
       <div class="header-content-iner col-sm-8">
 	<div id="storyList" class="rectangle rounded">
 	  <form method="POST">
-	  <input type="submit" name="submit" value="view stories" class="btn btn-primary btn-xl center">
-	  <br><br>
+	    <input type="submit" name="submit" value="view stories" class="btn btn-primary btn-xl center">
+	    <br><br>
 	  </form>
 	  <form method="POST">
-	  <input type="submit" name="submit" value="edit stories" class="btn btn-primary btn-xl center">
+	    <input type="submit" name="submit" value="edit stories" class="btn btn-primary btn-xl center">
 	  </form>
 	  <ul></ul>
 	</div>
