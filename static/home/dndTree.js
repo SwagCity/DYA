@@ -169,9 +169,14 @@ App.loadTreeJSON = function(node_id) {
 		.attr("type","text")
 		.attr("id","title");
 
-		function save() {}
+		$("#save").click(saveChanges);
+		$("#delete").click(deleteNode);
 
-		function updateNode(d) {
+		function deleteNode() {
+			
+		}
+
+		function saveChanges(f) {
 			// Ajax requests go here!
 
 			var params = {};
@@ -196,12 +201,17 @@ App.loadTreeJSON = function(node_id) {
 						params = {};
 					}
 				}
-
-
-				nodeText = d.text;
-				nodeTitle = d.title;
-
 			}
+
+			f();
+			// reload the page?
+		}
+
+		function updateNode(d) {
+			saveChanges(function(){
+				nodeText = d.text;
+				nodeTitle = d.title;	
+			});		
 		}
 
 		/*

@@ -155,3 +155,5 @@ def votepost(title,points):
 	db = conn['jsdt_blog']
 	db.jsdt_blog.update({'title':title},{'$inc':{'points':points}})
 '''
+
+
