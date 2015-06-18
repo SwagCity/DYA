@@ -8,6 +8,9 @@
 ## Interactive Choose Your Own Adventure Story Editor
 Our program aims to allow users to create their own Choose Your Own Adventure stories with ease.
 
+## Youtube Link
+https://www.youtube.com/watch?v=ne0wbDaWN6U
+
 ## TO DO:
  * Login System
  * Get acquainted with three.js (for nice visualizations, trees for each storyline split)
