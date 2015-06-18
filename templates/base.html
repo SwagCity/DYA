@@ -118,7 +118,7 @@ if (!Date.now ){
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand page-scroll" href="/index">Home</a>
-          <a class="navbar-brand" href="/user">
+          <a class="navbar-brand">
 			  &nbsp;{% if session['name']!=None %}
 			  	Hey {{session['name']}}!
 				<script>username = "{{ session["name"] }}"</script>
@@ -129,12 +129,8 @@ if (!Date.now ){
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-          <ul class="nav navbar-nav navbar-right">
-	    <!--
-		<li>
-		  <a class="page-scroll" href="#about">About</a>                               </li>
-		-->
-
+          <ul class="nav nav-tabs navbar-nav navbar-right">
+	    
 	    {% block navbar %}
 	    {% endblock navbar %}
 

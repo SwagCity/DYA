@@ -5,7 +5,6 @@
 html, body {
 	height: 100%;
 	background-color: #000;
-
 }
 
 ul{
@@ -13,8 +12,8 @@ color: black;
 list-style-position: inside;
 }
 div.justified {
-	display: flex;
-	justify-content: center;
+display: flex;
+justify-content: center;
 }
 textarea#story {
 border: 5px solid #000;
@@ -73,21 +72,18 @@ display: inline-block;
 
 {% endblock stylecontent %}
 
+
+
 {% block navbar %}
 
 <li>
-  {% if session['name']!=None %}
-  <a href="{{ url_for('user') }}">{{name}}</a>
+  {% if session['name']==None %}
+  <a href="{{ url_for('login') }}">Login</a>
+  {% else %}
+  <a href="{{ url_for('logout') }}">Logout</a>
   {% endif %}
 </li>
 
-<li>
-	{% if session['name']==None %}
-	<a href="{{ url_for('login') }}">Login</a>
-	{% else %}
-	<a href="{{ url_for('logout') }}">Logout</a>
-	{% endif %}
-</li>
 
 {% endblock navbar %}
 
@@ -110,9 +106,9 @@ display: inline-block;
       <div id="tree-container" style="height: 50%"></div>
 
       <div style="height: 4%; background-color: black; color: black;">
-		<center>
-	  		<div id="title-container" class="inp"></div>
-		</center>
+	<center>
+	  <div id="title-container" class="inp"></div>
+	</center>
       </div>
 
 	  <div class="justified" id="text-container" style="height: 36%; color: black;"></div>
@@ -129,9 +125,10 @@ display: inline-block;
 	</center>
 
 
-	</div>
+    </div>
 
   </script>
+
 
 <!-- Template for a single snippet -->
 <script id="snippet-template" type="text/template">
@@ -168,7 +165,6 @@ display: inline-block;
 </script>
 
 
-
   <!-- Static Template -->
   <script id="home-template" type="text/template">
     <div class="header-content">
@@ -176,11 +172,11 @@ display: inline-block;
       <div class="header-content-iner col-sm-8">
 	<div id="storyList" class="rectangle rounded">
 	  <form method="POST">
-	  <input type="submit" name="submit" value="view stories" class="btn btn-primary btn-xl center">
-	  <br><br>
+	    <input type="submit" name="submit" value="view stories" class="btn btn-primary btn-xl center">
+	    <br><br>
 	  </form>
 	  <form method="POST">
-	  <input type="submit" name="submit" value="edit stories" class="btn btn-primary btn-xl center">
+	    <input type="submit" name="submit" value="edit stories" class="btn btn-primary btn-xl center">
 	  </form>
 	  <ul></ul>
 	</div>
