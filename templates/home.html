@@ -5,7 +5,7 @@
 html, body {
 	height: 100%;
 	background-color: #000;
-	overflow: hidden;
+
 }
 
 ul{
@@ -62,16 +62,18 @@ display: none;
 }
 .circle {
 border-radius: 50%;
-width: 200px;
-height: 200px;
-background-color: blue;
+height: 10em;
+width: 10em;
+background-color: white;
+color: blue;
 position: relative;
 display: inline-block;
+
 }
 
 {% endblock stylecontent %}
 
-{% block navbar %} 
+{% block navbar %}
 
 <li>
   {% if session['name']!=None %}
@@ -87,13 +89,13 @@ display: inline-block;
 	{% endif %}
 </li>
 
-{% endblock navbar %} 
+{% endblock navbar %}
 
 
 {% block headercontent %}
 <header style="height: 100%;">
   <div id="main" style="height: 100%;">
-    
+
   </div>
 
   <div id="test">
@@ -103,7 +105,7 @@ display: inline-block;
 
   <!-- Outer template for edit-mode -->
   <script id="edit-template" type="text/template">
-    
+
     <div style="height: 100%">
       <div id="tree-container" style="height: 50%"></div>
 
@@ -112,18 +114,18 @@ display: inline-block;
 	  		<div id="title-container" class="inp"></div>
 		</center>
       </div>
-      
+
 	  <div class="justified" id="text-container" style="height: 36%; color: black;"></div>
 
 
-	<center> 
+	<center>
 		<button id="save" type="button" class="btn btn-primary">
 			Save
 		</button>
 		<button id="delete" type="button" class="btn btn-primary">
 			Delete
 		</button>
-		
+
 	</center>
 
 
@@ -133,11 +135,14 @@ display: inline-block;
 
 <!-- Template for a single snippet -->
 <script id="snippet-template" type="text/template">
-<span class="snippet circle">
-	<p>
+<span class="snippet circle" style="display: inline-block">
+	<p class="title" style="position: relative; top: 2em; color: blue">
 	  <%= title %>
 	</p>
-  </span>
+	<p class="text" style="position: relative; display: none; top: 2em; color: black;">
+		<%= text %>
+	</p>
+</span>
   <script></script>
 </script>
 
@@ -145,28 +150,21 @@ display: inline-block;
 <!-- Outer template for view-mode -->
 <script id="view-template" type="text/template">
 
-<br>
-<br>
-<br>
-<br>
-<br>
 <div style="height: 100%;">
-	<p>view-hidden-upper</p>
-	<div id="view-hidden-upper" style="height : 0px"></div>
-	<p>view-main-upper</p>
-  	<div id="view-main-upper" style="height: 200px"></div>
-	<p>view-main</p>
-  	<div id="view-main"></div>
-	<p>view-main-lower</p>
-  	<div id="view-main-lower" style="height: 200px"></div>
-	<p>view-hidden-lower</p>
-  	<div id="view-hidden-lower" style="height : 0px;"></div>
+
+	<button id="edit-button" type="button" class="btn btn-primary" style="position: relative; top: 5em;"
+		onclick="window.location.href = window.location.href + '/edit'">
+		Edit this story!
+	</button>
+	<div style="height: 8%;"></div>
+	<div id="view-hidden-upper" style="height : 0%"></div>
+  	<div id="view-main-upper" style="height: 21%"></div>
+  	<div id="view-main" style="height: 50%"></div>
+  	<div id="view-main-lower" style="height: 21%"></div>
+  	<div id="view-hidden-lower" style="height : 0%;"></div>
 </div>
-<br>
-<br>
-<br>
-<br>
-<br>
+
+
 </script>
 
 
@@ -189,7 +187,7 @@ display: inline-block;
       </div>
       <div class="col-xs-0 col-sm-2"></div>
     </div>
-    
+
   </script>
 
 </header>

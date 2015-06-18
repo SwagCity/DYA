@@ -7,7 +7,7 @@ App.DataManip = function() {
 			var setParent = function (obj) {
 				if (obj.children != undefined) {
 					for (c in obj.children) {
-						obj.children[c].parent_id = obj._id;
+						obj.children[c].parent = obj._id;
 						setParent(obj.children[c]);
 					}
 				}

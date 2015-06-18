@@ -26,21 +26,20 @@ var MainController = Marionette.Controller.extend({
 	},
 	renderStory : function(story_id) {
 		/* Run an AJAX call to retrieve the story from the server. */
-/*
 		var data = {
 			"story" : {
 				"_id": "toplevel2",
 				"title" : "The Hole in the Ground",
-				"snippet" : "In a hole in the ground there lived a hobbit. Not a nasty, dirty, wet hole, filled with the ends of worms and an oozy smell, nor yet a dry, bare, sandy hole with nothing in it to sit down on or to eat: it was a hobbit-hole, and that means comfort.",
+				"text" : "In a hole in the ground there lived a hobbit. Not a nasty, dirty, wet hole, filled with the ends of worms and an oozy smell, nor yet a dry, bare, sandy hole with nothing in it to sit down on or to eat: it was a hobbit-hole, and that means comfort.",
 				"children" : [
 					{
 						"title" : "A Perfectly Round Door",
-						"snippet" : "It had a perfectly round door like a porthole, painted green, with a shiny yellow brass knob in the exact middle. The door opened on to a tube-shaped hall like a tunnel: a very comfortable tunnel without smoke, with panelled walls, and floors tiled and carpeted, provided with polished chairs, and lots and lots of pegs for hats and coats - the hobbit was fond of visitors.",
+						"text" : "It had a perfectly round door like a porthole, painted green, with a shiny yellow brass knob in the exact middle. The door opened on to a tube-shaped hall like a tunnel: a very comfortable tunnel without smoke, with panelled walls, and floors tiled and carpeted, provided with polished chairs, and lots and lots of pegs for hats and coats - the hobbit was fond of visitors.",
 						"_id" : "secondlevel1",
 						"children" : [
 						{
 							"title" : "The Hill",
-							"snippet" : "The tunnel wound on and on, going fairly but not quite straight into the side of the hill - The Hill, as all the people for many miles round called it - and many little round doors opened out of it, first on one side and then on another. No going upstairs for the hobbit: bedrooms, bathrooms, cellars, pantries (lots of these), wardrobes (he had whole rooms devoted to clothes), kitchens, dining-rooms, all were on the same floor, and indeed on the same passage. The best rooms were all on the left-hand side (going in), for these were the only ones to have windows, deep-set round windows looking over his garden and meadows beyond, sloping down to the river.",
+							"text" : "The tunnel wound on and on, going fairly but not quite straight into the side of the hill - The Hill, as all the people for many miles round called it - and many little round doors opened out of it, first on one side and then on another. No going upstairs for the hobbit: bedrooms, bathrooms, cellars, pantries (lots of these), wardrobes (he had whole rooms devoted to clothes), kitchens, dining-rooms, all were on the same floor, and indeed on the same passage. The best rooms were all on the left-hand side (going in), for these were the only ones to have windows, deep-set round windows looking over his garden and meadows beyond, sloping down to the river.",
 							"_id" : "thirdlevel1",
 							"children" : []
 						}
@@ -48,12 +47,12 @@ var MainController = Marionette.Controller.extend({
 					},
 					{
 						"title" : "Empty.",
-						"snippet" : "The hole was empty.",
+						"text" : "The hole was empty.",
 						"_id" : "secondlevel2",
 						"children" : [
 							{
 								"title" : "Derp",
-								"snippet" : "And jokes, Bilbo was actually just a massive derp",
+								"text" : "And jokes, Bilbo was actually just a massive derp",
 								"_id" : "thirdlevel3",
 								"children" : []
 							}
@@ -62,8 +61,9 @@ var MainController = Marionette.Controller.extend({
 				]
 			}
 		};
-*/
+		/*
 		App.DataManip.Ajax.getStory(story_id, function(data) {
+	   		App.DataManip.init(data);
 			var story = new App.Models.Story(data);
 			App.viewStoryView = new App.Views.ViewStory({
 				model : story
@@ -74,6 +74,16 @@ var MainController = Marionette.Controller.extend({
 
 			App.mainRegion.show(App.viewStoryView);
 		});
+		*/
+
+	   	App.DataManip.init(data);
+		console.log(data);
+		var story = new App.Models.Story(data);
+		App.viewStoryView = new App.Views.ViewStory({
+			model : story
+		});
+
+		App.mainRegion.show(App.viewStoryView);
 	}
 });
 

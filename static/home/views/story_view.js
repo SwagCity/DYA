@@ -19,6 +19,8 @@ App.Views.StoryNode = Marionette.CompositeView.extend({
 
 	ui : {
 		content : ".snippet",
+		title : ".title",
+		text : ".text",
 		script : "script"
 	},
 
@@ -26,32 +28,45 @@ App.Views.StoryNode = Marionette.CompositeView.extend({
 		// By not specifying the child view type, the CompositeView defaults to using itself as the child view.
 		this.collection = this.model.children;
 		this.el.id = this.model.get("_id");
-	
+
 		this.ui.all = this.model.get("_id");
 
 		this.first = true;
 	},
 	onBeforeRender : function() {
-	
+
 	},
 	onRender : function() {
 		var id = this.model.get("_id"),
 			$content = $("#content-"+id),
+			$title = $("#title-" + id),
+			$text = $("#text-" + id),
 			history = this.model.history;
 		;
-		
+
 		var prevHeight, height,
-			prevWidth, width;
+			prevWidth, width,
+			prevBRadius, bRadius;
+
 		if (this.model.region.el == "#view-hidden-upper" ||
 			this.model.region.el == "#view-hidden-lower") {
-			height = "0px";
-			width = "0px";
-		} else {
-			height = "200px";
-			width = "200px"
+			height = "0em";
+			width = "0em";
+			bRadius = "50%";
+		} else if (this.model.region.el == "#view-main-lower" ||
+				   this.model.region.el == "#view-main-upper") {
+			height = "10em";
+			width = "10em";
+			bRadius = "50%";
+		} else if (this.model.region.el == "#view-main") {
+			height = "90%";
+			width = "80%";
+			bRadius = "5%";
 		}
 
 		this.ui.content[0].id = "content-"+id;
+		this.ui.title[0].id = "title-" + id;
+		this.ui.text[0].id = "text-" + id;
 		if (this.model.region.el != "#view-main") {
 			this.ui.content[0].onclick = function() {
 				App.viewStoryView.changeCurrentNode(id)
@@ -59,43 +74,79 @@ App.Views.StoryNode = Marionette.CompositeView.extend({
 		}
 		this.model.region.$el.append(this.ui.content);
 
-		
-		this.ui.script[0].innerHTML = 
+
+		this.ui.script[0].innerHTML =
 			"$('#content-" + id + "')\n";
 
 		// Animations
 		if (history) {
-			if (history.region.el == "#view-hidden-upper" || 
+			if (history.region.el == "#view-hidden-upper" ||
 				history.region.el == "#view-hidden-lower") {
-				prevHeight = "0px";
-				prevWidth = "0px";
-			} else {
-				prevHeight = "200px";
-				prevWidth = "200px";
+				prevHeight = "0em";
+				prevWidth = "0em";
+				prevBRadius = "50%";
+			} else if (history.region.el == "#view-main-upper" ||
+					   history.region.el == "#view-main-lower") {
+				prevHeight = "10em";
+				prevWidth = "10em";
+				prevBRadius = "50%";
+				prevColor = "white";
+			} else if (history.region.el == "#view-main") {
+				prevHeight = "90%";
+				prevWidth = "80%";
+				prevBRadius = "5%";
 			}
 
 			this.ui.script[0].innerHTML +=
-				".css('top', App.DataManip.findNode(App.viewStoryView.model.story, '" + id + "').history.offsetTop - $('#content-" + id + "').offset().top)\n" + 
-				".css('left',  App.DataManip.findNode(App.viewStoryView.model.story, '" + id + "').history.offsetLeft - $('#content-" + id + "').offset().left)\n" +
+				".css('top', App.DataManip.findNode(App.viewStoryView.model.story, '" + id + "').history.offsetTop - $('#content-" + id + "').offset().top)\n" +
+				//".css('left',  -App.DataManip.findNode(App.viewStoryView.model.story, '" + id + "').history.offsetLeft + $('#content-" + id + "').offset().left)\n" +
 				".css('height', '" + prevHeight + "')\n" +
-				".css('width', '" + prevWidth + "')\n"
-				;
+				".css('width', '" + prevWidth + "')\n" +
+				".css('border-radius', '" + prevBRadius + "')\n"
+			;
+
 		} else {
 			this.ui.script[0].innerHTML +=
 				".css('height', '" + height + "')\n" +
-				".css('width', '" + width + "')\n";
+				".css('width', '" + width + "')\n"; +
+				".css('border-radius', '" + bRadius + "')\n"
+			;
 		}
 
-		this.ui.script[0].innerHTML += 
-			".animate({'top':'0px','left':'0px','height':'" + height + "','width':'" + width + "'});";		
-			
+		this.ui.script[0].innerHTML +=
+			".animate({\n" +
+			"'top' : '0px',\n" +
+			"'left' : '0px',\n" +
+			"'height' : '" + height + "',\n" +
+			"'width' : '" + width + "',\n" +
+			"'border-radius' : '" + bRadius + "',\n" +
+			"});\n"
+		;
+
+		if (this.model.region.el == "#view-main") {
+			this.ui.script[0].innerHTML +=
+				"$('#text-"+id+"').fadeIn();\n";
+		} else {
+			this.ui.script[0].innerHTML +=
+				"$('#text-"+id+"').fadeOut();\n";
+		}
+
+		if (this.model.region.el == "#view-hidden-upper" ||
+			this.model.region.el == "#view-hidden-lower") {
+			this.ui.script[0].innerHTML +=
+				"$('#title-"+id+"').fadeOut();\n";
+		} else {
+			this.ui.script[0].innerHTML +=
+				"$('#title-"+id+"').fadeIn();\n";
+		}
+
 		this.model.region.$el.append(this.ui.script);
 
 
 		this.first = false;
 	},
 	onShow : function() {
-		
+
 	},
 
 	renderRegion : function() {
@@ -137,10 +188,14 @@ App.Views.ViewStory = Marionette.LayoutView.extend({
 	childEvents: {
 		render : function(childView) {
 			console.log("a childview has been rendered");
-		}, 
+		},
 		"change:currentNode" : "changeCurrentNode"
 	},
 	onRender : function() {
+		this.$el = this.$el.children();
+		this.$el.unwrap();
+        this.setElement(this.$el);
+
 		// Declare regions
 		this.addRegions({
 			viewHiddenUpper			: "#view-hidden-upper",
@@ -149,12 +204,13 @@ App.Views.ViewStory = Marionette.LayoutView.extend({
 			viewMainLower			: "#view-main-lower",
 			viewHiddenLower			: "#view-hidden-lower"
 		});
-		this.instantiateChildren();
+
+		this.changeCurrentNode(this.model.currentNode.get("_id"));
 	},
 	updateChildren : function() {
 		console.log("Updating children")
 
-		// Resets each of the 5 regions to nothing.		
+		// Resets each of the 5 regions to nothing.
 		App.DataManip.execAll(function(node) {
 			// Save history first
 			try {
