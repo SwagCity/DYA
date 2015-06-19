@@ -1,4 +1,16 @@
 
+
+$("#new-story-button").click(function() {
+	console.log("creating new story");
+	
+	App.DataManip.Ajax.addStory({
+		"title"		: "Untitled",
+		"text"		: "Write your story here!",
+	}, function(data) {
+		window.location.href = window.location.href + "/" + data.get("id") + "/edit";
+	});
+})
+
 storyJSON = d3.json("../static/stories.JSON", function(error, storyData){
     
     var totalStories = 0;

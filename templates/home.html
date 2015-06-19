@@ -5,6 +5,7 @@
 html, body {
 	height: 100%;
 	background-color: #000;
+	overflow: hidden;
 }
 
 ul{
@@ -171,14 +172,25 @@ display: inline-block;
       <div class="col-xs-0 col-sm-2"></div>
       <div class="header-content-iner col-sm-8">
 	<div id="storyList" class="rectangle rounded">
-	  <form method="POST">
-	    <input type="submit" name="submit" value="view stories" class="btn btn-primary btn-xl center">
-	    <br><br>
-	  </form>
-	  <form method="POST">
-	    <input type="submit" name="submit" value="edit stories" class="btn btn-primary btn-xl center">
-	  </form>
-	  <ul></ul>
+		<a href="">
+			<button id="new-story-button" type="button" class="btn btn-primary">
+				Create New Story
+			</button>
+		</a>
+		<br>
+		<br>
+		<a href="">
+			<button id="new-story-button" type="button" class="btn btn-primary">
+				The Hobbit
+			</button>
+		</a>
+		<br>
+		<br>
+		<a href="">
+			<button id="new-story-button" type="button" class="btn btn-primary">
+				The Store
+			</button>
+		</a>
 	</div>
       </div>
       <div class="col-xs-0 col-sm-2"></div>
@@ -209,7 +221,5 @@ display: inline-block;
 <script src="../static/home/router.js"></script>
 <script src="../static/home/initialize.js"></script>
 
-<!-- The source files for the home page -->
-<script src="../static/home.js"></script>
 
 {% endblock includes %}

@@ -62,7 +62,7 @@ def edit():
     if request.method == "POST":
         id = request.form["_id"]
         title = request.form["title"]
-        text = request.form["snippet"]
+        text = request.form["text"]
         db.s_edit(id, title, text)
     return render_template("edit.html")
 
@@ -138,16 +138,13 @@ def add_story():
 
     elif request.method=="POST":
         # add a story to the mongo database
-        """
-        db.s_add(
+        new = db.s_add(
             request.form.get("title"),
-            request.form.get("snippet"),
+            request.form.get("text"),
             request.form.get("parent"),
-            request.form.get("metadata")
+            []
         )
-        """
-        db.s_add("test-title","test-snippet","557e56541169845ee2dae16b",{"hurr":"durr"})
-        return jsonify({"status" : "success"})
+        return {"id":str(new)}
 
 @app.route("/stories/<id>", methods=["POST", "GET", "PATCH"])
 def stories(id=""):

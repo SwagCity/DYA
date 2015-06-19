@@ -72,8 +72,7 @@ var MainController = Marionette.Controller.extend({
 				});
 
 				App.mainRegion.show(App.viewStoryView);
-		*/
-
+				*/
 		App.DataManip.Ajax.getStory(story_id, function(data) {
 	   		App.DataManip.init(data);
 			var story = new App.Models.Story(data);

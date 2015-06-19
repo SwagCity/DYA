@@ -41,6 +41,7 @@ def s_add(title, text, parent, meta):
     author = ""
     tags = []
     time = str(datetime.datetime.now())
+    
     if "author" in meta:
         author = meta["author"]
     if "tags" in meta:

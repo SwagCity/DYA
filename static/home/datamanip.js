@@ -70,14 +70,14 @@ App.DataManip.Ajax = function(options) {
 			console.log("ERROR: Empty title string.");
 			return;
 		}
-		if (!"snippet" in params) {
+		if (!"text" in params) {
 			console.log("Empty content string.");
 		}
 
 		// Record metadata	
-		params.metadata = {};
-		params.metadata.author = username;
-		params.metadata.timestamp = Date.now();
+		params["metadata"] = {};
+		params["metadata"]["author"] = username;
+		params["metadata"]["timestamp"] = Date.now();
 		
 		if ("parent" in params) {
 			console.log("Creating branching node from parent node: " + params.parent);
@@ -85,11 +85,22 @@ App.DataManip.Ajax = function(options) {
 			console.log("Creating new root node");
 		}
 
-
 		var url = options.apiURL + "/stories";
 
 		console.log("Sending POST request to " + url);	
-		$.post(url, params, success);
+		console.log(params);
+		$.ajax({
+			url 		: url,
+			type 		: "POST",
+			ContentType : 'application/json; charset=utf-8',
+
+			data 		: params,
+
+			success 	: success,
+			error : function(err) {
+				console.log(err);
+			}
+		})
 	}
 
 	var getStory = function(node_id, success) {
@@ -99,7 +110,7 @@ App.DataManip.Ajax = function(options) {
 		$.ajax({
 			url			: url,
 			type		: "GET",
-			contentType	: 'application/json; charset=utf-8',
+			ContentType	: 'application/json; charset=utf-8',
 
 			success 	: success,	
 			error : function(err) {
